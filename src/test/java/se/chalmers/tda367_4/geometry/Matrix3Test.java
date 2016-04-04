@@ -85,5 +85,6 @@ public class Matrix3Test {
         assertEquals(newVector.getX(), rows[0].dot(vector), 0);
         assertEquals(newVector.getY(), rows[1].dot(vector), 0);
         assertEquals(newVector.getZ(), rows[2].dot(vector), 0);
+        //
     }
 }
