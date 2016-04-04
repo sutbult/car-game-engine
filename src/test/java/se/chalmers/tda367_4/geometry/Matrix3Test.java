@@ -85,6 +85,24 @@ public class Matrix3Test {
         assertEquals(newVector.getX(), rows[0].dot(vector), 0);
         assertEquals(newVector.getY(), rows[1].dot(vector), 0);
         assertEquals(newVector.getZ(), rows[2].dot(vector), 0);
-        //
+    }
+    @Test
+    public void arbitraryMatrix() {
+        Vector3[][] vectors = new Vector3[2][3];
+        for(int x = 0; x < 2; x++) {
+            for(int y = 0; y < 3; y++) {
+                vectors[x][y] = randVector3();
+            }
+        }
+        Matrix3 first = Matrix3.fromRows(vectors[0]);
+        Matrix3 second = Matrix3.fromColumns(vectors[1]);
+
+        Matrix3 result = first.multiply(second);
+        for(int x = 0; x < 3; x++) {
+            for(int y = 0; y < 3; y++) {
+                float expected = vectors[0][y].dot(vectors[1][x]);
+                assertEquals(expected, result.get(x, y), 0);
+            }
+        }
     }
 }

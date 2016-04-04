@@ -59,4 +59,17 @@ public class Matrix3 {
         }
         return new Vector3(v[0], v[1], v[2]);
     }
+    public Matrix3 multiply(Matrix3 other) {
+        Matrix3 dst = new Matrix3();
+        for(int x = 0; x < 3; x++) {
+            for(int y = 0; y < 3; y++) {
+                float sum = 0;
+                for(int i = 0; i < 3; i++) {
+                    sum += get(i, y) * other.get(x, i);
+                }
+                dst.set(sum, x, y);
+            }
+        }
+        return dst;
+    }
 }
