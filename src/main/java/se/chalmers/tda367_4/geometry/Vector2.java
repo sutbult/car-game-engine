@@ -29,4 +29,19 @@ public class Vector2 {
     public float dot(Vector2 other) {
         return this.x * other.x + this.y * other.y;
     }
+    public boolean equals(Object other) {
+        if(this == other) {
+            return true;
+        }
+        else if(other == null) {
+            return false;
+        }
+        else if(this.getClass() != other.getClass()) {
+            return false;
+        }
+        else {
+            Vector2 o = (Vector2)other;
+            return x == o.x && y == o.y;
+        }
+    }
 }

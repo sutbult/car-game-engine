@@ -31,4 +31,12 @@ public class Vector2Test {
                 first.getY() * second.getY();
         assertEquals(expected, first.dot(second), 0);
     }
+    @Test
+    public void equality() {
+        Vector2 first = randVector2();
+        Vector2 second = new Vector2(first);
+        assertFalse(first == second);
+        assertTrue(first.equals(second));
+        assertTrue(second.equals(first));
+    }
 }

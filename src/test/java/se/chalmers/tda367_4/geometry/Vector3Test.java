@@ -35,4 +35,12 @@ public class Vector3Test {
                         first.getZ() * second.getZ();
         assertEquals(expected, first.dot(second), 0);
     }
+    @Test
+    public void equality() {
+        Vector3 first = randVector3();
+        Vector3 second = new Vector3(first);
+        assertFalse(first == second);
+        assertTrue(first.equals(second));
+        assertTrue(second.equals(first));
+    }
 }
