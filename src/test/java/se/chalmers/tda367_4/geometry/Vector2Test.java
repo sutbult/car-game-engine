@@ -22,4 +22,13 @@ public class Vector2Test {
         assertEquals(vector.getX() * s, newVector.getX(), 0);
         assertEquals(vector.getY() * s, newVector.getY(), 0);
     }
+    @Test
+    public void dot() {
+        Vector2 first = randVector2();
+        Vector2 second = randVector2();
+        float expected =
+                first.getX() * second.getX() +
+                first.getY() * second.getY();
+        assertEquals(expected, first.dot(second), 0);
+    }
 }

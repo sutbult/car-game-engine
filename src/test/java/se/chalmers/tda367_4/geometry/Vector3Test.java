@@ -25,4 +25,14 @@ public class Vector3Test {
         assertEquals(vector.getY() * s, newVector.getY(), 0);
         assertEquals(vector.getZ() * s, newVector.getZ(), 0);
     }
+    @Test
+    public void dot() {
+        Vector3 first = randVector3();
+        Vector3 second = randVector3();
+        float expected =
+                first.getX() * second.getX() +
+                        first.getY() * second.getY() +
+                        first.getZ() * second.getZ();
+        assertEquals(expected, first.dot(second), 0);
+    }
 }

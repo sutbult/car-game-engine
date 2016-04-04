@@ -22,4 +22,7 @@ public class Vector3 extends Vector2 {
                 z * s
         );
     }
+    public float dot(Vector3 other) {
+        return super.dot(other) + this.z * other.z;
+    }
 }

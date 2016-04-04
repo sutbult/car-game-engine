@@ -72,4 +72,5 @@ public class Matrix3Test {
             assertEquals(v.getZ(), m.get(i, 2), 0);
         }
     }
+
 }
