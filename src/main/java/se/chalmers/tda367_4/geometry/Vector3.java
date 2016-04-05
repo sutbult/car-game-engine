@@ -46,4 +46,10 @@ public class Vector3 extends Vector2 {
                     z == o.z;
         }
     }
+    public Vector3 subtract(Vector3 other) {
+        return new Vector3(
+                super.subtract(other),
+                z - other.z
+        );
+    }
 }

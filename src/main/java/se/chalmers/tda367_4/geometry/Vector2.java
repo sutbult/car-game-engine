@@ -50,4 +50,10 @@ public class Vector2 {
     public Vector2 negate() {
         return new Vector2(-x, -y);
     }
+    public Vector2 subtract(Vector2 other) {
+        return new Vector2(
+                x - other.x,
+                y - other.y
+        );
+    }
 }

@@ -81,7 +81,7 @@ public class Matrix2 {
         }
         return builder.toString();
     }
-    public Matrix3 toAffine() {
+    public Matrix3 asAffine() {
         return new Matrix3(new float[] {
                 m[0], m[1], 0,
                 m[2], m[3], 0,

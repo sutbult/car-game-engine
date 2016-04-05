@@ -47,4 +47,12 @@ public class Vector2Test {
         assertEquals(vector.getY(), newVector.getY(), 0);
         assertEquals(1, newVector.getZ(), 0);
     }
+    @Test
+    public void subtract() {
+        Vector2 first = randVector2();
+        Vector2 second = randVector2();
+        Vector2 result = first.subtract(second);
+        assertEquals(first.getX() - second.getX(), result.getX(), 0);
+        assertEquals(first.getY() - second.getY(), result.getY(), 0);
+    }
 }

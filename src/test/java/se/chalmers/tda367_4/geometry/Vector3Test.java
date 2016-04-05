@@ -43,4 +43,13 @@ public class Vector3Test {
         assertTrue(first.equals(second));
         assertTrue(second.equals(first));
     }
+    @Test
+    public void subtract() {
+        Vector3 first = randVector3();
+        Vector3 second = randVector3();
+        Vector3 result = first.subtract(second);
+        assertEquals(first.getX() - second.getX(), result.getX(), 0);
+        assertEquals(first.getY() - second.getY(), result.getY(), 0);
+        assertEquals(first.getZ() - second.getZ(), result.getZ(), 0);
+    }
 }

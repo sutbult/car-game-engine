@@ -29,6 +29,13 @@ public class Matrix3 {
         }
         return m;
     }
+    public static Matrix3 fromAffineColumns(Vector2[] columns) {
+        Vector3[] affineColumns = new Vector3[3];
+        for(int i = 0; i < affineColumns.length; i++) {
+            affineColumns[i] = columns[i].asAffine();
+        }
+        return fromColumns(affineColumns);
+    }
 
     public Matrix3(float[] m) {
         this.m = new float[3 * 3];
