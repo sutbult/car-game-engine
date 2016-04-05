@@ -117,4 +117,29 @@ public class Matrix2Test {
             assertEquals((i == 2) ? 1 : 0, newMatrix.get(i, 2), 0);
         }
     }
+    @Test
+    public void equals() {
+        Matrix2 first = randMatrix2();
+        Matrix2 second = first.clone();
+        assertTrue(first.equals(second));
+        assertEquals(first, second);
+        first.set(first.get(1, 1) * 2 + 1, 1, 1);
+        assertFalse(first.equals(second));
+    }
+    @Test
+    public void determinant() {
+        Matrix2 matrix = randMatrix2();
+        float expected =
+                matrix.get(0, 0) * matrix.get(1, 1) -
+                matrix.get(0, 1) * matrix.get(1, 0);
+        assertEquals(expected, matrix.determinant(), 0);
+    }
+    @Test
+    public void invertion() {
+        Matrix2 matrix = randMatrix2();
+        Matrix2 inversion = matrix.invert();
+        Matrix2 result = matrix.multiply(inversion);
+        Matrix2 expected = new Matrix2();
+        assertTrue(expected.equals(result, 0.01f));
+    }
 }

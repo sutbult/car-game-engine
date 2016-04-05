@@ -36,6 +36,9 @@ public class Matrix2 {
     public Matrix2() {
         this(IDENTITY);
     }
+    public Matrix2(Matrix2 other) {
+        this(other.m);
+    }
     public int index(int x, int y) {
         return x + y * 2;
     }
@@ -84,5 +87,40 @@ public class Matrix2 {
                 m[2], m[3], 0,
                 0, 0, 1
         });
+    }
+    public Matrix2 invert() {
+        float d = determinant();
+        return new Matrix2(new float[] {
+                 m[3] / d, -m[1] / d,
+                -m[2] / d,  m[0] / d
+        });
+    }
+    public float determinant() {
+        return m[0] * m[3] - m[1] * m[2];
+    }
+    public boolean equals(Matrix2 other, float delta) {
+        for(int i = 0; i < m.length; i++) {
+            if(Math.abs(m[i] - other.m[i]) > delta) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean equals(Object other) {
+        if(this == other) {
+            return true;
+        }
+        else if(other == null) {
+            return false;
+        }
+        else if(this.getClass() != other.getClass()) {
+            return false;
+        }
+        else {
+            return equals((Matrix2)other, 0);
+        }
+    }
+    public Matrix2 clone() {
+        return new Matrix2(this);
     }
 }

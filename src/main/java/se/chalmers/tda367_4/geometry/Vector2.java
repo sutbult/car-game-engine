@@ -47,4 +47,7 @@ public class Vector2 {
     public Vector3 asAffine() {
         return new Vector3(this, 1);
     }
+    public Vector2 negate() {
+        return new Vector2(-x, -y);
+    }
 }
