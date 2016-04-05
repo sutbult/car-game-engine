@@ -39,4 +39,12 @@ public class Vector2Test {
         assertTrue(first.equals(second));
         assertTrue(second.equals(first));
     }
+    @Test
+    public void asAffine() {
+        Vector2 vector = randVector2();
+        Vector3 newVector = vector.asAffine();
+        assertEquals(vector.getX(), newVector.getX(), 0);
+        assertEquals(vector.getY(), newVector.getY(), 0);
+        assertEquals(1, newVector.getZ(), 0);
+    }
 }

@@ -44,4 +44,7 @@ public class Vector2 {
             return x == o.x && y == o.y;
         }
     }
+    public Vector3 asAffine() {
+        return new Vector3(this, 1);
+    }
 }

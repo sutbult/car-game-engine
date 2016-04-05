@@ -105,4 +105,24 @@ public class Matrix3Test {
             }
         }
     }
+    @Test
+    public void createTranslation() {
+        Vector2 vector = randVector2();
+        Matrix3 matrix = Matrix3.createTranslation(vector);
+        for(int x = 0; x < 3; x++) {
+            for(int y = 0; y < 3; y++) {
+                float expected;
+                if(x == 2 && y == 0) {
+                    expected = vector.getX();
+                }
+                else if(x == 2 && y == 1) {
+                    expected = vector.getY();
+                }
+                else {
+                    expected = (x == y) ? 1 : 0;
+                }
+                assertEquals(expected, matrix.get(x, y), 0);
+            }
+        }
+    }
 }

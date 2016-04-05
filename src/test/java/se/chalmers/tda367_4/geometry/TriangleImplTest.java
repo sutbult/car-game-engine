@@ -28,6 +28,7 @@ public class TriangleImplTest {
                 new Vector2(2, 1),
                 new Vector2(1, 2)
         );
+        first.intersects(second);
         //assertTrue(first.intersects(second));
     }
     @Test

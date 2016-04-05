@@ -72,4 +72,21 @@ public class Matrix3 {
         }
         return dst;
     }
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                builder.append(get(x, y)).append(' ');
+            }
+            builder.append('\n');
+        }
+        return builder.toString();
+    }
+    public static Matrix3 createTranslation(Vector2 vector) {
+        return new Matrix3(new float[] {
+                1, 0, vector.getX(),
+                0, 1, vector.getY(),
+                0, 0, 1
+        });
+    }
 }
