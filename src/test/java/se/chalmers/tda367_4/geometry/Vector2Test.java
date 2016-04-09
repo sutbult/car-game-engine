@@ -55,4 +55,12 @@ public class Vector2Test {
         assertEquals(first.getX() - second.getX(), result.getX(), 0);
         assertEquals(first.getY() - second.getY(), result.getY(), 0);
     }
+    @Test
+    public void add() {
+        Vector2 first = randVector2();
+        Vector2 second = randVector2();
+        Vector2 result = first.add(second);
+        assertEquals(first.getX() + second.getX(), result.getX(), 0);
+        assertEquals(first.getY() + second.getY(), result.getY(), 0);
+    }
 }

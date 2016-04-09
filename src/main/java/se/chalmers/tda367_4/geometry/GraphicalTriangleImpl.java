@@ -1,8 +1,5 @@
 package se.chalmers.tda367_4.geometry;
 
-/**
- * Created by samuel on 2016-04-09.
- */
 public class GraphicalTriangleImpl extends TriangleImpl implements GraphicalTriangle {
     private float r;
     private float g;
@@ -13,6 +10,9 @@ public class GraphicalTriangleImpl extends TriangleImpl implements GraphicalTria
         this.r = red;
         this.g = green;
         this.b = blue;
+    }
+    public GraphicalTriangleImpl(Vector2[] corners, float r, float g, float b) {
+        this(corners[0], corners[1], corners[2], r, g, b);
     }
     public float getR() {
         return r;
