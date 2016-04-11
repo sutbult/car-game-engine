@@ -4,6 +4,13 @@ public class Vector2 {
     private final float x;
     private final float y;
 
+    public static Vector2 fromAngle(float angle) {
+        return new Vector2(
+                (float)Math.cos(angle),
+                (float)Math.sin(angle)
+        );
+    }
+
     public Vector2(float x, float y) {
         this.x = x;
         this.y = y;
@@ -61,5 +68,14 @@ public class Vector2 {
                 x + other.x,
                 y + other.y
         );
+    }
+    public float length() {
+        return (float)Math.sqrt(x * x + y * y);
+    }
+    public Vector2 normalize() {
+        return multiply(1 / length());
+    }
+    public float direction() {
+        return (float)Math.atan2(y, x);
     }
 }

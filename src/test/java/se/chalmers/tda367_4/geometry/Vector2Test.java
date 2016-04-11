@@ -63,4 +63,24 @@ public class Vector2Test {
         assertEquals(first.getX() + second.getX(), result.getX(), 0);
         assertEquals(first.getY() + second.getY(), result.getY(), 0);
     }
+    @Test
+    public void length() {
+        Vector2 vector = randVector2();
+        float expected = (float)Math.sqrt(
+                Math.pow(vector.getX(), 2) +
+                Math.pow(vector.getY(), 2)
+        );
+        assertEquals(expected, vector.length(), 0);
+    }
+    @Test
+    public void egyptianTriangle() {
+        Vector2 vector = new Vector2(3, 4);
+        assertEquals(5, vector.length(), 0);
+    }
+    @Test
+    public void normalize() {
+        Vector2 vector = randVector2();
+        vector = vector.normalize();
+        assertEquals(1, vector.length(), 0.01f);
+    }
 }

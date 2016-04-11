@@ -56,8 +56,7 @@ public class SwingApplication extends JPanel implements Runnable {
             long delta = time - lastTime;
             lastTime = time;
 
-            displayImage = createImage(800, 600);
-            swingGraphics.g = (Graphics2D)displayImage.getGraphics();
+            swingGraphics.beginRendering();
             application.update(delta / 1000.f);
             application.render();
             repaint();
@@ -82,12 +81,24 @@ public class SwingApplication extends JPanel implements Runnable {
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
 
+        public void updateSize() {
+            Dimension d = getSize();
+            displayWidth = d.width;
+            displayHeight = d.height;
+        }
+        public void beginRendering() {
+            updateSize();
+            displayImage = createImage(displayWidth, displayHeight);
+            g = (Graphics2D)displayImage.getGraphics();
+        }
+
         public void renderImage(ApplicationImage image, int x, int y, int w, int h, float r) {
             if(image instanceof SwingImage) {
+                y = displayHeight - y;
                 SwingImage swingImage = (SwingImage)image;
                 g.setTransform(new AffineTransform());
                 g.translate(x, y);
-                g.rotate(r);
+                g.rotate(-r);
                 g.drawImage(swingImage.getRawImage(), -w/2, -h/2, w, h, null);
             }
             else {
@@ -113,6 +124,7 @@ public class SwingApplication extends JPanel implements Runnable {
             for(int i = 0; i < 3; i++) {
                 xPoints[i] = (int)corners[i].getX();
                 yPoints[i] = (int)corners[i].getY();
+                yPoints[i] = displayHeight - yPoints[i];
             }
             g.setTransform(new AffineTransform());
             g.setColor(new Color(
