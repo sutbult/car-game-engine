@@ -1,9 +1,13 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+import se.chalmers.tda367_4.geometry.GraphicalTriangle;
+import se.chalmers.tda367_4.geometry.Triangle;
+import se.chalmers.tda367_4.geometry.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class SwingApplication extends JPanel implements Runnable {
     /*public static void main(String[] args) {
@@ -81,6 +85,7 @@ public class SwingApplication extends JPanel implements Runnable {
         public void renderImage(ApplicationImage image, int x, int y, int w, int h, float r) {
             if(image instanceof SwingImage) {
                 SwingImage swingImage = (SwingImage)image;
+                g.setTransform(new AffineTransform());
                 g.translate(x, y);
                 g.rotate(r);
                 g.drawImage(swingImage.getRawImage(), -w/2, -h/2, w, h, null);
@@ -89,7 +94,6 @@ public class SwingApplication extends JPanel implements Runnable {
                 throw new RuntimeException("Unsupported type of image");
             }
         }
-
         public ApplicationImage loadImage(String src) {
             if(src.equals("orange")) {
                 Image img = createImage(100, 100);
@@ -101,6 +105,22 @@ public class SwingApplication extends JPanel implements Runnable {
             else {
                 return null;
             }
+        }
+        public void renderTriangle(GraphicalTriangle triangle) {
+            Vector2[] corners = triangle.getCorners();
+            int[] xPoints = new int[3];
+            int[] yPoints = new int[3];
+            for(int i = 0; i < 3; i++) {
+                xPoints[i] = (int)corners[i].getX();
+                yPoints[i] = (int)corners[i].getY();
+            }
+            g.setTransform(new AffineTransform());
+            g.setColor(new Color(
+                    (int)(triangle.getR() * 255),
+                    (int)(triangle.getG() * 255),
+                    (int)(triangle.getB() * 255)
+            ));
+            g.fillPolygon(xPoints, yPoints, 3);
         }
     }
     private class SwingImage implements ApplicationImage {

@@ -7,6 +7,9 @@ public class Vector3 extends Vector2 {
         super(x, y);
         this.z = z;
     }
+    public Vector3(Vector3 v) {
+        this(v.getX(), v.getY(), v.z);
+    }
     public Vector3(Vector2 v, float z) {
         this(v.getX(), v.getY(), z);
     }
@@ -20,6 +23,33 @@ public class Vector3 extends Vector2 {
         return new Vector3(
                 super.multiply(s),
                 z * s
+        );
+    }
+    public float dot(Vector3 other) {
+        return super.dot(other) + this.z * other.z;
+    }
+    public boolean equals(Object other) {
+        if(this == other) {
+            return true;
+        }
+        else if(other == null) {
+            return false;
+        }
+        else if(this.getClass() != other.getClass()) {
+            return false;
+        }
+        else {
+            Vector3 o = (Vector3)other;
+            return
+                    getX() == o.getX() &&
+                    getY() == o.getY() &&
+                    z == o.z;
+        }
+    }
+    public Vector3 subtract(Vector3 other) {
+        return new Vector3(
+                super.subtract(other),
+                z - other.z
         );
     }
 }
