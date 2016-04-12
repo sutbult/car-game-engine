@@ -3,7 +3,8 @@ package se.chalmers.tda367_4.app;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 
 public interface ApplicationGraphics {
-    void renderImage(ApplicationImage image, int x, int y, int w, int h, float r);
+    void setCamera(ApplicationCamera camera);
+    void renderImage(ApplicationImage image, float x, float y, float w, float h, float r);
     void renderTriangle(GraphicalTriangle triangle);
     ApplicationImage loadImage(String src);
 }
