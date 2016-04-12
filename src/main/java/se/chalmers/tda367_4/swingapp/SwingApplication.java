@@ -1,19 +1,22 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+import se.chalmers.tda367_4.geometry.GraphicalTriangle;
+import se.chalmers.tda367_4.geometry.Triangle;
+import se.chalmers.tda367_4.geometry.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
 
 public class SwingApplication extends JPanel implements Runnable {
-    /*public static void main(String[] args) {
-        new SwingApplication(null);
-    }*/
-
     private int displayWidth;
     private int displayHeight;
     private Image displayImage;
     private SwingGraphics swingGraphics;
+    private SwingInput swingInput;
     private Application application;
 
     public SwingApplication(Application application) {
@@ -23,6 +26,7 @@ public class SwingApplication extends JPanel implements Runnable {
 
         this.application = application;
         swingGraphics = new SwingGraphics();
+        swingInput = new SwingInput();
         launch();
     }
     private void launch() {
@@ -30,6 +34,7 @@ public class SwingApplication extends JPanel implements Runnable {
         frame.setContentPane(this);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addKeyListener(swingInput);
         frame.setVisible(true);
         Thread thread = new Thread(this);
         thread.start();
@@ -52,8 +57,7 @@ public class SwingApplication extends JPanel implements Runnable {
             long delta = time - lastTime;
             lastTime = time;
 
-            displayImage = createImage(800, 600);
-            swingGraphics.g = (Graphics2D)displayImage.getGraphics();
+            swingGraphics.beginRendering();
             application.update(delta / 1000.f);
             application.render();
             repaint();
@@ -72,24 +76,36 @@ public class SwingApplication extends JPanel implements Runnable {
         }
 
         public ApplicationInput getInput() {
-            return null;
+            return swingInput;
         }
     }
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
 
+        public void updateSize() {
+            Dimension d = getSize();
+            displayWidth = d.width;
+            displayHeight = d.height;
+        }
+        public void beginRendering() {
+            updateSize();
+            displayImage = createImage(displayWidth, displayHeight);
+            g = (Graphics2D)displayImage.getGraphics();
+        }
+
         public void renderImage(ApplicationImage image, int x, int y, int w, int h, float r) {
             if(image instanceof SwingImage) {
+                y = displayHeight - y;
                 SwingImage swingImage = (SwingImage)image;
+                g.setTransform(new AffineTransform());
                 g.translate(x, y);
-                g.rotate(r);
+                g.rotate(-r);
                 g.drawImage(swingImage.getRawImage(), -w/2, -h/2, w, h, null);
             }
             else {
                 throw new RuntimeException("Unsupported type of image");
             }
         }
-
         public ApplicationImage loadImage(String src) {
             if(src.equals("orange")) {
                 Image img = createImage(100, 100);
@@ -102,6 +118,23 @@ public class SwingApplication extends JPanel implements Runnable {
                 return null;
             }
         }
+        public void renderTriangle(GraphicalTriangle triangle) {
+            Vector2[] corners = triangle.getCorners();
+            int[] xPoints = new int[3];
+            int[] yPoints = new int[3];
+            for(int i = 0; i < 3; i++) {
+                xPoints[i] = (int)corners[i].getX();
+                yPoints[i] = (int)corners[i].getY();
+                yPoints[i] = displayHeight - yPoints[i];
+            }
+            g.setTransform(new AffineTransform());
+            g.setColor(new Color(
+                    (int)(triangle.getR() * 255),
+                    (int)(triangle.getG() * 255),
+                    (int)(triangle.getB() * 255)
+            ));
+            g.fillPolygon(xPoints, yPoints, 3);
+        }
     }
     private class SwingImage implements ApplicationImage {
         private Image rawImage;
@@ -112,10 +145,43 @@ public class SwingApplication extends JPanel implements Runnable {
             return rawImage;
         }
     }
-    private class SwingInput implements ApplicationInput {
+    private class SwingInput implements ApplicationInput, KeyListener {
+        private boolean[] states;
 
+        public SwingInput() {
+            states = new boolean[ApplicationKey.values().length];
+        }
         public boolean isKeyDown(ApplicationKey key) {
-            return false;
+            return states[key.getId()];
+        }
+        public void keyTyped(KeyEvent e) {}
+        public void keyPressed(KeyEvent e) {
+            onEvent(e, true);
+        }
+        public void keyReleased(KeyEvent e) {
+            onEvent(e, false);
+        }
+        private void onEvent(KeyEvent e, boolean down) {
+            ApplicationKey key;
+            switch(e.getKeyCode()) {
+                case KeyEvent.VK_UP:
+                    key = ApplicationKey.UP;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    key = ApplicationKey.DOWN;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    key = ApplicationKey.LEFT;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    key = ApplicationKey.RIGHT;
+                    break;
+                default:
+                    key = null;
+            }
+            if(key != null) {
+                states[key.getId()] = down;
+            }
         }
     }
 }

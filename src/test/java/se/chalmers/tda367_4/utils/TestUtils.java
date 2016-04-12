@@ -1,5 +1,6 @@
 package se.chalmers.tda367_4.utils;
 
+import se.chalmers.tda367_4.geometry.Matrix2;
 import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.geometry.Vector3;
 
@@ -21,5 +22,12 @@ public class TestUtils {
                 randVector2(),
                 randFloat()
         );
+    }
+    public static Matrix2 randMatrix2() {
+        Vector2[] vectors = new Vector2[2];
+        for(int i = 0; i < vectors.length; i++) {
+            vectors[i] = randVector2();
+        }
+        return Matrix2.fromRows(vectors);
     }
 }

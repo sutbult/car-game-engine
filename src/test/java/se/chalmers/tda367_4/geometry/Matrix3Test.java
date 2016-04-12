@@ -72,4 +72,57 @@ public class Matrix3Test {
             assertEquals(v.getZ(), m.get(i, 2), 0);
         }
     }
+    @Test
+    public void arbitraryVector() {
+        Vector3[] rows = new Vector3[3];
+        for(int i = 0; i < rows.length; i++) {
+            rows[i] = randVector3();
+        }
+        Matrix3 m = Matrix3.fromRows(rows);
+
+        Vector3 vector = randVector3();
+        Vector3 newVector = m.multiply(vector);
+        assertEquals(newVector.getX(), rows[0].dot(vector), 0);
+        assertEquals(newVector.getY(), rows[1].dot(vector), 0);
+        assertEquals(newVector.getZ(), rows[2].dot(vector), 0);
+    }
+    @Test
+    public void arbitraryMatrix() {
+        Vector3[][] vectors = new Vector3[2][3];
+        for(int x = 0; x < 2; x++) {
+            for(int y = 0; y < 3; y++) {
+                vectors[x][y] = randVector3();
+            }
+        }
+        Matrix3 first = Matrix3.fromRows(vectors[0]);
+        Matrix3 second = Matrix3.fromColumns(vectors[1]);
+
+        Matrix3 result = first.multiply(second);
+        for(int x = 0; x < 3; x++) {
+            for(int y = 0; y < 3; y++) {
+                float expected = vectors[0][y].dot(vectors[1][x]);
+                assertEquals(expected, result.get(x, y), 0);
+            }
+        }
+    }
+    @Test
+    public void createTranslation() {
+        Vector2 vector = randVector2();
+        Matrix3 matrix = Matrix3.createTranslation(vector);
+        for(int x = 0; x < 3; x++) {
+            for(int y = 0; y < 3; y++) {
+                float expected;
+                if(x == 2 && y == 0) {
+                    expected = vector.getX();
+                }
+                else if(x == 2 && y == 1) {
+                    expected = vector.getY();
+                }
+                else {
+                    expected = (x == y) ? 1 : 0;
+                }
+                assertEquals(expected, matrix.get(x, y), 0);
+            }
+        }
+    }
 }

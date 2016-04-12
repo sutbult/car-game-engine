@@ -19,28 +19,28 @@ public class TriangleImplTest {
     @Test
     public void intersects() throws Exception {
         Triangle first = new TriangleImpl(
-                new Vector2(0, 3),
                 new Vector2(0, 0),
+                new Vector2(0, 3),
                 new Vector2(3, 0)
         );
         Triangle second = new TriangleImpl(
                 new Vector2(1, 1),
-                new Vector2(2, 1),
-                new Vector2(1, 2)
+                new Vector2(4, 1),
+                new Vector2(1, 4)
         );
-        //assertTrue(first.intersects(second));
+        assertTrue(first.intersects(second));
     }
     @Test
     public void intersectsNot() throws Exception {
         Triangle first = new TriangleImpl(
-                new Vector2(0, 3),
-                new Vector2(0, 0),
-                new Vector2(3, 0)
+                new Vector2(2, 2),
+                new Vector2(2, 5),
+                new Vector2(5, 2)
         );
         Triangle second = new TriangleImpl(
-                new Vector2(4, 1),
-                new Vector2(4, 0),
-                new Vector2(5, 0)
+                new Vector2(6, 3),
+                new Vector2(6, 2),
+                new Vector2(7, 2)
         );
         assertFalse(first.intersects(second));
     }

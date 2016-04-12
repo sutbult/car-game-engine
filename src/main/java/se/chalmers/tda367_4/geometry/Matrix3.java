@@ -29,6 +29,13 @@ public class Matrix3 {
         }
         return m;
     }
+    public static Matrix3 fromAffineColumns(Vector2[] columns) {
+        Vector3[] affineColumns = new Vector3[3];
+        for(int i = 0; i < affineColumns.length; i++) {
+            affineColumns[i] = columns[i].asAffine();
+        }
+        return fromColumns(affineColumns);
+    }
 
     public Matrix3(float[] m) {
         this.m = new float[3 * 3];
@@ -58,5 +65,35 @@ public class Matrix3 {
                     get(2, i) * vector.getZ();
         }
         return new Vector3(v[0], v[1], v[2]);
+    }
+    public Matrix3 multiply(Matrix3 other) {
+        Matrix3 dst = new Matrix3();
+        for(int x = 0; x < 3; x++) {
+            for(int y = 0; y < 3; y++) {
+                float sum = 0;
+                for(int i = 0; i < 3; i++) {
+                    sum += get(i, y) * other.get(x, i);
+                }
+                dst.set(sum, x, y);
+            }
+        }
+        return dst;
+    }
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                builder.append(get(x, y)).append(' ');
+            }
+            builder.append('\n');
+        }
+        return builder.toString();
+    }
+    public static Matrix3 createTranslation(Vector2 vector) {
+        return new Matrix3(new float[] {
+                1, 0, vector.getX(),
+                0, 1, vector.getY(),
+                0, 0, 1
+        });
     }
 }

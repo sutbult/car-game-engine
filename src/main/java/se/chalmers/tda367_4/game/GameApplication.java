@@ -3,6 +3,7 @@ package se.chalmers.tda367_4.game;
 import se.chalmers.tda367_4.app.Application;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.game.entities.Car;
+import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.swingapp.SwingApplication;
 
 public class GameApplication implements Application {
@@ -13,7 +14,7 @@ public class GameApplication implements Application {
     private Car car;
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
-        car = new Car(appEnv);
+        car = new Player(appEnv);
     }
     public void update(float delta) {
         car.move(delta);
