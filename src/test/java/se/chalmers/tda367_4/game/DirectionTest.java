@@ -5,7 +5,7 @@ package se.chalmers.tda367_4.game;
  */
 
 import org.junit.Test;
-import se.chalmers.tda367_4.game.entities.Direction;
+
 import static org.junit.Assert.*;
 
 public class DirectionTest {

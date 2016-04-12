@@ -1,20 +1,31 @@
-package se.chalmers.tda367_4.game.entities;
+package se.chalmers.tda367_4.game;
 
-/**
- * Created by Marcus on 2016-04-11.
- */
 public enum Direction {
-    FORWARD,
-    BACKWARD,
+    FORWARD(0, 1),
+    FORWARD_LEFT(-1, 1),
+    FORWARD_RIGHT(1, 1),
 
-    FORWARD_LEFT,
-    FORWARD_RIGHT,
+    BACKWARD(0, -1),
+    BACK_LEFT(-1, -1),
+    BACK_RIGHT(1, -1),
 
-    BACK_LEFT,
-    BACK_RIGHT,
+    STOPPED(0, 0),
+    LEFT(-1, 0),
+    RIGHT(1, 0);
 
-    STOPPED;
+    private int x;
+    private int y;
 
+    Direction(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
     public static Direction toDirection(boolean forward, boolean backward, boolean left, boolean right){
 
         if(forward && !backward && !left && !right){
