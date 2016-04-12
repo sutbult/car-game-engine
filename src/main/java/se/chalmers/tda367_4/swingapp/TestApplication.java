@@ -27,18 +27,17 @@ public class TestApplication implements Application {
 
     public void render() {
         env.getGraphics().setCamera(new TestCamera());
-        //env.getGraphics().renderImage(image, 300 + (int)(Math.sin(rot) * 200), 100, 100, 100, rot * 2);
         env.getGraphics().renderImage(image, 30 + (float)(Math.sin(rot) * 20), 10, 10, 10, rot * 2);
         env.getGraphics().renderTriangle(new GraphicalTriangleImpl(
-                new Vector2(150, 100),
-                new Vector2(100, 200),
-                new Vector2(300, 200),
+                new Vector2(15, 10),
+                new Vector2(10, 20),
+                new Vector2(30, 20),
                 0.5f, 1, 0
         ));
     }
     private class TestCamera implements ApplicationCamera {
         public Vector2 getPosition() {
-            return new Vector2(10, 0);
+            return new Vector2(50, 20);
         }
         public float getHeight() {
             return 100;

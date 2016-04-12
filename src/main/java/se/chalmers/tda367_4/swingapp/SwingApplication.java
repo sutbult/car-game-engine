@@ -83,9 +83,6 @@ public class SwingApplication extends JPanel implements Runnable {
         public Graphics2D g;
         private ApplicationCamera camera;
 
-        public SwingGraphics() {
-            camera = new DefaultCamera();
-        }
         public void updateSize() {
             Dimension d = getSize();
             displayWidth = d.width;
@@ -99,10 +96,21 @@ public class SwingApplication extends JPanel implements Runnable {
         public void setCamera(ApplicationCamera camera) {
             this.camera = camera;
         }
+        private float projectScalar() {
+            if(camera == null) {
+                return 1;
+            }
+            else {
+                return displayHeight / camera.getHeight();
+            }
+        }
         private Vector2 projectScale(Vector2 vector) {
-            return vector.multiply(displayHeight / camera.getHeight());
+            return vector.multiply(projectScalar());
         }
         private Vector2 project(Vector2 vector) {
+            if(camera == null) {
+                return vector;
+            }
             vector = vector.subtract(camera.getPosition());
             vector = projectScale(vector);
             vector = vector.add(new Vector2(
@@ -156,8 +164,9 @@ public class SwingApplication extends JPanel implements Runnable {
             int[] xPoints = new int[3];
             int[] yPoints = new int[3];
             for(int i = 0; i < 3; i++) {
-                xPoints[i] = (int)corners[i].getX();
-                yPoints[i] = (int)corners[i].getY();
+                Vector2 corner = project(corners[i]);
+                xPoints[i] = (int)corner.getX();
+                yPoints[i] = (int)corner.getY();
                 yPoints[i] = displayHeight - yPoints[i];
             }
             g.setTransform(new AffineTransform());
@@ -167,14 +176,6 @@ public class SwingApplication extends JPanel implements Runnable {
                     (int)(triangle.getB() * 255)
             ));
             g.fillPolygon(xPoints, yPoints, 3);
-        }
-        private class DefaultCamera implements ApplicationCamera {
-            public Vector2 getPosition() {
-                return new Vector2(0, 0);
-            }
-            public float getHeight() {
-                return displayHeight;
-            }
         }
     }
     private class SwingImage implements ApplicationImage {
