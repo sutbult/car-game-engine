@@ -7,17 +7,16 @@ import se.chalmers.tda367_4.geometry.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 
 public class SwingApplication extends JPanel implements Runnable {
-    /*public static void main(String[] args) {
-        new SwingApplication(null);
-    }*/
-
     private int displayWidth;
     private int displayHeight;
     private Image displayImage;
     private SwingGraphics swingGraphics;
+    private SwingInput swingInput;
     private Application application;
 
     public SwingApplication(Application application) {
@@ -27,6 +26,7 @@ public class SwingApplication extends JPanel implements Runnable {
 
         this.application = application;
         swingGraphics = new SwingGraphics();
+        swingInput = new SwingInput();
         launch();
     }
     private void launch() {
@@ -34,6 +34,7 @@ public class SwingApplication extends JPanel implements Runnable {
         frame.setContentPane(this);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addKeyListener(swingInput);
         frame.setVisible(true);
         Thread thread = new Thread(this);
         thread.start();
@@ -75,7 +76,7 @@ public class SwingApplication extends JPanel implements Runnable {
         }
 
         public ApplicationInput getInput() {
-            return null;
+            return swingInput;
         }
     }
     private class SwingGraphics implements ApplicationGraphics {
@@ -144,10 +145,43 @@ public class SwingApplication extends JPanel implements Runnable {
             return rawImage;
         }
     }
-    private class SwingInput implements ApplicationInput {
+    private class SwingInput implements ApplicationInput, KeyListener {
+        private boolean[] states;
 
+        public SwingInput() {
+            states = new boolean[ApplicationKey.values().length];
+        }
         public boolean isKeyDown(ApplicationKey key) {
-            return false;
+            return states[key.getId()];
+        }
+        public void keyTyped(KeyEvent e) {}
+        public void keyPressed(KeyEvent e) {
+            onEvent(e, true);
+        }
+        public void keyReleased(KeyEvent e) {
+            onEvent(e, false);
+        }
+        private void onEvent(KeyEvent e, boolean down) {
+            ApplicationKey key;
+            switch(e.getKeyCode()) {
+                case KeyEvent.VK_UP:
+                    key = ApplicationKey.UP;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    key = ApplicationKey.DOWN;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    key = ApplicationKey.LEFT;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    key = ApplicationKey.RIGHT;
+                    break;
+                default:
+                    key = null;
+            }
+            if(key != null) {
+                states[key.getId()] = down;
+            }
         }
     }
 }
