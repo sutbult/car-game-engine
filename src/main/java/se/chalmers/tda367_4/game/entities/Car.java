@@ -7,7 +7,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 
 public abstract class Car implements ImageEntity {
     private final static float SPEED = 5;
-    private final static float TURNING = -0.5f;
+    private final static float TURN_RATE = -0.5f;
     private final static Vector2 CAR_SIZE = new Vector2(2, 1);
     private ApplicationImage image;
     private Vector2 position;
@@ -37,7 +37,7 @@ public abstract class Car implements ImageEntity {
     }
     public void move(float delta) {
         Direction movement = getDirection();
-        float turning = movement.getX() * TURNING;
+        float turning = movement.getX() * TURN_RATE;
         float speed = movement.getY() * SPEED;
 
         Vector2 pull = Vector2.fromAngle(rotation + turning).multiply(speed * delta);
