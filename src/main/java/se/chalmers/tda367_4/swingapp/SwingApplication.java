@@ -120,19 +120,12 @@ public class SwingApplication extends JPanel implements Runnable {
             return vector;
         }
         public void renderImage(ApplicationSprite sprite) {
-            renderImage(
-                    sprite.getImage(),
-                    sprite.getPosition().getX(),
-                    sprite.getPosition().getY(),
-                    sprite.getBounds().getX(),
-                    sprite.getBounds().getY(),
-                    sprite.getRotation()
-            );
-        }
-        private void renderImage(ApplicationImage image, float x, float y, float w, float h, float rotation) {
+            ApplicationImage image = sprite.getImage();
             if(image instanceof SwingImage) {
-                Vector2 position = project(new Vector2(x, y));
-                Vector2 bounds = projectScale(new Vector2(w, h));
+                Vector2 position = project(sprite.getPosition());
+                Vector2 bounds = projectScale(sprite.getBounds());
+                float rotation = sprite.getRotation();
+
                 position = new Vector2(
                         position.getX(),
                         displayHeight - position.getY()
