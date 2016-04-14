@@ -24,14 +24,7 @@ public class GameApplication implements Application {
     }
 
     public void render() {
-        appEnv.getGraphics().renderImage(
-                car.getImage(),
-                car.getPosition().getX(),
-                car.getPosition().getY(),
-                car.getBounds().getX(),
-                car.getBounds().getY(),
-                car.getRotation()
-        );
+        appEnv.getGraphics().renderImage(car);
     }
     private class GameCamera implements ApplicationCamera {
         public Vector2 getPosition() {
