@@ -56,7 +56,8 @@ public class TestApplication implements Application {
     };
     private class TestCamera implements ApplicationCamera {
         public Vector2 getPosition() {
-            return new Vector2(50, 20);
+            return cube.getPosition();
+            //return new Vector2(50, 20);
         }
         public float getHeight() {
             return 100;
