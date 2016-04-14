@@ -81,6 +81,7 @@ public class SwingApplication extends JPanel implements Runnable {
     }
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
+        private ApplicationCamera camera;
 
         public void updateSize() {
             Dimension d = getSize();
@@ -92,15 +93,58 @@ public class SwingApplication extends JPanel implements Runnable {
             displayImage = createImage(displayWidth, displayHeight);
             g = (Graphics2D)displayImage.getGraphics();
         }
-
-        public void renderImage(ApplicationImage image, int x, int y, int w, int h, float r) {
+        public void setCamera(ApplicationCamera camera) {
+            this.camera = camera;
+        }
+        private float projectScalar() {
+            if(camera == null) {
+                return 1;
+            }
+            else {
+                return displayHeight / camera.getHeight();
+            }
+        }
+        private Vector2 projectScale(Vector2 vector) {
+            return vector.multiply(projectScalar());
+        }
+        private Vector2 project(Vector2 vector) {
+            if(camera == null) {
+                return vector;
+            }
+            vector = vector.subtract(camera.getPosition());
+            vector = projectScale(vector);
+            vector = vector.add(new Vector2(
+                    displayWidth / 2,
+                    displayHeight / 2
+            ));
+            return vector;
+        }
+        public void renderImage(ApplicationSprite sprite) {
+            ApplicationImage image = sprite.getImage();
             if(image instanceof SwingImage) {
-                y = displayHeight - y;
+                Vector2 position = project(sprite.getPosition());
+                Vector2 bounds = projectScale(sprite.getBounds());
+                float rotation = sprite.getRotation();
+
+                position = new Vector2(
+                        position.getX(),
+                        displayHeight - position.getY()
+                );
+
                 SwingImage swingImage = (SwingImage)image;
                 g.setTransform(new AffineTransform());
-                g.translate(x, y);
-                g.rotate(-r);
-                g.drawImage(swingImage.getRawImage(), -w/2, -h/2, w, h, null);
+                g.translate(
+                        position.getX(),
+                        position.getY()
+                );
+                g.rotate(-rotation);
+                g.drawImage(swingImage.getRawImage(),
+                        (int)-bounds.getX()/2,
+                        (int)-bounds.getY()/2,
+                        (int) bounds.getX(),
+                        (int) bounds.getY(),
+                        null
+                );
             }
             else {
                 throw new RuntimeException("Unsupported type of image");
@@ -123,8 +167,9 @@ public class SwingApplication extends JPanel implements Runnable {
             int[] xPoints = new int[3];
             int[] yPoints = new int[3];
             for(int i = 0; i < 3; i++) {
-                xPoints[i] = (int)corners[i].getX();
-                yPoints[i] = (int)corners[i].getY();
+                Vector2 corner = project(corners[i]);
+                xPoints[i] = (int)corner.getX();
+                yPoints[i] = (int)corner.getY();
                 yPoints[i] = displayHeight - yPoints[i];
             }
             g.setTransform(new AffineTransform());

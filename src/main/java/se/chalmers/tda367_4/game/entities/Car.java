@@ -6,16 +6,16 @@ import se.chalmers.tda367_4.game.Direction;
 import se.chalmers.tda367_4.geometry.Vector2;
 
 public abstract class Car implements ImageEntity {
-    private final static float SPEED = 100;
+    private final static float SPEED = 5;
     private final static float TURNING = -0.5f;
-    private final static Vector2 CAR_SIZE = new Vector2(100, 50);
+    private final static Vector2 CAR_SIZE = new Vector2(2, 1);
     private ApplicationImage image;
     private Vector2 position;
     private float rotation;
 
     public Car(ApplicationEnvironment env) {
         image = env.getGraphics().loadImage("orange");
-        position = new Vector2(500, 500);
+        position = new Vector2(0, 0);
         rotation = 0;
     }
     public ApplicationImage getImage() {
