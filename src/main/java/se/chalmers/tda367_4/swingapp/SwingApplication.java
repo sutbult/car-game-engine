@@ -5,11 +5,15 @@ import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.Triangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class SwingApplication extends JPanel implements Runnable {
     private int displayWidth;
@@ -157,9 +161,17 @@ public class SwingApplication extends JPanel implements Runnable {
                 g.setColor(new Color(255, 128, 0));
                 g.fillRect(0, 0, 100, 100);
                 return new SwingImage(img);
-            }
-            else {
-                return null;
+            } else {
+                String path = "res/" + src;
+                File file = new File(path);
+                BufferedImage image;
+                try {
+                    image = ImageIO.read(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                return new SwingImage(image);
             }
         }
         public void renderTriangle(GraphicalTriangle triangle) {
