@@ -5,6 +5,7 @@ import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
+import se.chalmers.tda367_4.game.entities.Police;
 import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.swingapp.SwingApplication;
 
@@ -14,13 +15,16 @@ public class GameApplication implements Application {
     }
     private ApplicationEnvironment appEnv;
     private Car car;
+    protected Police police;
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
+        police = new Police(appEnv, car, police);
     }
     public void update(float delta) {
         car.move(delta);
+        police.move(delta);
     }
 
     public void render() {
