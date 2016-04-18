@@ -1,6 +1,6 @@
 package se.chalmers.tda367_4.game;
 
-import se.chalmers.tda367_4.game.scenes.SceneManager;
+import se.chalmers.tda367_4.scenes.SceneManager;
 import se.chalmers.tda367_4.swingapp.SwingApplication;
 
 /**
@@ -9,7 +9,7 @@ import se.chalmers.tda367_4.swingapp.SwingApplication;
 public class StartGame {
 
     public static void main(String[] args){
-        SceneManager scene = new SceneManager();
+        SceneManager scene = new SceneManager(new GameApplication());
         new SwingApplication(scene);
     }
 }

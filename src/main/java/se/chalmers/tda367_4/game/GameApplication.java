@@ -4,10 +4,12 @@ import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
-import se.chalmers.tda367_4.game.scenes.SceneI;
+import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.Vector2;
 
-public class GameApplication implements SceneI {
+import java.awt.event.KeyAdapter;
+
+public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
 
@@ -22,6 +24,10 @@ public class GameApplication implements SceneI {
 
     public void render() {
         appEnv.getGraphics().renderImage(car);
+    }
+
+    public Scene newScene() {
+        return null;
     }
 
     private class GameCamera implements ApplicationCamera {

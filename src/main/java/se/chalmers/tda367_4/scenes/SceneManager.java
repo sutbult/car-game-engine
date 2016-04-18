@@ -1,30 +1,29 @@
-package se.chalmers.tda367_4.game.scenes;
+package se.chalmers.tda367_4.scenes;
 
+import se.chalmers.tda367_4.app.Application;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
-import se.chalmers.tda367_4.game.GameApplication;
-import se.chalmers.tda367_4.game.MenuApplication;
 
 /**
  * Created by Marcus on 2016-04-15.
  */
-public class SceneManager implements SceneI {
+public class SceneManager implements Application {
 
-    private SceneI menu;
-    private SceneI game;
-    private SceneI scene;
+    private Scene menu;
+    private Scene game;
+    private Scene scene;
     private ApplicationEnvironment myAppEnv;
 
-    public SceneManager(){
-        game = new GameApplication();
-        menu = new MenuApplication();
-        scene = game;
+    public SceneManager(Scene startScene){
+        //game = new GameApplication();
+        //menu = new MenuApplication();
+        scene = startScene;
     }
 
-    public SceneI getScene(){
+    public Scene getScene(){
         return scene;
     }
-
-    public void changeScene(SceneI newScene) throws IllegalArgumentException{
+    /*
+    public void changeScene(Scene newScene) throws IllegalArgumentException{
         if(newScene.getClass().equals(menu)){
             scene = menu;
         }
@@ -32,7 +31,7 @@ public class SceneManager implements SceneI {
             scene = game;
         }
         else throw new IllegalArgumentException("You can only change between game and menu state");
-    }
+    }*/
 
     public void init(ApplicationEnvironment appEnv) {
         myAppEnv = appEnv;
@@ -45,5 +44,10 @@ public class SceneManager implements SceneI {
 
     public void render() {
         scene.render();
+        Scene newScene = scene.newScene();
+        if(newScene != null) {
+            scene = newScene;
+            scene.init(myAppEnv);
+        }
     }
 }
