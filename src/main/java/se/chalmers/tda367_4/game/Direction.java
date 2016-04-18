@@ -26,6 +26,7 @@ public enum Direction {
     public int getY() {
         return y;
     }
+
     public static Direction toDirection(boolean forward, boolean backward, boolean left, boolean right) {
 
         int tempX = 0;
