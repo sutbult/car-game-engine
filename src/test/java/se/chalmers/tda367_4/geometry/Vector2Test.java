@@ -70,7 +70,7 @@ public class Vector2Test {
                 Math.pow(vector.getX(), 2) +
                 Math.pow(vector.getY(), 2)
         );
-        assertEquals(expected, vector.length(), 0);
+        assertEquals(expected, vector.length(), 0.01);
     }
     @Test
     public void egyptianTriangle() {
