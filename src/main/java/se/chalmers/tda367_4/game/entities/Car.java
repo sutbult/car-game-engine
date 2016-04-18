@@ -3,9 +3,7 @@ package se.chalmers.tda367_4.game.entities;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationImage;
 import se.chalmers.tda367_4.game.Direction;
-import se.chalmers.tda367_4.geometry.Triangle;
-import se.chalmers.tda367_4.geometry.TriangleImpl;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.*;
 
 public abstract class Car implements ImageEntity, SolidEntity {
     private final static float SPEED = 5;
@@ -13,20 +11,20 @@ public abstract class Car implements ImageEntity, SolidEntity {
     private final static Vector2 CAR_SIZE = new Vector2(2, 1);
     private ApplicationImage image;
     private Vector2 position;
+    private Vector2 prevPosition;
     private float rotation;
+    private float prevRotation;
     private Triangle[] triangles;
+    private Triangle[] prevTriangles;
 
     public Car(ApplicationEnvironment env) {
         image = env.getGraphics().loadImage("orange");
         position = new Vector2(0, 0);
         rotation = 0;
-        Vector2 upperRight = new Vector2(position.getX() + CAR_SIZE.getX() / 2, position.getY() - CAR_SIZE.getY() / 2);
-        Vector2 upperLeft = new Vector2(position.getX() - CAR_SIZE.getX() / 2, position.getY() - CAR_SIZE.getY() / 2);
-        Vector2 lowerRight = new Vector2(position.getX() + CAR_SIZE.getX() / 2, position.getY() + CAR_SIZE.getY() / 2);
-        Vector2 lowerLeft = new Vector2(position.getX() - CAR_SIZE.getX() / 2, position.getY() + CAR_SIZE.getY() / 2);
-
-        this.triangles = new Triangle[] {new TriangleImpl(upperLeft, upperRight, lowerLeft),
-                new TriangleImpl(lowerLeft, upperRight, lowerRight)};
+        setTriangles();
+        prevPosition = position;
+        prevTriangles = triangles;
+        prevRotation = rotation;
     }
     public ApplicationImage getImage() {
         return image;
@@ -38,6 +36,13 @@ public abstract class Car implements ImageEntity, SolidEntity {
     public Vector2 getBounds() {
         return CAR_SIZE;
     }
+
+    public void revert() {
+        position = prevPosition;
+        triangles = prevTriangles;
+        rotation = prevRotation;
+    }
+
 
     private Vector2 getBodyDirection() {
         return Vector2.fromAngle(rotation).multiply(CAR_SIZE.getX());
@@ -54,19 +59,36 @@ public abstract class Car implements ImageEntity, SolidEntity {
         Vector2 direction = getBodyDirection().add(pull);
         Vector2 newDirection = direction.normalize().multiply(CAR_SIZE.getX());
         Vector2 posDiff = direction.subtract(newDirection);
+
+        if (!prevPosition.equals(position)) {
+            prevPosition = position;
+            prevTriangles = triangles;
+            prevRotation = rotation;
+        }
+
         position = position.add(posDiff);
         rotation = direction.direction();
-
-        Vector2[] newVectors = new Vector2[3];
-        if (!posDiff.equals(new Vector2(0, 0))) {
-            for (int i = 0; i < triangles.length; i++) {
-                for (int j = 0; j < triangles[i].getCorners().length; j++) {
-                    newVectors[j] = triangles[i].getCorners()[j].add(posDiff);
-                }
-                triangles[i] = new TriangleImpl(newVectors);
-            }
-        }
+        setTriangles();
     }
+
+    private void setTriangles() {
+        Matrix2 matrix = new Matrix2(new float[] { (float) Math.cos(rotation), (float) -Math.sin(rotation),
+            (float) Math.sin(rotation), (float) Math.cos(rotation)});
+
+        Vector2 topLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2));
+        Vector2 topRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2));
+        Vector2 bottomLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2));
+        Vector2 bottomRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2));
+
+        Vector2 lowerRight = new Vector2(position.getX() + bottomRight.getX(), position.getY() + bottomRight.getY());
+        Vector2 lowerLeft = new Vector2(position.getX() + bottomLeft.getX(), position.getY() + bottomLeft.getY());
+        Vector2 upperRight = new Vector2(position.getX() + topRight.getX(), position.getY() + topRight.getY());
+        Vector2 upperLeft = new Vector2(position.getX() + topLeft.getX(), position.getY() + topLeft.getY());
+
+        this.triangles = new Triangle[] {new TriangleImpl(upperLeft, upperRight, lowerLeft),
+                new TriangleImpl(lowerLeft, upperRight, lowerRight)};
+    }
+
     protected abstract Direction getDirection();
 
     public Triangle[] getSolidTriangles() {

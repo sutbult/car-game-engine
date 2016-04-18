@@ -27,6 +27,24 @@ public class GameApplication implements Application {
 
     public void update(float delta) {
         car.move(delta);
+
+        if (entityCollides(car, obstacle)) {
+            car.revert();
+        }
+    }
+
+    private boolean entityCollides(SolidEntity first, SolidEntity second) {
+        Triangle[] carTriangles = first.getSolidTriangles();
+        Triangle[] obstacleTriangles = second.getSolidTriangles();
+
+        for (Triangle carTriangle: carTriangles) {
+            for (Triangle obstacleTriangle: obstacleTriangles) {
+                if (carTriangle.intersects(obstacleTriangle)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void render() {
