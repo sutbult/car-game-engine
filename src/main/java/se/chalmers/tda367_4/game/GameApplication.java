@@ -3,8 +3,9 @@ package se.chalmers.tda367_4.game;
 import se.chalmers.tda367_4.app.Application;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
-import se.chalmers.tda367_4.game.entities.Car;
-import se.chalmers.tda367_4.game.entities.Player;
+import se.chalmers.tda367_4.game.entities.*;
+import se.chalmers.tda367_4.geometry.Triangle;
+import se.chalmers.tda367_4.geometry.TriangleImpl;
 import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.swingapp.SwingApplication;
 
@@ -14,17 +15,23 @@ public class GameApplication implements Application {
     }
     private ApplicationEnvironment appEnv;
     private Car car;
+    private Environment obstacle;
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
+
+        Triangle triangle = new TriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4));
+        obstacle = new Obstacle(triangle, 0.1f, 0.3f, 0.5f);
     }
+
     public void update(float delta) {
         car.move(delta);
     }
 
     public void render() {
         appEnv.getGraphics().renderImage(car);
+        appEnv.getGraphics().renderTriangle(obstacle.getGraphicalTriangle());
     }
     private class GameCamera implements ApplicationCamera {
         public Vector2 getPosition() {
