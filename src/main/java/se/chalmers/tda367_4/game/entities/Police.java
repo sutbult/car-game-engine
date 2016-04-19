@@ -11,18 +11,16 @@ import se.chalmers.tda367_4.geometry.Vector2;
 
 public class Police extends Car {
     private Car player;
-    private Police police;
 
-    public Police(ApplicationEnvironment env, Car player, Police police) {
+    public Police(ApplicationEnvironment env, Car player) {
         super(env);
         this.player = player;
-        this.police = police;
     }
 
     protected Direction getDirection() {
         Vector2 playerPosition = player.getPosition();
-        Vector2 policePosition = police.getPosition();
-        float rotation = police.getRotation();
+        Vector2 policePosition = this.getPosition();
+        float rotation = this.getRotation();
         return Direction.toDirection();
     }
 }

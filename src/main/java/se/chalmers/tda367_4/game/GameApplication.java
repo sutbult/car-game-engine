@@ -20,7 +20,7 @@ public class GameApplication implements Application {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
-        police = new Police(appEnv, car, police);
+        police = new Police(appEnv, car);
     }
     public void update(float delta) {
         car.move(delta);
