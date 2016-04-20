@@ -1,6 +1,7 @@
 body {
 	background: white;
 	margin: 0px;
+	font-family: sans-serif;
 }
 
 header {
@@ -21,9 +22,9 @@ div {
 	display: inline-block;
 	margin-right: 10%;
 	margin-left: 10%;
-	padding: 10px 0;
 	padding: 20px 9%;
 	width: 60%;
+	background: white;
 }
 
 div img {
