@@ -21,7 +21,7 @@ public abstract class Car implements ImageEntity, SolidEntity {
         image = env.getGraphics().loadImage("car_yellow.png");
         position = new Vector2(0, 0);
         rotation = 0;
-        setTriangles();
+        updateTriangles();
         prevPosition = position;
         prevTriangles = triangles;
         prevRotation = rotation;
@@ -68,10 +68,10 @@ public abstract class Car implements ImageEntity, SolidEntity {
 
         position = position.add(posDiff);
         rotation = direction.direction();
-        setTriangles();
+        updateTriangles();
     }
 
-    private void setTriangles() {
+    private void updateTriangles() {
         Matrix2 matrix = new Matrix2(new float[] { (float) Math.cos(rotation), (float) -Math.sin(rotation),
             (float) Math.sin(rotation), (float) Math.cos(rotation)});
 
