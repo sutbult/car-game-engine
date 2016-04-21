@@ -10,14 +10,14 @@ import static org.junit.Assert.assertTrue;
 public class SceneManagerTest {
 
     @Test
-    public void gameScene() throws Exception{
+    public void sceneChangeA() throws Exception{
         SceneManager scene = new SceneManager(new TestClassA());
         scene.render();
         assertTrue(scene.getScene() instanceof TestClassB);
     }
 
     @Test
-    public void menuScene() throws Exception{
+    public void sceneChangeB() throws Exception{
         SceneManager scene = new SceneManager(new TestClassB());
         scene.render();
         assertTrue(scene.getScene() instanceof TestClassA);
