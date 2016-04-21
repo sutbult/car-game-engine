@@ -4,9 +4,6 @@ import org.junit.Test;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Marcus on 2016-04-18.
- */
 public class SceneManagerTest {
 
     @Test
