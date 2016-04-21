@@ -1,22 +1,23 @@
 package se.chalmers.tda367_4.game;
 
-import se.chalmers.tda367_4.app.Application;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
+import se.chalmers.tda367_4.game.entities.Car;
+import se.chalmers.tda367_4.game.entities.Player;
+import se.chalmers.tda367_4.scenes.Scene;
+import se.chalmers.tda367_4.geometry.Vector2;
+
 import se.chalmers.tda367_4.game.entities.*;
 import se.chalmers.tda367_4.geometry.*;
-import se.chalmers.tda367_4.swingapp.SwingApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameApplication implements Application {
-    public static void main(String[] args) {
-        new SwingApplication(new GameApplication());
-    }
+public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
     private Environment environment;
+
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
@@ -36,7 +37,6 @@ public class GameApplication implements Application {
 
         environment = new Environment(list, list2);
     }
-
     public void update(float delta) {
         car.move(delta);
 
@@ -44,7 +44,6 @@ public class GameApplication implements Application {
             car.revert();
         }
     }
-
     public void render() {
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {
             appEnv.getGraphics().renderTriangle(triangle);
@@ -52,7 +51,9 @@ public class GameApplication implements Application {
 
         appEnv.getGraphics().renderImage(car);
     }
-
+    public Scene newScene() {
+        return null;
+    }
     private boolean entityCollides(SolidEntity first, SolidEntity second) {
         Triangle[] carTriangles = first.getSolidTriangles();
         Triangle[] obstacleTriangles = second.getSolidTriangles();
@@ -66,7 +67,6 @@ public class GameApplication implements Application {
         }
         return false;
     }
-
     private class GameCamera implements ApplicationCamera {
         public Vector2 getPosition() {
             // What is supposed to be returned when the environment
