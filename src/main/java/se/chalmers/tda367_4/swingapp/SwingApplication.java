@@ -7,6 +7,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -83,6 +84,8 @@ public class SwingApplication extends JPanel implements Runnable {
             return swingInput;
         }
     }
+
+
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
         private ApplicationCamera camera;
@@ -123,6 +126,7 @@ public class SwingApplication extends JPanel implements Runnable {
             ));
             return vector;
         }
+
         public void renderImage(ApplicationSprite sprite) {
             ApplicationImage image = sprite.getImage();
             if(image instanceof SwingImage) {
@@ -192,7 +196,22 @@ public class SwingApplication extends JPanel implements Runnable {
             ));
             g.fillPolygon(xPoints, yPoints, 3);
         }
+
+        public void renderText(ApplicationText text){
+            Font font = new Font(text.getFont(), Font.PLAIN, (int)(text.getHeight() * projectScalar()));
+            Vector2 position = text.getPosition();
+            position = project(position);
+            FontMetrics metrics = g.getFontMetrics(font);
+
+            position = position.add(new Vector2(
+                    -metrics.stringWidth(text.getText())/2,
+                    metrics.getHeight() / 4));
+            g.setFont(font);
+            g.setColor(new Color(0,0,0));
+            g.drawString(text.getText(), position.getX(), position.getY());
+        }
     }
+
     private class SwingImage implements ApplicationImage {
         private Image rawImage;
         public SwingImage(Image rawImage) {

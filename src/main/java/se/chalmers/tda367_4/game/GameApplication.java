@@ -3,6 +3,7 @@ package se.chalmers.tda367_4.game;
 import se.chalmers.tda367_4.app.Application;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
+import se.chalmers.tda367_4.app.ApplicationText;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.geometry.Vector2;
@@ -14,6 +15,8 @@ public class GameApplication implements Application {
     }
     private ApplicationEnvironment appEnv;
     private Car car;
+    private ApplicationText text;
+
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
@@ -26,6 +29,11 @@ public class GameApplication implements Application {
     public void render() {
         appEnv.getGraphics().renderImage(car);
     }
+
+    public void renderT(){
+        appEnv.getGraphics().renderText(text);
+    }
+
     private class GameCamera implements ApplicationCamera {
         public Vector2 getPosition() {
             // What is supposed to be returned when the environment
