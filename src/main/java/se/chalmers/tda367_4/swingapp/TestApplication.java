@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.geometry.GraphicalTriangleImpl;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -34,7 +35,7 @@ public class TestApplication implements Application {
                 0.5f, 1, 0
         ));
 
-        env.getGraphics().renderText(new ApplicationText("Hello motherfucker", "sans-Serif", cube.getPosition(), 20, false));
+        env.getGraphics().renderText(new GameText("Hello", "sans-Serif", cube.getPosition(), 20, false));
     }
 
     private class Cube implements ApplicationSprite {

@@ -206,6 +206,7 @@ public class SwingApplication extends JPanel implements Runnable {
             position = position.add(new Vector2(
                     -metrics.stringWidth(text.getText())/2,
                     metrics.getHeight() / 4));
+            g.setTransform(new AffineTransform());
             g.setFont(font);
             g.setColor(new Color(0,0,0));
             g.drawString(text.getText(), position.getX(), position.getY());

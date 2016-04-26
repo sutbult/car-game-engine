@@ -15,7 +15,6 @@ public class GameApplication implements Application {
     }
     private ApplicationEnvironment appEnv;
     private Car car;
-    private ApplicationText text;
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
@@ -28,10 +27,7 @@ public class GameApplication implements Application {
 
     public void render() {
         appEnv.getGraphics().renderImage(car);
-    }
-
-    public void renderT(){
-        appEnv.getGraphics().renderText(text);
+        appEnv.getGraphics().renderText(new GameText("What is happening", "Serif", new Vector2(1, 1), 1, false));
     }
 
     private class GameCamera implements ApplicationCamera {
