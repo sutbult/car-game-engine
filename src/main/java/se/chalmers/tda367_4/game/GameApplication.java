@@ -27,7 +27,7 @@ public class GameApplication implements Application {
 
     public void render() {
         appEnv.getGraphics().renderImage(car);
-        appEnv.getGraphics().renderText(new GameText("What is happening", "Serif", new Vector2(1, 1), 1, false));
+        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
     }
 
     private class GameCamera implements ApplicationCamera {
