@@ -24,18 +24,20 @@ public class GameApplication implements Application {
     }
     public void update(float delta) {
         car.move(delta);
-        police.move(delta);
+        //police.move(delta);
+        police.getDirection();
     }
 
     public void render() {
         appEnv.getGraphics().renderImage(car);
+        appEnv.getGraphics().renderImage(police);
     }
     private class GameCamera implements ApplicationCamera {
         public Vector2 getPosition() {
             // What is supposed to be returned when the environment
             // has been added:
-            //return car.getPosition();
-            return new Vector2(0, 0);
+            return car.getPosition();
+            //return new Vector2(0, 0);
         }
         public float getHeight() {
             return 10;
