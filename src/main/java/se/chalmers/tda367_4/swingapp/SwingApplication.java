@@ -5,11 +5,16 @@ import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.Triangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class SwingApplication extends JPanel implements Runnable {
     private int displayWidth;
@@ -79,6 +84,8 @@ public class SwingApplication extends JPanel implements Runnable {
             return swingInput;
         }
     }
+
+
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
         private ApplicationCamera camera;
@@ -117,19 +124,19 @@ public class SwingApplication extends JPanel implements Runnable {
                     displayWidth / 2,
                     displayHeight / 2
             ));
+            vector = new Vector2(
+                    vector.getX(),
+                    displayHeight - vector.getY()
+            );
             return vector;
         }
+
         public void renderImage(ApplicationSprite sprite) {
             ApplicationImage image = sprite.getImage();
             if(image instanceof SwingImage) {
                 Vector2 position = project(sprite.getPosition());
                 Vector2 bounds = projectScale(sprite.getBounds());
                 float rotation = sprite.getRotation();
-
-                position = new Vector2(
-                        position.getX(),
-                        displayHeight - position.getY()
-                );
 
                 SwingImage swingImage = (SwingImage)image;
                 g.setTransform(new AffineTransform());
@@ -157,9 +164,17 @@ public class SwingApplication extends JPanel implements Runnable {
                 g.setColor(new Color(255, 128, 0));
                 g.fillRect(0, 0, 100, 100);
                 return new SwingImage(img);
-            }
-            else {
-                return null;
+            } else {
+                String path = "res/" + src;
+                File file = new File(path);
+                BufferedImage image;
+                try {
+                    image = ImageIO.read(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                return new SwingImage(image);
             }
         }
         public void renderTriangle(GraphicalTriangle triangle) {
@@ -170,7 +185,6 @@ public class SwingApplication extends JPanel implements Runnable {
                 Vector2 corner = project(corners[i]);
                 xPoints[i] = (int)corner.getX();
                 yPoints[i] = (int)corner.getY();
-                yPoints[i] = displayHeight - yPoints[i];
             }
             g.setTransform(new AffineTransform());
             g.setColor(new Color(
@@ -180,7 +194,23 @@ public class SwingApplication extends JPanel implements Runnable {
             ));
             g.fillPolygon(xPoints, yPoints, 3);
         }
+
+        public void renderText(ApplicationText text){
+            Font font = new Font(text.getFont(), Font.PLAIN, (int)(text.getHeight() * projectScalar()));
+            Vector2 position = text.getPosition();
+            position = project(position);
+            FontMetrics metrics = g.getFontMetrics(font);
+
+            position = position.add(new Vector2(
+                    -metrics.stringWidth(text.getText())/2,
+                    metrics.getHeight() / 4));
+            g.setTransform(new AffineTransform());
+            g.setFont(font);
+            g.setColor(new Color(0,0,0));
+            g.drawString(text.getText(), position.getX(), position.getY());
+        }
     }
+
     private class SwingImage implements ApplicationImage {
         private Image rawImage;
         public SwingImage(Image rawImage) {
