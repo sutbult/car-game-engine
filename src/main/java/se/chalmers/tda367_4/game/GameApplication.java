@@ -2,6 +2,7 @@ package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
+import se.chalmers.tda367_4.app.ApplicationText;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.scenes.Scene;
@@ -50,6 +51,7 @@ public class GameApplication implements Scene {
         }
 
         appEnv.getGraphics().renderImage(car);
+        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
     }
     public Scene newScene() {
         return null;
