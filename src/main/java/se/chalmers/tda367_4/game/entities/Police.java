@@ -16,34 +16,22 @@ public class Police extends Car {
     public Direction getDirection() {
         Vector2 playerPosition = player.getPosition();
         Vector2 policePosition = this.getPosition();
-        Vector2 nagontingfint = playerPosition.normalize();
-        Vector2 nagontingfint2 = policePosition.normalize();
-        float r = (float) Math.acos(nagontingfint.dot(nagontingfint2));
-        float x1 = playerPosition.getX();
-        float x2 = policePosition.getX();
-        float y1 = playerPosition.getY();
-        float y2 = policePosition.getY();
-        float rotation = (float) Math.atan((x2-x1)/(y2-y1));
-        rotation = (float) Math.toRadians(rotation);
-        System.out.println(r);
-        //float r = rotation - this.getRotation();
-        boolean forward = false;
+        Vector2 rotation = playerPosition.subtract(policePosition);
+        float r = rotation.direction(); r -= getRotation();
+        float PI = (float) Math.PI;
+        while (r < -PI)
+            r += 2*PI;
+        while (r > PI)
+            r -= 2*PI;
+        boolean forward = true;
         boolean backward = false;
         boolean left = false;
         boolean right = false;
-        float pi = (float) Math.PI;
-        if (r <= pi/2 && r >= -pi/2) {
-            forward = true;
-        } else backward = true;
-        if (r != 0) {
-            if (r <= pi/2 && r > 0 || r <= -pi/2 && r >= -pi) {
-                left = true;
-            } else right = true;
-        }
-        /*while (r < -Math.PI)
-            r += 2*Math.PI;
-        while (r > Math.PI)
-            r -= 2*Math.PI;*/
+        float BORDER = PI / 50;
+        if(r > BORDER)
+            left = true;
+        else if(r < -BORDER)
+            right = true;
         return Direction.toDirection(forward,backward,left,right);
     }
 }

@@ -24,7 +24,7 @@ public class GameApplication implements Application {
     }
     public void update(float delta) {
         car.move(delta);
-        //police.move(delta);
+        police.move(delta);
         police.getDirection();
     }
 
