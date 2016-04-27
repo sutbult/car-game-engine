@@ -6,6 +6,9 @@ import se.chalmers.tda367_4.geometry.Vector2;
 
 
 public class Police extends Car {
+    private final static float PI = (float)Math.PI;
+    private final static float BORDER = PI / 50;
+
     private Car player;
 
     public Police(ApplicationEnvironment env, Car player) {
@@ -16,22 +19,25 @@ public class Police extends Car {
     public Direction getDirection() {
         Vector2 playerPosition = player.getPosition();
         Vector2 policePosition = this.getPosition();
-        Vector2 rotation = playerPosition.subtract(policePosition);
-        float r = rotation.direction(); r -= getRotation();
-        float PI = (float) Math.PI;
+
+        float r = playerPosition
+                .subtract(policePosition)
+                .direction();
+        r -= getRotation();
+
         while (r < -PI)
             r += 2*PI;
         while (r > PI)
             r -= 2*PI;
-        boolean forward = true;
-        boolean backward = false;
-        boolean left = false;
-        boolean right = false;
-        float BORDER = PI / 50;
-        if(r > BORDER)
-            left = true;
-        else if(r < -BORDER)
-            right = true;
-        return Direction.toDirection(forward,backward,left,right);
+
+        if(r > BORDER) {
+            return Direction.FORWARD_LEFT;
+        }
+        else if(r < BORDER) {
+            return Direction.FORWARD_RIGHT;
+        }
+        else {
+            return Direction.FORWARD;
+        }
     }
 }
