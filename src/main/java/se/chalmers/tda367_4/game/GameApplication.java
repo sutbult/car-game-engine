@@ -17,16 +17,20 @@ import java.util.List;
 public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
-    private Police police;
     private Environment environment;
     private List<Car> policeList = new ArrayList<Car>();
+    private String worldName;
+
+    public GameApplication (String worldName) {
+        this.worldName = worldName;
+    }
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
 
-        JSONhandler handler = new JSONhandler();
+        JSONhandler handler = new JSONhandler(worldName);
 
         List<GraphicalTriangle> list = handler.getSolidTriangles();
         List<GraphicalTriangle> list2 = handler.getSolidTriangles();

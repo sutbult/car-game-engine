@@ -16,10 +16,10 @@ public class JSONhandler {
 
     private JSONObject jsonObject;
 
-    public JSONhandler() {
+    public JSONhandler(String fileName) {
         try {
             JSONParser parser = new JSONParser();
-            jsonObject = (JSONObject) parser.parse(new FileReader("res/worlds/world1.json"));
+            jsonObject = (JSONObject) parser.parse(new FileReader("res/worlds/" + fileName));
         } catch (Exception e) {
             System.out.println("Problem parsing JSON file");
         }
