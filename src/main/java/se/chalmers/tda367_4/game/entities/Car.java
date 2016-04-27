@@ -43,6 +43,9 @@ public abstract class Car implements ImageEntity, SolidEntity {
         rotation = prevRotation;
     }
 
+    public void setPosition (Vector2 position) {
+        this.position = position;
+    }
 
     private Vector2 getBodyDirection() {
         return Vector2.fromAngle(rotation).multiply(CAR_SIZE.getX());
