@@ -10,6 +10,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.game.entities.*;
 import se.chalmers.tda367_4.geometry.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +24,25 @@ public class GameApplication implements Scene {
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
 
-        GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
-                0.1f, 0.3f, 0.1f);
-        GraphicalTriangle triangle2 = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(2, 2), new Vector2(2, 4),
-                0.5f, 0.0f, 0.9f);
-        GraphicalTriangle triangle3 = new GraphicalTriangleImpl(new Vector2(-3, -3), new Vector2(-1, -2), new Vector2(0, 0),
-                0.5f, 0.0f, 0.9f);
-        List<GraphicalTriangle> list = new ArrayList<GraphicalTriangle>();
-        list.add(triangle);
-        list.add(triangle2);
-        List<GraphicalTriangle> list2 = new ArrayList<GraphicalTriangle>();
-        list2.add(triangle3);
+//        GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
+//                0.1f, 0.3f, 0.1f);
+//        GraphicalTriangle triangle2 = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(2, 2), new Vector2(2, 4),
+//                0.5f, 0.0f, 0.9f);
+//        GraphicalTriangle triangle3 = new GraphicalTriangleImpl(new Vector2(-3, -3), new Vector2(-1, -2), new Vector2(0, 0),
+//                0.5f, 0.0f, 0.9f);
+//        List<GraphicalTriangle> list = new ArrayList<GraphicalTriangle>();
+//        list.add(triangle);
+//        list.add(triangle2);
+//        List<GraphicalTriangle> list2 = new ArrayList<GraphicalTriangle>();
+//        list2.add(triangle3);
+        JSONhandler a = new JSONhandler();
+        try {
+            a.writeJSON();
+        } catch (IOException e) {
+            System.out.println("IOException");
+        }
+        List<GraphicalTriangle> list = a.readJSON();
+        List<GraphicalTriangle> list2 = a.readJSON();
 
         environment = new Environment(list, list2);
     }
