@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.geometry.GraphicalTriangleImpl;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -20,7 +21,8 @@ public class TestApplication implements Application {
     }
 
     public void update(float delta) {
-        cube.update(delta);
+        //cube.update(delta);
+        cube.update(0);
     }
 
     public void render() {
@@ -32,7 +34,10 @@ public class TestApplication implements Application {
                 new Vector2(30, 20),
                 0.5f, 1, 0
         ));
+
+        env.getGraphics().renderText(new GameText("Example", "sans-Serif", cube.getPosition(), 20, false));
     }
+
     private class Cube implements ApplicationSprite {
         public Vector2 position;
         public float rotation = 0;
@@ -53,7 +58,7 @@ public class TestApplication implements Application {
         public float getRotation() {
             return rotation * 2;
         }
-    };
+    }
     private class TestCamera implements ApplicationCamera {
         public Vector2 getPosition() {
             return cube.getPosition();

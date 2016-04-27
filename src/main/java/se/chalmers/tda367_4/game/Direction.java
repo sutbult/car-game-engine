@@ -26,41 +26,27 @@ public enum Direction {
     public int getY() {
         return y;
     }
-    public static Direction toDirection(boolean forward, boolean backward, boolean left, boolean right){
 
-        if(forward && !backward && !left && !right){
-            return FORWARD;
-        }
+    public static Direction toDirection(boolean forward, boolean backward, boolean left, boolean right) {
 
-        if(!forward && backward && !left && !right){
-            return BACKWARD;
-        }
+        int tempX = 0;
+        int tempY = 0;
 
-        if(forward && !backward && left && !right){
-            return FORWARD_LEFT;
-        }
+        if (forward) tempY += 1;
+        if (backward) tempY -= 1;
+        if (left) tempX -= 1;
+        if (right) tempX += 1;
 
-        if(forward && !backward && !left && right){
-            return FORWARD_RIGHT;
-        }
-
-        if(!forward && backward && left && !right){
-            return BACK_LEFT;
-        }
-
-        if(!forward && backward && !left && right){
-            return BACK_RIGHT;
-        }
-
-        if(forward && !backward && left && right){
-            return FORWARD;
-        }
-
-        if(!forward && backward && left && right){
-            return BACKWARD;
-        }
-
-        else return STOPPED;
+        return getDirection(tempX, tempY);
     }
 
+    private static Direction getDirection(int x, int y){
+        Direction tempDir = null;
+        for(Direction dir : Direction.values()){
+            if(dir.getX() == x && dir.getY() == y) tempDir = dir;
+        }
+        return tempDir;
+    }
 }
+
+
