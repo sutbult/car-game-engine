@@ -124,6 +124,10 @@ public class SwingApplication extends JPanel implements Runnable {
                     displayWidth / 2,
                     displayHeight / 2
             ));
+            vector = new Vector2(
+                    vector.getX(),
+                    displayHeight - vector.getY()
+            );
             return vector;
         }
 
@@ -133,11 +137,6 @@ public class SwingApplication extends JPanel implements Runnable {
                 Vector2 position = project(sprite.getPosition());
                 Vector2 bounds = projectScale(sprite.getBounds());
                 float rotation = sprite.getRotation();
-
-                position = new Vector2(
-                        position.getX(),
-                        displayHeight - position.getY()
-                );
 
                 SwingImage swingImage = (SwingImage)image;
                 g.setTransform(new AffineTransform());
@@ -186,7 +185,6 @@ public class SwingApplication extends JPanel implements Runnable {
                 Vector2 corner = project(corners[i]);
                 xPoints[i] = (int)corner.getX();
                 yPoints[i] = (int)corner.getY();
-                yPoints[i] = displayHeight - yPoints[i];
             }
             g.setTransform(new AffineTransform());
             g.setColor(new Color(
