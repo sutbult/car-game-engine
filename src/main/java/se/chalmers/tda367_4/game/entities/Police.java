@@ -7,7 +7,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 
 public class Police extends Car {
     private final static float PI = (float)Math.PI;
-    private final static float BORDER = PI / 50;
+    private final static float BORDER = PI / 20;
 
     private Car player;
 
