@@ -2,9 +2,9 @@ package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
-import se.chalmers.tda367_4.app.ApplicationText;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
+import se.chalmers.tda367_4.game.entities.Police;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -17,12 +17,14 @@ import java.util.List;
 public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
+    private Police police;
     private Environment environment;
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
+        police = new Police(appEnv, car);
 
         GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
                 0.1f, 0.3f, 0.1f);
@@ -40,6 +42,7 @@ public class GameApplication implements Scene {
     }
     public void update(float delta) {
         car.move(delta);
+        police.move(delta);
 
         if (entityCollides(car, environment)) {
             car.revert();
@@ -51,6 +54,7 @@ public class GameApplication implements Scene {
         }
 
         appEnv.getGraphics().renderImage(car);
+        appEnv.getGraphics().renderImage(police);
         appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
     }
     public Scene newScene() {
@@ -73,8 +77,8 @@ public class GameApplication implements Scene {
         public Vector2 getPosition() {
             // What is supposed to be returned when the environment
             // has been added:
-            //return car.getPosition();
-            return new Vector2(0, 0);
+            return car.getPosition();
+            //return new Vector2(0, 0);
         }
         public float getHeight() {
             return 10;
