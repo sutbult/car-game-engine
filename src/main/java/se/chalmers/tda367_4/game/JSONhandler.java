@@ -19,7 +19,7 @@ public class JSONhandler {
     public JSONhandler() {
         try {
             JSONParser parser = new JSONParser();
-            jsonObject = (JSONObject) parser.parse(new FileReader("/home/john/Desktop/file.json"));
+            jsonObject = (JSONObject) parser.parse(new FileReader("res/worlds/world1.json"));
         } catch (Exception e) {
             System.out.println("Problem parsing JSON file");
         }
@@ -29,9 +29,7 @@ public class JSONhandler {
 
         List<GraphicalTriangle> triangles = new ArrayList<GraphicalTriangle>();
 
-        JSONObject json = (JSONObject) jsonObject;
-
-        JSONArray triangleList = (JSONArray) json.get("Triangles");
+        JSONArray triangleList = (JSONArray) jsonObject.get("Triangles");
 
         Iterator<JSONObject> iterator = triangleList.iterator();
         while (iterator.hasNext()) {

@@ -43,6 +43,10 @@ public abstract class Car implements ImageEntity, SolidEntity {
         rotation = prevRotation;
     }
 
+    public void setImage(String image, ApplicationEnvironment env) {
+        this.image = env.getGraphics().loadImage(image);
+    }
+
     public void setPosition (Vector2 position) {
         this.position = position;
     }
