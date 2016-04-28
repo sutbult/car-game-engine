@@ -2,12 +2,10 @@ package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
-import se.chalmers.tda367_4.geometry.Triangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -188,9 +186,9 @@ public class SwingApplication extends JPanel implements Runnable {
             }
             g.setTransform(new AffineTransform());
             g.setColor(new Color(
-                    (int)(triangle.getR() * 255),
-                    (int)(triangle.getG() * 255),
-                    (int)(triangle.getB() * 255)
+                    triangle.getColor().getR(),
+                    triangle.getColor().getG(),
+                    triangle.getColor().getB()
             ));
             g.fillPolygon(xPoints, yPoints, 3);
         }
@@ -206,7 +204,11 @@ public class SwingApplication extends JPanel implements Runnable {
                     metrics.getHeight() / 4));
             g.setTransform(new AffineTransform());
             g.setFont(font);
-            g.setColor(new Color(0,0,0));
+            g.setColor(new Color(
+                    text.getColor().getR(),
+                    text.getColor().getG(),
+                    text.getColor().getB()
+            ));
             g.drawString(text.getText(), position.getX(), position.getY());
         }
     }

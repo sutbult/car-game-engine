@@ -1,6 +1,8 @@
 package se.chalmers.tda367_4.app;
 
 final public class ApplicationColor {
+
+    // Values must be between 0 and 255.
     final private int red;
     final private int green;
     final private int blue;
@@ -15,20 +17,22 @@ final public class ApplicationColor {
         }
     }
 
-    public ApplicationColor(int red,
-                        int green,
-                        int blue) {
+    public ApplicationColor(int red, int green, int blue) {
         check(red, green, blue);
         this.red = red;
         this.green = green;
         this.blue = blue;
     }
 
-    public float[] getColor() {
-        float red = this.red;
-        float green = this.green;
-        float blue = this.blue;
-        float[] color = {red, green, blue};
-        return color;
+    public int getR() {
+        return this.red;
+    }
+
+    public int getG() {
+        return this.green;
+    }
+
+    public int getB() {
+        return this.blue;
     }
 }

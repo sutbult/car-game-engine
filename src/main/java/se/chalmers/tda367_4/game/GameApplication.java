@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
+import se.chalmers.tda367_4.app.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
@@ -27,11 +28,11 @@ public class GameApplication implements Scene {
         police = new Police(appEnv, car);
 
         GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
-                0.1f, 0.3f, 0.1f);
+                new ApplicationColor(5,0,9));
         GraphicalTriangle triangle2 = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(2, 2), new Vector2(2, 4),
-                0.5f, 0.0f, 0.9f);
+                new ApplicationColor(5,0,9));
         GraphicalTriangle triangle3 = new GraphicalTriangleImpl(new Vector2(-3, -3), new Vector2(-1, -2), new Vector2(0, 0),
-                0.5f, 0.0f, 0.9f);
+                new ApplicationColor(5,0,9));
         List<GraphicalTriangle> list = new ArrayList<GraphicalTriangle>();
         list.add(triangle);
         list.add(triangle2);
@@ -55,7 +56,9 @@ public class GameApplication implements Scene {
 
         appEnv.getGraphics().renderImage(car);
         appEnv.getGraphics().renderImage(police);
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
+        appEnv.getGraphics().renderText(
+                new GameText("Example", "Serif", new Vector2(1, 1), 1, false,
+                new ApplicationColor(113,13,31)));
     }
     public Scene newScene() {
         return null;
