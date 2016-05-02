@@ -1,13 +1,12 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+import se.chalmers.tda367_4.game.entities.ProxyImage;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
-import se.chalmers.tda367_4.geometry.Triangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,6 +14,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Hashtable;
 
 public class SwingApplication extends JPanel implements Runnable {
     private int displayWidth;
@@ -89,6 +89,8 @@ public class SwingApplication extends JPanel implements Runnable {
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
         private ApplicationCamera camera;
+        private ProxyImage proxyImage;
+
 
         public void updateSize() {
             Dimension d = getSize();
@@ -158,6 +160,10 @@ public class SwingApplication extends JPanel implements Runnable {
             }
         }
         public ApplicationImage loadImage(String src) {
+            proxyImage = new ProxyImage(src);
+            Image image = proxyImage.display();
+            return new SwingImage(image);
+            /*
             if(src.equals("orange")) {
                 Image img = createImage(100, 100);
                 Graphics g = img.getGraphics();
@@ -175,7 +181,7 @@ public class SwingApplication extends JPanel implements Runnable {
                     return null;
                 }
                 return new SwingImage(image);
-            }
+            }*/
         }
         public void renderTriangle(GraphicalTriangle triangle) {
             Vector2[] corners = triangle.getCorners();

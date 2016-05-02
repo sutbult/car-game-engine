@@ -17,7 +17,7 @@ import java.util.List;
 public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
-    private Police police;
+    private Car police;
     private Environment environment;
 
     public void init(ApplicationEnvironment appEnv) {
