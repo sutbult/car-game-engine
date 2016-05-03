@@ -11,6 +11,7 @@ public class RealImage{
 
     private String fileName;
     private HashMap <String, File> map;
+
     public RealImage(String src){
         fileName = src;
         map = new HashMap<String, File>();
@@ -25,18 +26,6 @@ public class RealImage{
         map.put("black", black);
         map.put("blue", blue);
     }
-
-    /*
-       String path = "res/" + fileName;
-       File file = new File(path);
-       BufferedImage image;
-       try {
-           image = ImageIO.read(file);
-           return image;
-       } catch (IOException e) {
-           e.printStackTrace();
-           return null;
-       }*/
 
     public Image display(){
 
