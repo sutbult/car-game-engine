@@ -19,7 +19,7 @@ public abstract class Car implements ImageEntity, SolidEntity {
     private Triangle[] prevTriangles;
 
     public Car(ApplicationEnvironment env) {
-        image = env.getGraphics().loadImage("blue");
+        image = env.getGraphics().loadImage("red");
         position = new Vector2(0.1f, 0.1f);
         rotation = 0;
         updateTriangles();

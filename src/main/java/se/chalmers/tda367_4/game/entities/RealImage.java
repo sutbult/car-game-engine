@@ -25,30 +25,35 @@ public class RealImage{
         map.put("black", black);
         map.put("blue", blue);
     }
+
+    /*
+       String path = "res/" + fileName;
+       File file = new File(path);
+       BufferedImage image;
+       try {
+           image = ImageIO.read(file);
+           return image;
+       } catch (IOException e) {
+           e.printStackTrace();
+           return null;
+       }*/
+
     public Image display(){
 
         if(map.containsKey(fileName)){
             File tmp = map.get(fileName);
-            BufferedImage image;
-            try {
-                image = ImageIO.read(tmp);
-                return image;
-            }catch (IOException e){
-                e.printStackTrace();
-                return null;
-            }
-        }else return null;
-        /*
-        String path = "res/" + fileName;
-        File file = new File(path);
+            return readFile(tmp);
+        }else System.out.println("Image not found"); return null;
+    }
+
+    private Image readFile(File file){
         BufferedImage image;
         try {
             image = ImageIO.read(file);
             return image;
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
             return null;
-        }*/
-
+        }
     }
 }
