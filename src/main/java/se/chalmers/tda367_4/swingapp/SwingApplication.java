@@ -163,6 +163,7 @@ public class SwingApplication extends JPanel implements Runnable {
             proxyImage = new ProxyImage(src);
             Image image = proxyImage.display();
             return new SwingImage(image);
+
             /*
             if(src.equals("orange")) {
                 Image img = createImage(100, 100);
@@ -183,6 +184,7 @@ public class SwingApplication extends JPanel implements Runnable {
                 return new SwingImage(image);
             }*/
         }
+
         public void renderTriangle(GraphicalTriangle triangle) {
             Vector2[] corners = triangle.getCorners();
             int[] xPoints = new int[3];

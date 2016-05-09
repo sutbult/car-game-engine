@@ -9,26 +9,31 @@ import java.util.HashMap;
 
 public class RealImage{
 
-    private String fileName;
-    private HashMap <String, File> map;
+    private RealImage realImage;
+    private HashMap <String, File> map = new HashMap<String, File>();
 
-    public RealImage(String src){
-        fileName = src;
-        map = new HashMap<String, File>();
+    private File yellow = new File("res/car_yellow.png");
+    private File red = new File("res/car_red.png");
+    private File black = new File("res/car_black.png");
+    private File blue = new File("res/car_3_blue.png");
 
-        File yellow = new File("res/car_yellow.png");
-        File red = new File("res/car_red.png");
-        File black = new File("res/car_black.png");
-        File blue = new File("res/car_3_blue.png");
-
-        map.put("yellow", yellow);
-        map.put("red", red);
-        map.put("black", black);
-        map.put("blue", blue);
+    public RealImage(){
+        if(map.isEmpty()){
+            map.put("yellow", yellow);
+            map.put("red", red);
+            map.put("black", black);
+            map.put("blue", blue);
+        }
     }
 
-    public Image display(){
+    public RealImage getInstance(){
+        if(realImage == null){
+            realImage = new RealImage();
+            return realImage;
+        }else return realImage;
+    }
 
+    public Image display(String fileName){
         if(map.containsKey(fileName)){
             File tmp = map.get(fileName);
             return readFile(tmp);
