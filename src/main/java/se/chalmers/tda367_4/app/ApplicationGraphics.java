@@ -7,5 +7,4 @@ public interface ApplicationGraphics {
     void renderImage(ApplicationSprite sprite);
     void renderTriangle(GraphicalTriangle triangle);
     void renderText(ApplicationText text);
-    ApplicationImage loadImage(String src);
 }
