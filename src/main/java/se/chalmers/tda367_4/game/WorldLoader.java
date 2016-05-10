@@ -12,11 +12,11 @@ import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.GraphicalTriangleImpl;
 import se.chalmers.tda367_4.geometry.Vector2;
 
-public class JSONhandler {
+public class WorldLoader {
 
     private JSONObject jsonObject;
 
-    public JSONhandler(String fileName) {
+    public WorldLoader(String fileName) {
         try {
             JSONParser parser = new JSONParser();
             jsonObject = (JSONObject) parser.parse(new FileReader("res/worlds/" + fileName));
