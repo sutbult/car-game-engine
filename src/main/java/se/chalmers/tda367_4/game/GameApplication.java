@@ -30,14 +30,14 @@ public class GameApplication implements Scene {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
-        createPolice(policePositions); //Can't be done in constructor since appEnv is needed.
+        createPolice(policePositions); //Can't currently be done in constructor as player needs appenv and police needs player
     }
 
     private void createPolice(List<Vector2> vectors) {
         for (Vector2 vector: vectors) {
-            Car police = new Police(appEnv, car);
+            Car police = new Police(car);
             police.setPosition(vector);
-            police.setImage("car_3_blue.png", appEnv);
+            police.setImage("car_3_blue.png");
             policeList.add(police);
         }
     }

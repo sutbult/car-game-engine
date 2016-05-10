@@ -9,7 +9,7 @@ public class Player extends Car {
     private ApplicationEnvironment env;
 
     public Player(ApplicationEnvironment env) {
-        super(env);
+        super();
         this.env = env;
     }
     protected Direction getDirection() {

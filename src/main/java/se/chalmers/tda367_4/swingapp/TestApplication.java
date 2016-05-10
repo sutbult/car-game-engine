@@ -16,7 +16,7 @@ public class TestApplication implements Application {
     private Cube cube;
     public void init(ApplicationEnvironment appEnv) {
         env = appEnv;
-        image = env.getGraphics().loadImage("orange");
+        image = new ApplicationImage("car_yellow.png");
         cube = new Cube();
     }
 
