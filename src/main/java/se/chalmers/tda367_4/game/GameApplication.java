@@ -19,25 +19,18 @@ public class GameApplication implements Scene {
     private Car car;
     private Environment environment;
     private List<Car> policeList = new ArrayList<Car>();
-    private String worldName;
+    private List<Vector2> policePositions = new ArrayList<Vector2>();
 
-    public GameApplication (String worldName) {
-        this.worldName = worldName;
+    public GameApplication (Environment environment, List<Vector2> policePositions) {
+        this.environment = environment;
+        this.policePositions = policePositions;
     }
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
-
-        JSONhandler handler = new JSONhandler(worldName);
-
-        List<GraphicalTriangle> list = handler.getSolidTriangles();
-        List<GraphicalTriangle> list2 = handler.getSolidTriangles();
-
-        createPolice(handler.getPolice());
-
-        environment = new Environment(list, list2);
+        createPolice(policePositions); //Can't be done in constructor since appEnv is needed.
     }
 
     private void createPolice(List<Vector2> vectors) {
