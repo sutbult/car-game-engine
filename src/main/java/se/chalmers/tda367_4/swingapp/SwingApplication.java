@@ -1,8 +1,6 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
-import se.chalmers.tda367_4.game.entities.Proxy;
-import se.chalmers.tda367_4.game.entities.ProxyImage;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -15,7 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public class SwingApplication extends JPanel implements Runnable {
     private int displayWidth;
@@ -90,8 +88,7 @@ public class SwingApplication extends JPanel implements Runnable {
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
         private ApplicationCamera camera;
-        private Proxy proxy;
-
+        private HashMap<String, Image> map = new HashMap<String, Image>();
 
         public void updateSize() {
             Dimension d = getSize();
@@ -134,56 +131,49 @@ public class SwingApplication extends JPanel implements Runnable {
             return vector;
         }
 
+
+
         public void renderImage(ApplicationSprite sprite) {
             ApplicationImage image = sprite.getImage();
-            if(image instanceof SwingImage) {
+
                 Vector2 position = project(sprite.getPosition());
                 Vector2 bounds = projectScale(sprite.getBounds());
                 float rotation = sprite.getRotation();
 
-                SwingImage swingImage = (SwingImage)image;
                 g.setTransform(new AffineTransform());
                 g.translate(
                         position.getX(),
                         position.getY()
                 );
                 g.rotate(-rotation);
-                g.drawImage(swingImage.getRawImage(),
+
+                Image swingImage = map.get(image.getPath());
+                if(swingImage == null){
+                    ApplicationImage path = loadImage(image.getPath());
+                    swingImage = map.get(path.getPath());
+                }
+
+                g.drawImage(swingImage,
                         (int)-bounds.getX()/2,
                         (int)-bounds.getY()/2,
                         (int) bounds.getX(),
                         (int) bounds.getY(),
                         null
                 );
-            }
-            else {
-                throw new RuntimeException("Unsupported type of image");
-            }
         }
-        public ApplicationImage loadImage(String src) {
-            proxy = new ProxyImage(src);
-            Image image = proxy.display();
-            return new SwingImage(image);
 
-            /*
-            if(src.equals("orange")) {
-                Image img = createImage(100, 100);
-                Graphics g = img.getGraphics();
-                g.setColor(new Color(255, 128, 0));
-                g.fillRect(0, 0, 100, 100);
-                return new SwingImage(img);
-            } else {
-                String path = "res/" + src;
-                File file = new File(path);
+        private ApplicationImage loadImage(String src) {
+                File file = new File(src);
                 BufferedImage image;
                 try {
                     image = ImageIO.read(file);
+                    map.put(src, image);
                 } catch (IOException e) {
                     e.printStackTrace();
                     return null;
                 }
-                return new SwingImage(image);
-            }*/
+                return new ApplicationImage(src);
+
         }
 
         public void renderTriangle(GraphicalTriangle triangle) {
@@ -220,15 +210,6 @@ public class SwingApplication extends JPanel implements Runnable {
         }
     }
 
-    private class SwingImage implements ApplicationImage {
-        private Image rawImage;
-        public SwingImage(Image rawImage) {
-            this.rawImage = rawImage;
-        }
-        public Image getRawImage() {
-            return rawImage;
-        }
-    }
     private class SwingInput implements ApplicationInput, KeyListener {
         private boolean[] states;
 
