@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+import se.chalmers.tda367_4.game.entities.Proxy;
 import se.chalmers.tda367_4.game.entities.ProxyImage;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.Vector2;
@@ -89,7 +90,7 @@ public class SwingApplication extends JPanel implements Runnable {
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
         private ApplicationCamera camera;
-        private ProxyImage proxyImage;
+        private Proxy proxy;
 
 
         public void updateSize() {
@@ -160,8 +161,8 @@ public class SwingApplication extends JPanel implements Runnable {
             }
         }
         public ApplicationImage loadImage(String src) {
-            proxyImage = new ProxyImage(src);
-            Image image = proxyImage.display();
+            proxy = new ProxyImage(src);
+            Image image = proxy.display();
             return new SwingImage(image);
 
             /*

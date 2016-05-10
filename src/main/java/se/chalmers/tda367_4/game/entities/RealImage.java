@@ -7,8 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class RealImage{
+public class RealImage implements Proxy{
 
+    private String fileName;
     private RealImage realImage;
     private HashMap <String, File> map = new HashMap<String, File>();
 
@@ -33,11 +34,17 @@ public class RealImage{
         }else return realImage;
     }
 
-    public Image display(String fileName){
+    public Image display(){
         if(map.containsKey(fileName)){
             File tmp = map.get(fileName);
             return readFile(tmp);
         }else System.out.println("Image not found"); return null;
+    }
+
+    public Image display(String fileName){
+        this.fileName = fileName;
+        return display();
+
     }
 
     private Image readFile(File file){
