@@ -56,6 +56,9 @@ public class GameApplication implements Scene {
         appEnv.getGraphics().renderImage(car);
         appEnv.getGraphics().renderImage(police);
         appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
+        appEnv.getGraphics().renderHud(new GameText("GTFA", "Sans_Serif", new Vector2(0, 0), 1, false));
+        appEnv.getGraphics().renderHud(new GameText("HUD", "Sans_Serif", new Vector2(0, 9.2f), 0.8f, false));
+
     }
     public Scene newScene() {
         return null;
@@ -75,6 +78,7 @@ public class GameApplication implements Scene {
     }
     private class GameCamera implements ApplicationCamera {
         public Vector2 getPosition() {
+
             // What is supposed to be returned when the environment
             // has been added:
             return car.getPosition();

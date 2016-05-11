@@ -84,7 +84,6 @@ public class SwingApplication extends JPanel implements Runnable {
         }
     }
 
-
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
         private ApplicationCamera camera;
@@ -207,6 +206,31 @@ public class SwingApplication extends JPanel implements Runnable {
             g.setFont(font);
             g.setColor(new Color(0,0,0));
             g.drawString(text.getText(), position.getX(), position.getY());
+        }
+
+        public void renderHud(ApplicationText hud){
+            Font font = new Font(hud.getFont(), Font.PLAIN, (int)(hud.getHeight() * projectScalar()));
+            Vector2 position = camera.getPosition();
+            position = project(position);
+            FontMetrics metrics = g.getFontMetrics(font);
+
+            position = position.add(new Vector2(
+                    10,
+                    (metrics.getHeight() + 20) / 2));
+
+            position = position.add(new Vector2(
+                    -displayWidth/2,
+                    -displayHeight/2));
+
+            position = position.add(new Vector2(
+                    hud.getPosition().getX() * projectScalar(),
+                    hud.getPosition().getY() * projectScalar()
+            ));
+
+            g.setTransform(new AffineTransform());
+            g.setFont(font);
+            g.setColor(new Color(0,0,0));
+            g.drawString(hud.getText(), position.getX(), position.getY());
         }
     }
 
