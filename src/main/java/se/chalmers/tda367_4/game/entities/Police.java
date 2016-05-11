@@ -6,9 +6,9 @@ import se.chalmers.tda367_4.geometry.Vector2;
 
 
 public class Police extends Car {
+    private float reverseDuration = -1;
     private final static float PI = (float)Math.PI;
     private final static float BORDER = PI / 20;
-    private float reverseDuration = -1;
 
     private Car player;
 
