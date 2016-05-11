@@ -17,32 +17,35 @@ import java.util.List;
 public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
-    private Car police;
     private Environment environment;
+    private List<Car> policeList = new ArrayList<Car>();
+    private List<Vector2> policePositions = new ArrayList<Vector2>();
+
+    public GameApplication (Environment environment, List<Vector2> policePositions) {
+        this.environment = environment;
+        this.policePositions = policePositions;
+    }
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
-        police = new Police(appEnv, car);
+        createPolice(policePositions); //Can't currently be done in constructor as player needs appenv and police needs player
+    }
 
-        GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
-                0.1f, 0.3f, 0.1f);
-        GraphicalTriangle triangle2 = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(2, 2), new Vector2(2, 4),
-                0.5f, 0.0f, 0.9f);
-        GraphicalTriangle triangle3 = new GraphicalTriangleImpl(new Vector2(-3, -3), new Vector2(-1, -2), new Vector2(0, 0),
-                0.5f, 0.0f, 0.9f);
-        List<GraphicalTriangle> list = new ArrayList<GraphicalTriangle>();
-        list.add(triangle);
-        list.add(triangle2);
-        List<GraphicalTriangle> list2 = new ArrayList<GraphicalTriangle>();
-        list2.add(triangle3);
-
-        environment = new Environment(list, list2);
+    private void createPolice(List<Vector2> vectors) {
+        for (Vector2 vector: vectors) {
+            Car police = new Police(car);
+            police.setPosition(vector);
+            police.setImage("car_3_blue.png");
+            policeList.add(police);
+        }
     }
     public void update(float delta) {
         car.move(delta);
-        police.move(delta);
+        for (Car police: policeList) {
+            police.move(delta);
+        }
 
         if (entityCollides(car, environment)) {
             car.revert();
@@ -59,8 +62,10 @@ public class GameApplication implements Scene {
             appEnv.getGraphics().renderTriangle(triangle);
         }
 
+        for (Car police: policeList) {
+            appEnv.getGraphics().renderImage(police);
+        }
         appEnv.getGraphics().renderImage(car);
-        appEnv.getGraphics().renderImage(police);
         appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
     }
     public Scene newScene() {
