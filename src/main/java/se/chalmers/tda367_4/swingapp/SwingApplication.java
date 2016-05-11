@@ -186,11 +186,7 @@ public class SwingApplication extends JPanel implements Runnable {
                 yPoints[i] = (int)corner.getY();
             }
             g.setTransform(new AffineTransform());
-            g.setColor(new Color(
-                    (int)(triangle.getR() * 255),
-                    (int)(triangle.getG() * 255),
-                    (int)(triangle.getB() * 255)
-            ));
+            g.setColor(GraphicalTriangleColor(triangle));
             g.fillPolygon(xPoints, yPoints, 3);
         }
 
@@ -205,8 +201,22 @@ public class SwingApplication extends JPanel implements Runnable {
                     metrics.getHeight() / 4));
             g.setTransform(new AffineTransform());
             g.setFont(font);
-            g.setColor(new Color(0,0,0));
+            g.setColor(ApplicationTextColor(text));
             g.drawString(text.getText(), position.getX(), position.getY());
+        }
+        private Color ApplicationTextColor(ApplicationText input){
+            return new Color(
+                    input.getColor().getR(),
+                    input.getColor().getG(),
+                    input.getColor().getB()
+            );
+        }
+        private Color GraphicalTriangleColor(GraphicalTriangle input){
+            return new Color(
+                    input.getColor().getR(),
+                    input.getColor().getG(),
+                    input.getColor().getB()
+            );
         }
     }
 

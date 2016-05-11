@@ -32,10 +32,11 @@ public class TestApplication implements Application {
                 new Vector2(15, 10),
                 new Vector2(10, 20),
                 new Vector2(30, 20),
-                0.5f, 1, 0
+                new ApplicationColor(127,255,0)
         ));
 
-        env.getGraphics().renderText(new GameText("Example", "sans-Serif", cube.getPosition(), 20, false));
+        env.getGraphics().renderText(
+                new GameText("Example", "sans-Serif", cube.getPosition(), 20, false, new ApplicationColor(0,0,0)));
     }
 
     private class Cube implements ApplicationSprite {

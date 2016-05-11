@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
+import se.chalmers.tda367_4.app.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
@@ -60,7 +61,12 @@ public class GameApplication implements Scene {
             appEnv.getGraphics().renderImage(police);
         }
         appEnv.getGraphics().renderImage(car);
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
+        for (Car police: policeList) {
+            appEnv.getGraphics().renderImage(police);
+        }
+        appEnv.getGraphics().renderText(
+                new GameText("Example", "Serif", new Vector2(1, 1), 1, false,
+                new ApplicationColor(113,13,31)));
     }
     public Scene newScene() {
         return null;
