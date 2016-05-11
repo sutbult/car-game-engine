@@ -202,10 +202,8 @@ public class SwingApplication extends JPanel implements Runnable {
             position = position.add(new Vector2(
                     -metrics.stringWidth(text.getText())/2,
                     metrics.getHeight() / 4));
-            g.setTransform(new AffineTransform());
-            g.setFont(font);
-            g.setColor(new Color(0,0,0));
-            g.drawString(text.getText(), position.getX(), position.getY());
+
+            draw(text, position, font);
         }
 
         public void renderHud(ApplicationText hud){
@@ -227,10 +225,14 @@ public class SwingApplication extends JPanel implements Runnable {
                     hud.getPosition().getY() * projectScalar()
             ));
 
+            draw(hud, position, font);
+        }
+
+        private void draw(ApplicationText text, Vector2 position, Font font){
             g.setTransform(new AffineTransform());
             g.setFont(font);
             g.setColor(new Color(0,0,0));
-            g.drawString(hud.getText(), position.getX(), position.getY());
+            g.drawString(text.getText(), position.getX(), position.getY());
         }
     }
 
