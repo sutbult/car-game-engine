@@ -20,7 +20,7 @@ public class Police extends Car {
     public void revert() {
         super.revert();
         if (reverseDuration < 0) {
-            reverseDuration = 0.9f;
+            reverseDuration = 1.2f;
         }
     }
 
