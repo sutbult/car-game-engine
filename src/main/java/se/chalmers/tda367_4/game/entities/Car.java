@@ -18,8 +18,8 @@ public abstract class Car implements ImageEntity, SolidEntity {
     private Triangle[] triangles;
     private Triangle[] prevTriangles;
 
-    public Car() {
-        image = new ApplicationImage("car_red.png");
+    public Car(String imagePath) {
+        image = new ApplicationImage(imagePath);
         position = new Vector2(0.1f, 0.1f);
         rotation = 0;
         updateTriangles();
@@ -42,10 +42,6 @@ public abstract class Car implements ImageEntity, SolidEntity {
         position = prevPosition;
         triangles = prevTriangles;
         rotation = prevRotation;
-    }
-
-    public void setImage(String image) {
-        this.image = new ApplicationImage(image);
     }
 
     public void setPosition (Vector2 position) {
