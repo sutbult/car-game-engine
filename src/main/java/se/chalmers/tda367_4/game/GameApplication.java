@@ -20,19 +20,21 @@ public class GameApplication implements Scene {
     private Car car;
     private Police police;
     private Environment environment;
+    private ApplicationColor color;
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
         police = new Police(appEnv, car);
+        color = new ApplicationColor(5,0,9);
 
         GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
-                new ApplicationColor(5,0,9));
+                color);
         GraphicalTriangle triangle2 = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(2, 2), new Vector2(2, 4),
-                new ApplicationColor(5,0,9));
+                color);
         GraphicalTriangle triangle3 = new GraphicalTriangleImpl(new Vector2(-3, -3), new Vector2(-1, -2), new Vector2(0, 0),
-                new ApplicationColor(5,0,9));
+                color);
         List<GraphicalTriangle> list = new ArrayList<GraphicalTriangle>();
         list.add(triangle);
         list.add(triangle2);

@@ -14,10 +14,13 @@ public class TestApplication implements Application {
     private ApplicationEnvironment env;
     private ApplicationImage image;
     private Cube cube;
+    private ApplicationColor color;
+
     public void init(ApplicationEnvironment appEnv) {
         env = appEnv;
         image = env.getGraphics().loadImage("orange");
         cube = new Cube();
+        color = new ApplicationColor(127,255,0);
     }
 
     public void update(float delta) {
@@ -32,7 +35,7 @@ public class TestApplication implements Application {
                 new Vector2(15, 10),
                 new Vector2(10, 20),
                 new Vector2(30, 20),
-                new ApplicationColor(127,255,0)
+                color
         ));
 
         env.getGraphics().renderText(
