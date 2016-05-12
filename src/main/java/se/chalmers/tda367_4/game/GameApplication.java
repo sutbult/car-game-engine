@@ -18,14 +18,27 @@ import java.util.List;
 public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
-    private Police police;
     private Environment environment;
+/*
+    <<<<<<< HEAD
     private ApplicationColor color;
+=======
+*/
+    private List<Car> policeList = new ArrayList<Car>();
+    private List<Vector2> policePositions = new ArrayList<Vector2>();
+
+    public GameApplication (Environment environment, List<Vector2> policePositions) {
+        this.environment = environment;
+        this.policePositions = policePositions;
+    }
+//>>>>>>> develop
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
+        /*
+<<<<<<< HEAD
         police = new Police(appEnv, car);
         color = new ApplicationColor(5,0,9);
 
@@ -40,12 +53,23 @@ public class GameApplication implements Scene {
         list.add(triangle2);
         List<GraphicalTriangle> list2 = new ArrayList<GraphicalTriangle>();
         list2.add(triangle3);
+=======
+        */
+        createPolice(policePositions); //Can't currently be done in constructor as player needs appenv and police needs player
+    }
 
-        environment = new Environment(list, list2);
+    private void createPolice(List<Vector2> vectors) {
+        for (Vector2 vector: vectors) {
+            Car police = new Police(car);
+            police.setPosition(vector);
+            policeList.add(police);
+        }
     }
     public void update(float delta) {
         car.move(delta);
-        police.move(delta);
+        for (Car police: policeList) {
+            police.move(delta);
+        }
 
         if (entityCollides(car, environment)) {
             car.revert();
@@ -56,8 +80,10 @@ public class GameApplication implements Scene {
             appEnv.getGraphics().renderTriangle(triangle);
         }
 
+        for (Car police: policeList) {
+            appEnv.getGraphics().renderImage(police);
+        }
         appEnv.getGraphics().renderImage(car);
-        appEnv.getGraphics().renderImage(police);
         appEnv.getGraphics().renderText(
                 new GameText("Example", "Serif", new Vector2(1, 1), 1, false,
                 new ApplicationColor(113,13,31)));

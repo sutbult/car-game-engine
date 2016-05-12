@@ -2,6 +2,7 @@ package se.chalmers.tda367_4.game.entities;
 
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationImage;
+import se.chalmers.tda367_4.app.ApplicationSprite;
 import se.chalmers.tda367_4.game.Direction;
 import se.chalmers.tda367_4.geometry.*;
 
@@ -17,8 +18,8 @@ public abstract class Car implements ImageEntity, SolidEntity {
     private Triangle[] triangles;
     private Triangle[] prevTriangles;
 
-    public Car(ApplicationEnvironment env) {
-        image = env.getGraphics().loadImage("car_yellow.png");
+    public Car(String imagePath) {
+        image = new ApplicationImage(imagePath);
         position = new Vector2(0.1f, 0.1f);
         rotation = 0;
         updateTriangles();
@@ -43,6 +44,9 @@ public abstract class Car implements ImageEntity, SolidEntity {
         rotation = prevRotation;
     }
 
+    public void setPosition (Vector2 position) {
+        this.position = position;
+    }
 
     private Vector2 getBodyDirection() {
         return Vector2.fromAngle(rotation).multiply(CAR_SIZE.getX());
@@ -75,10 +79,10 @@ public abstract class Car implements ImageEntity, SolidEntity {
         Matrix2 matrix = new Matrix2(new float[] { (float) Math.cos(rotation), (float) -Math.sin(rotation),
             (float) Math.sin(rotation), (float) Math.cos(rotation)});
 
-        Vector2 topLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2));
-        Vector2 topRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2));
-        Vector2 bottomLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2));
-        Vector2 bottomRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2));
+        Vector2 topLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2 - 0.114f));
+        Vector2 topRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2 - 0.114f));
+        Vector2 bottomLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2 + 0.114f));
+        Vector2 bottomRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2 + 0.114f));
 
         Vector2 lowerRight = new Vector2(position.getX() + bottomRight.getX(), position.getY() + bottomRight.getY());
         Vector2 lowerLeft = new Vector2(position.getX() + bottomLeft.getX(), position.getY() + bottomLeft.getY());
