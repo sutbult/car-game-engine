@@ -1,26 +1,18 @@
 package se.chalmers.tda367_4.geometry;
 
-public class GraphicalTriangleImpl extends TriangleImpl implements GraphicalTriangle {
-    private float r;
-    private float g;
-    private float b;
+import se.chalmers.tda367_4.app.ApplicationColor;
 
-    public GraphicalTriangleImpl(Vector2 a, Vector2 b, Vector2 c, float red, float green, float blue) {
+public class GraphicalTriangleImpl extends TriangleImpl implements GraphicalTriangle {
+    private ApplicationColor color;
+
+    public GraphicalTriangleImpl(Vector2 a, Vector2 b, Vector2 c, ApplicationColor color) {
         super(a, b, c);
-        this.r = red;
-        this.g = green;
-        this.b = blue;
+        this.color = color;
     }
-    public GraphicalTriangleImpl(Vector2[] corners, float r, float g, float b) {
-        this(corners[0], corners[1], corners[2], r, g, b);
+    public GraphicalTriangleImpl(Vector2[] corners, ApplicationColor color) {
+        this(corners[0], corners[1], corners[2], color);
     }
-    public float getR() {
-        return r;
-    }
-    public float getG() {
-        return g;
-    }
-    public float getB() {
-        return b;
+    public ApplicationColor getColor() {
+        return this.color;
     }
 }

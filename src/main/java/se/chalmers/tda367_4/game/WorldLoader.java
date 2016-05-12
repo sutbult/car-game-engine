@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import se.chalmers.tda367_4.app.ApplicationColor;
 import se.chalmers.tda367_4.game.entities.Environment;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.GraphicalTriangleImpl;
@@ -45,7 +46,11 @@ public class WorldLoader {
             Vector2 vector2 = new Vector2(toFloat(corners.get(4)), toFloat(corners.get(5)));
 
             GraphicalTriangle triangle = new GraphicalTriangleImpl(vector, vector1, vector2,
-                    toFloat(object.get("R")), toFloat(object.get("G")), toFloat(object.get("B")));
+                    new ApplicationColor(
+                            (int)(255 * toFloat(object.get("R"))),
+                            (int)(255 * toFloat(object.get("G"))),
+                            (int)(255 * toFloat(object.get("B")))
+                    ));
             triangles.add(triangle);
         }
         return triangles;
