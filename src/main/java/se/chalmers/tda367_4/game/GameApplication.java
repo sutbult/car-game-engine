@@ -19,11 +19,6 @@ public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
     private Environment environment;
-/*
-    <<<<<<< HEAD
-    private ApplicationColor color;
-=======
-*/
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
 
@@ -31,31 +26,12 @@ public class GameApplication implements Scene {
         this.environment = environment;
         this.policePositions = policePositions;
     }
-//>>>>>>> develop
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
-        /*
-<<<<<<< HEAD
-        police = new Police(appEnv, car);
-        color = new ApplicationColor(5,0,9);
-
-        GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
-                color);
-        GraphicalTriangle triangle2 = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(2, 2), new Vector2(2, 4),
-                color);
-        GraphicalTriangle triangle3 = new GraphicalTriangleImpl(new Vector2(-3, -3), new Vector2(-1, -2), new Vector2(0, 0),
-                color);
-        List<GraphicalTriangle> list = new ArrayList<GraphicalTriangle>();
-        list.add(triangle);
-        list.add(triangle2);
-        List<GraphicalTriangle> list2 = new ArrayList<GraphicalTriangle>();
-        list2.add(triangle3);
-=======
-        */
-        createPolice(policePositions); //Can't currently be done in constructor as player needs appenv and police needs player
+        createPolice(policePositions);
     }
 
     private void createPolice(List<Vector2> vectors) {

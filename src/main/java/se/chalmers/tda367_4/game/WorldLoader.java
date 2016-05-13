@@ -47,13 +47,16 @@ public class WorldLoader {
 
             GraphicalTriangle triangle = new GraphicalTriangleImpl(vector, vector1, vector2,
                     new ApplicationColor(
-                            (int)(255 * toFloat(object.get("R"))),
-                            (int)(255 * toFloat(object.get("G"))),
-                            (int)(255 * toFloat(object.get("B")))
+                            toInt(object.get("R")),
+                            toInt(object.get("G")),
+                            toInt(object.get("B"))
                     ));
             triangles.add(triangle);
         }
         return triangles;
+    }
+    private int toInt(Object a) {
+        return Integer.parseInt(a.toString());
     }
 
     private float toFloat(Object a) {
