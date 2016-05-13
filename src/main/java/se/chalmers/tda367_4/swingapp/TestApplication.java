@@ -14,10 +14,13 @@ public class TestApplication implements Application {
     private ApplicationEnvironment env;
     private ApplicationImage image;
     private Cube cube;
+    private ApplicationColor color;
+
     public void init(ApplicationEnvironment appEnv) {
         env = appEnv;
         image = new ApplicationImage("car_yellow.png");
         cube = new Cube();
+        color = new ApplicationColor(127,255,0);
     }
 
     public void update(float delta) {
@@ -32,10 +35,11 @@ public class TestApplication implements Application {
                 new Vector2(15, 10),
                 new Vector2(10, 20),
                 new Vector2(30, 20),
-                0.5f, 1, 0
+                color
         ));
 
-        env.getGraphics().renderText(new GameText("Example", "sans-Serif", cube.getPosition(), 20, false));
+        env.getGraphics().renderText(
+                new GameText("Example", "sans-Serif", cube.getPosition(), 20, false, new ApplicationColor(0,0,0)));
     }
 
     private class Cube implements ApplicationSprite {

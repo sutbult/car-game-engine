@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.Application;
+import se.chalmers.tda367_4.app.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.geometry.*;
 
@@ -22,7 +23,7 @@ public class TriangleTestApplication implements Application {
                 new Vector2(200, 100),
                 new Vector2(300, 450),
                 new Vector2(700, 400),
-                1, 1, 0
+                new ApplicationColor(255,255,0)
         );
     }
     public void init(ApplicationEnvironment appEnv) {
@@ -76,21 +77,21 @@ public class TriangleTestApplication implements Application {
     private void updateGraphicalTriangles() {
         graphicalTriangles = new ArrayList<GraphicalTriangle>();
         for(Triangle triangle : triangles) {
-            float r;
-            float g;
-            float b;
+            int r;
+            int g;
+            int b;
             if(triangle.intersects(mainTriangle)) {
-                r = 1;
+                r = 255;
                 g = 0;
                 b = 0;
             }
             else {
                 r = 0;
-                g = 1;
+                g = 255;
                 b = 0;
             }
             graphicalTriangles.add(new GraphicalTriangleImpl(
-                    triangle.getCorners(), r, g, b
+                    triangle.getCorners(), new ApplicationColor(r,g,b)
             ));
         }
     }
