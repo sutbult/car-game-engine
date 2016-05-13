@@ -18,8 +18,8 @@ public abstract class Car implements ImageEntity, SolidEntity {
     private Triangle[] triangles;
     private Triangle[] prevTriangles;
 
-    public Car() {
-        image = new ApplicationImage("car_red.png");
+    public Car(String imagePath) {
+        image = new ApplicationImage(imagePath);
         position = new Vector2(0.1f, 0.1f);
         rotation = 0;
         updateTriangles();
@@ -42,10 +42,6 @@ public abstract class Car implements ImageEntity, SolidEntity {
         position = prevPosition;
         triangles = prevTriangles;
         rotation = prevRotation;
-    }
-
-    public void setImage(String image) {
-        this.image = new ApplicationImage(image);
     }
 
     public void setPosition (Vector2 position) {
@@ -83,10 +79,10 @@ public abstract class Car implements ImageEntity, SolidEntity {
         Matrix2 matrix = new Matrix2(new float[] { (float) Math.cos(rotation), (float) -Math.sin(rotation),
             (float) Math.sin(rotation), (float) Math.cos(rotation)});
 
-        Vector2 topLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2));
-        Vector2 topRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2));
-        Vector2 bottomLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2));
-        Vector2 bottomRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2));
+        Vector2 topLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2 - 0.114f));
+        Vector2 topRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2 - 0.114f));
+        Vector2 bottomLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2 + 0.114f));
+        Vector2 bottomRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, -CAR_SIZE.getY() / 2 + 0.114f));
 
         Vector2 lowerRight = new Vector2(position.getX() + bottomRight.getX(), position.getY() + bottomRight.getY());
         Vector2 lowerLeft = new Vector2(position.getX() + bottomLeft.getX(), position.getY() + bottomLeft.getY());

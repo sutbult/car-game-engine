@@ -37,7 +37,6 @@ public class GameApplication implements Scene {
         for (Vector2 vector: vectors) {
             Car police = new Police(car);
             police.setPosition(vector);
-            police.setImage("car_3_blue.png");
             policeList.add(police);
         }
     }

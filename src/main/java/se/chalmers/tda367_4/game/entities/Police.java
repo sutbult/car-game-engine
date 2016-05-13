@@ -12,7 +12,7 @@ public class Police extends Car {
     private Car player;
 
     public Police(Car player) {
-        super();
+        super("car_3_blue.png");
         this.player = player;
     }
 
