@@ -11,6 +11,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.game.entities.*;
 import se.chalmers.tda367_4.geometry.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,15 @@ public class GameApplication implements Scene {
         appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
         appEnv.getGraphics().renderHud(new GameHud("GTFA", "Sans_Serif", new Vector2(0, 0), 1, false), false);
         appEnv.getGraphics().renderHud(score, true);
+
+
+
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            @Override
+            public void run(){
+                    appEnv.getGraphics().printScoreToFile(String.valueOf(score.getScore()));
+            }
+        });
 
     }
     public Scene newScene() {

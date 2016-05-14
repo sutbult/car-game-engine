@@ -8,4 +8,5 @@ public interface ApplicationGraphics {
     void renderTriangle(GraphicalTriangle triangle);
     void renderText(ApplicationText text);
     void renderHud(ApplicationScore hud, boolean isScore);
+    void printScoreToFile(String score);
 }
