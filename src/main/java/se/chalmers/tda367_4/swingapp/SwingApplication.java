@@ -236,7 +236,6 @@ public class SwingApplication extends JPanel implements Runnable {
         public void printScoreToFile(String score) {
             FileWriter fw;
             BufferedWriter bw;
-            PrintWriter out;
             try{
                 if(!file.exists()){
                     file.createNewFile();
@@ -244,9 +243,8 @@ public class SwingApplication extends JPanel implements Runnable {
 
                 fw = new FileWriter(file.getAbsoluteFile(), true);
                 bw = new BufferedWriter(fw);
-                out = new PrintWriter(bw);
-                out.println(score);
-                out.close();
+                bw.write(score + "\n");
+                bw.close();
 
             }catch(IOException e){
                 e.printStackTrace();
