@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -203,10 +204,10 @@ public class SwingApplication extends JPanel implements Runnable {
                     -metrics.stringWidth(text.getText())/2,
                     metrics.getHeight() / 4));
 
-            draw(text, position, font);
+            updateText(text, position, font);
         }
 
-        public void renderHud(ApplicationText hud){
+        public void renderHud(ApplicationScore hud, boolean isScore){
             Font font = new Font(hud.getFont(), Font.PLAIN, (int)(hud.getHeight() * projectScalar()));
             Vector2 position = camera.getPosition();
             position = project(position);
@@ -225,14 +226,28 @@ public class SwingApplication extends JPanel implements Runnable {
                     hud.getPosition().getY() * projectScalar()
             ));
 
-            draw(hud, position, font);
+            if(isScore){
+                updateScore(hud, position, font);
+            }else updateText(hud, position, font);
+
+
         }
 
-        private void draw(ApplicationText text, Vector2 position, Font font){
+        private void updateText(ApplicationText text, Vector2 position, Font font){
             g.setTransform(new AffineTransform());
             g.setFont(font);
             g.setColor(new Color(0,0,0));
             g.drawString(text.getText(), position.getX(), position.getY());
+        }
+
+        private void updateScore(ApplicationScore score, Vector2 position, Font font){
+            score.addScore();
+            g.setTransform(new AffineTransform());
+            g.setFont(font);
+            g.setColor(new Color(0,0,0));
+            g.drawString(score.getText() + String.valueOf(score.getScore()),
+                    position.getX(),
+                    position.getY());
         }
     }
 

@@ -7,5 +7,5 @@ public interface ApplicationGraphics {
     void renderImage(ApplicationSprite sprite);
     void renderTriangle(GraphicalTriangle triangle);
     void renderText(ApplicationText text);
-    void renderHud(ApplicationText hud);
+    void renderHud(ApplicationScore hud, boolean isScore);
 }
