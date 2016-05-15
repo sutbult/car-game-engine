@@ -67,10 +67,7 @@ public class GameApplication implements Scene {
         Runtime.getRuntime().addShutdownHook(new Thread(){
             @Override
             public void run(){
-                    for(int i = 0; i<1; i++){
-                        printScoreToFile(String.valueOf(score.getScore()));
-                        i++;
-                    }
+                printScoreToFile(String.valueOf(score.getScore()));
             }
         });
 
@@ -79,6 +76,7 @@ public class GameApplication implements Scene {
     public void printScoreToFile(String score) {
         FileWriter fw;
         BufferedWriter bw;
+        PrintWriter out;
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -86,15 +84,24 @@ public class GameApplication implements Scene {
 
             fw = new FileWriter(file.getAbsoluteFile(), true);
             bw = new BufferedWriter(fw);
-            for (int i = 0; i < 1; i++) {
-                bw.write(score + "\n");
-                i++;
-            }
-            bw.close();
+            out = new PrintWriter(bw);
+            out.println(score);
+            out.close();
 
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
+        /* Why does it say out has not been initialized?
+
+        finally{
+            try{
+                if(out != null){
+                    out.close();
+                }System.out.println("PrintWriter closed");
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }*/
     }
 
     public Scene newScene() {
