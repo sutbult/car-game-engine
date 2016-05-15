@@ -62,17 +62,9 @@ public class GameApplication implements Scene {
         appEnv.getGraphics().renderHud(new GameHud("GTFA", "Sans_Serif", new Vector2(0, 0), 1, false), false);
         appEnv.getGraphics().renderHud(score, true);
 
-
-
-        Runtime.getRuntime().addShutdownHook(new Thread(){
-            @Override
-            public void run(){
-                printScoreToFile(String.valueOf(score.getScore()));
-            }
-        });
-
     }
 
+    /*
     public void printScoreToFile(String score) {
         FileWriter fw;
         BufferedWriter bw;
@@ -91,8 +83,9 @@ public class GameApplication implements Scene {
         }catch (IOException e) {
             e.printStackTrace();
         }
-        /* Why does it say out has not been initialized?
 
+
+        Why does this segment say 'out' has not been initialized?
         finally{
             try{
                 if(out != null){
@@ -101,8 +94,8 @@ public class GameApplication implements Scene {
             }catch (IOException e){
                 e.printStackTrace();
             }
-        }*/
-    }
+        }
+    }*/
 
     public Scene newScene() {
         return null;
