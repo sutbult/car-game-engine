@@ -88,7 +88,6 @@ public class SwingApplication extends JPanel implements Runnable {
         public Graphics2D g;
         private ApplicationCamera camera;
         private HashMap<String, Image> map = new HashMap<String, Image>();
-        private File file = new File("res/highscores.txt");
 
         public void updateSize() {
             Dimension d = getSize();
@@ -231,24 +230,6 @@ public class SwingApplication extends JPanel implements Runnable {
             }else updateText(hud, position, font);
 
 
-        }
-
-        public void printScoreToFile(String score) {
-            FileWriter fw;
-            BufferedWriter bw;
-            try{
-                if(!file.exists()){
-                    file.createNewFile();
-                }
-
-                fw = new FileWriter(file.getAbsoluteFile(), true);
-                bw = new BufferedWriter(fw);
-                bw.write(score + "\n");
-                bw.close();
-
-            }catch(IOException e){
-                e.printStackTrace();
-            }
         }
 
         private void updateText(ApplicationText text, Vector2 position, Font font){

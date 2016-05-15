@@ -20,6 +20,7 @@ public class GameApplication implements Scene {
     private Car car;
     private Car police;
     private Environment environment;
+    private File file = new File("res/highscores.txt");
     private GameHud score = new GameHud("Score: ", "Sans_Serif", new Vector2(0, 9.2f), 0.8f, false);
 
     public void init(ApplicationEnvironment appEnv) {
@@ -66,11 +67,36 @@ public class GameApplication implements Scene {
         Runtime.getRuntime().addShutdownHook(new Thread(){
             @Override
             public void run(){
-                    appEnv.getGraphics().printScoreToFile(String.valueOf(score.getScore()));
+                    for(int i = 0; i<1; i++){
+                        printScoreToFile(String.valueOf(score.getScore()));
+                        i++;
+                    }
             }
         });
 
     }
+
+    public void printScoreToFile(String score) {
+        FileWriter fw;
+        BufferedWriter bw;
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            fw = new FileWriter(file.getAbsoluteFile(), true);
+            bw = new BufferedWriter(fw);
+            for (int i = 0; i < 1; i++) {
+                bw.write(score + "\n");
+                i++;
+            }
+            bw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Scene newScene() {
         return null;
     }
@@ -87,16 +113,17 @@ public class GameApplication implements Scene {
         }
         return false;
     }
-    private class GameCamera implements ApplicationCamera {
-        public Vector2 getPosition() {
 
-            // What is supposed to be returned when the environment
-            // has been added:
-            return car.getPosition();
-            //return new Vector2(0, 0);
-        }
-        public float getHeight() {
-            return 10;
-        }
+    private class GameCamera implements ApplicationCamera {
+    public Vector2 getPosition() {
+
+        // What is supposed to be returned when the environment
+        // has been added:
+        return car.getPosition();
+        //return new Vector2(0, 0);
     }
-}
+    public float getHeight() {
+        return 10;
+    }
+    }}
+
