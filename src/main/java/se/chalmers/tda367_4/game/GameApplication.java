@@ -15,6 +15,8 @@ import se.chalmers.tda367_4.geometry.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static se.chalmers.tda367_4.Utilities.entityCollides;
+
 public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
@@ -72,19 +74,6 @@ public class GameApplication implements Scene {
     }
     public Scene newScene() {
         return null;
-    }
-    private boolean entityCollides(SolidEntity first, SolidEntity second) {
-        Triangle[] carTriangles = first.getSolidTriangles();
-        Triangle[] obstacleTriangles = second.getSolidTriangles();
-
-        for (Triangle carTriangle: carTriangles) {
-            for (Triangle obstacleTriangle: obstacleTriangles) {
-                if (carTriangle.intersects(obstacleTriangle)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
     private class GameCamera implements ApplicationCamera {
         public Vector2 getPosition() {
