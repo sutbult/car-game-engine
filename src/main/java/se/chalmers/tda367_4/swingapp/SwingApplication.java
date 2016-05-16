@@ -197,25 +197,6 @@ public class SwingApplication extends JPanel implements Runnable {
             Font font = new Font(text.getFont(), Font.PLAIN, (int)(text.getHeight() * projectScalar()));
             Vector2 position;
 
-            /*
-            position = camera.getPosition();
-            position = project(position);
-            FontMetrics metrics = g.getFontMetrics(font);
-
-            position = position.add(new Vector2(
-                    10,
-                    (metrics.getHeight() + 20) / 2));
-
-            position = position.add(new Vector2(
-                    -displayWidth/2,
-                    -displayHeight/2));
-
-            position = position.add(new Vector2(
-                    text.getPosition().getX() * projectScalar(),
-                    text.getPosition().getY() * projectScalar()
-            ));*/
-
-
             position = text.getPosition();
             position = project(position);
             FontMetrics metrics = g.getFontMetrics(font);

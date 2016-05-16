@@ -67,7 +67,11 @@ public class GameApplication implements Scene {
         appEnv.getGraphics().renderImage(car);
         appEnv.getGraphics().renderImage(police);
         appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
-        appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif", hudCamera.getPosition(), 1, false));
+        appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
+                new Vector2(hudCamera.getPosition().getX() - 4.8f,
+                        hudCamera.getPosition().getY() - 4.5f),
+                        0.8f,
+                        false));
 
     }
 
