@@ -193,43 +193,41 @@ public class SwingApplication extends JPanel implements Runnable {
             g.fillPolygon(xPoints, yPoints, 3);
         }
 
-        public void renderText(ApplicationText text){
+        public void renderText(ApplicationText text, boolean followCamera){
             Font font = new Font(text.getFont(), Font.PLAIN, (int)(text.getHeight() * projectScalar()));
-            Vector2 position = text.getPosition();
-            position = project(position);
-            FontMetrics metrics = g.getFontMetrics(font);
+            Vector2 position;
 
-            position = position.add(new Vector2(
-                    -metrics.stringWidth(text.getText())/2,
-                    metrics.getHeight() / 4));
+            if(followCamera){
+                position = camera.getPosition();
+                position = project(position);
+                FontMetrics metrics = g.getFontMetrics(font);
+
+                position = position.add(new Vector2(
+                        10,
+                        (metrics.getHeight() + 20) / 2));
+
+                position = position.add(new Vector2(
+                        -displayWidth/2,
+                        -displayHeight/2));
+
+                position = position.add(new Vector2(
+                        text.getPosition().getX() * projectScalar(),
+                        text.getPosition().getY() * projectScalar()
+                ));
+            }
+            else{
+                position = text.getPosition();
+                position = project(position);
+                FontMetrics metrics = g.getFontMetrics(font);
+
+                position = position.add(new Vector2(
+                        -metrics.stringWidth(text.getText())/2,
+                        metrics.getHeight() / 4));
+
+
+            }
 
             updateText(text, position, font);
-        }
-
-        public void renderHud(ApplicationScore hud, boolean isScore){
-            Font font = new Font(hud.getFont(), Font.PLAIN, (int)(hud.getHeight() * projectScalar()));
-            Vector2 position = camera.getPosition();
-            position = project(position);
-            FontMetrics metrics = g.getFontMetrics(font);
-
-            position = position.add(new Vector2(
-                    10,
-                    (metrics.getHeight() + 20) / 2));
-
-            position = position.add(new Vector2(
-                    -displayWidth/2,
-                    -displayHeight/2));
-
-            position = position.add(new Vector2(
-                    hud.getPosition().getX() * projectScalar(),
-                    hud.getPosition().getY() * projectScalar()
-            ));
-
-            if(isScore){
-                updateScore(hud, position, font);
-            }else updateText(hud, position, font);
-
-
         }
 
         private void updateText(ApplicationText text, Vector2 position, Font font){
@@ -237,16 +235,6 @@ public class SwingApplication extends JPanel implements Runnable {
             g.setFont(font);
             g.setColor(new Color(0,0,0));
             g.drawString(text.getText(), position.getX(), position.getY());
-        }
-
-        private void updateScore(ApplicationScore score, Vector2 position, Font font){
-            score.addScore();
-            g.setTransform(new AffineTransform());
-            g.setFont(font);
-            g.setColor(new Color(0,0,0));
-            g.drawString(score.getText() + String.valueOf(score.getScore()),
-                    position.getX(),
-                    position.getY());
         }
     }
 

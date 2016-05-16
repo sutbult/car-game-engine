@@ -20,14 +20,16 @@ public class GameApplication implements Scene {
     private Car car;
     private Car police;
     private Environment environment;
+    private Score score;
+
     private File file = new File("res/highscores.txt");
-    private GameHud score = new GameHud("Score: ", "Sans_Serif", new Vector2(0, 9.2f), 0.8f, false);
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
         police = new Police(appEnv, car);
+        score = new Score(0, 1);
 
         GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
                 0.1f, 0.3f, 0.1f);
@@ -46,6 +48,7 @@ public class GameApplication implements Scene {
     public void update(float delta) {
         car.move(delta);
         police.move(delta);
+        score.update(delta);
 
         if (entityCollides(car, environment)) {
             car.revert();
@@ -58,9 +61,9 @@ public class GameApplication implements Scene {
 
         appEnv.getGraphics().renderImage(car);
         appEnv.getGraphics().renderImage(police);
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
-        appEnv.getGraphics().renderHud(new GameHud("GTFA", "Sans_Serif", new Vector2(0, 0), 1, false), false);
-        appEnv.getGraphics().renderHud(score, true);
+        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false), false);
+        appEnv.getGraphics().renderText(new GameText("GTFA", "Sans_Serif", new Vector2(0, 0), 1, false), true);
+        appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif", new Vector2(0, 9f), 1, false), true);
 
     }
 
