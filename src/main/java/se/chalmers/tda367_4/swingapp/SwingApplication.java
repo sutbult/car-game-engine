@@ -69,7 +69,7 @@ public class SwingApplication extends JPanel implements Runnable {
                 Thread.sleep(10);
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
+                break;
             }
         }
     }
@@ -81,6 +81,10 @@ public class SwingApplication extends JPanel implements Runnable {
 
         public ApplicationInput getInput() {
             return swingInput;
+        }
+
+        public void stop() {
+            Thread.currentThread().interrupt();
         }
     }
 

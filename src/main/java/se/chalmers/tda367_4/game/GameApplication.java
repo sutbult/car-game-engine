@@ -59,6 +59,15 @@ public class GameApplication implements Scene {
         if (entityCollides(car, environment)) {
             car.revert();
         }
+
+        for (Car police: policeList) {
+            if (entityCollides(car, police)) {
+                appEnv.stop();
+            }
+            if (entityCollides(police, environment)) {
+                police.revert();
+            }
+        }
     }
     public void render() {
         
