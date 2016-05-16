@@ -35,7 +35,7 @@ public class TestApplication implements Application {
                 0.5f, 1, 0
         ));
 
-        env.getGraphics().renderText(new GameText("Example", "sans-Serif", cube.getPosition(), 20, false), false);
+        env.getGraphics().renderText(new GameText("Example", "sans-Serif", cube.getPosition(), 20, false));
     }
 
     private class Cube implements ApplicationSprite {

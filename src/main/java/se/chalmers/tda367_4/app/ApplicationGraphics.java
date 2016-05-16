@@ -6,5 +6,5 @@ public interface ApplicationGraphics {
     void setCamera(ApplicationCamera camera);
     void renderImage(ApplicationSprite sprite);
     void renderTriangle(GraphicalTriangle triangle);
-    void renderText(ApplicationText text, boolean isHud);
+    void renderText(ApplicationText text);
 }

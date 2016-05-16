@@ -1,5 +1,7 @@
 package se.chalmers.tda367_4.game;
 
+import com.sun.javafx.sg.prism.NGNode;
+import javafx.scene.Camera;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.game.entities.Car;
@@ -21,6 +23,7 @@ public class GameApplication implements Scene {
     private Car police;
     private Environment environment;
     private Score score;
+    private GameCamera hudCamera;
 
     private File file = new File("res/highscores.txt");
 
@@ -30,6 +33,8 @@ public class GameApplication implements Scene {
         car = new Player(appEnv);
         police = new Police(appEnv, car);
         score = new Score(0, 1);
+        hudCamera = new GameCamera();
+
 
         GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
                 0.1f, 0.3f, 0.1f);
@@ -61,9 +66,8 @@ public class GameApplication implements Scene {
 
         appEnv.getGraphics().renderImage(car);
         appEnv.getGraphics().renderImage(police);
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false), false);
-        appEnv.getGraphics().renderText(new GameText("GTFA", "Sans_Serif", new Vector2(0, 0), 1, false), true);
-        appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif", new Vector2(0, 9f), 1, false), true);
+        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
+        appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif", hudCamera.getPosition(), 1, false));
 
     }
 
@@ -128,5 +132,6 @@ public class GameApplication implements Scene {
     public float getHeight() {
         return 10;
     }
-    }}
+    }
+}
 

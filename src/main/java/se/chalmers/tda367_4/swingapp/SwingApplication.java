@@ -193,39 +193,36 @@ public class SwingApplication extends JPanel implements Runnable {
             g.fillPolygon(xPoints, yPoints, 3);
         }
 
-        public void renderText(ApplicationText text, boolean followCamera){
+        public void renderText(ApplicationText text){
             Font font = new Font(text.getFont(), Font.PLAIN, (int)(text.getHeight() * projectScalar()));
             Vector2 position;
 
-            if(followCamera){
-                position = camera.getPosition();
-                position = project(position);
-                FontMetrics metrics = g.getFontMetrics(font);
+            /*
+            position = camera.getPosition();
+            position = project(position);
+            FontMetrics metrics = g.getFontMetrics(font);
 
-                position = position.add(new Vector2(
-                        10,
-                        (metrics.getHeight() + 20) / 2));
+            position = position.add(new Vector2(
+                    10,
+                    (metrics.getHeight() + 20) / 2));
 
-                position = position.add(new Vector2(
-                        -displayWidth/2,
-                        -displayHeight/2));
+            position = position.add(new Vector2(
+                    -displayWidth/2,
+                    -displayHeight/2));
 
-                position = position.add(new Vector2(
-                        text.getPosition().getX() * projectScalar(),
-                        text.getPosition().getY() * projectScalar()
-                ));
-            }
-            else{
-                position = text.getPosition();
-                position = project(position);
-                FontMetrics metrics = g.getFontMetrics(font);
-
-                position = position.add(new Vector2(
-                        -metrics.stringWidth(text.getText())/2,
-                        metrics.getHeight() / 4));
+            position = position.add(new Vector2(
+                    text.getPosition().getX() * projectScalar(),
+                    text.getPosition().getY() * projectScalar()
+            ));*/
 
 
-            }
+            position = text.getPosition();
+            position = project(position);
+            FontMetrics metrics = g.getFontMetrics(font);
+
+            position = position.add(new Vector2(
+                    -metrics.stringWidth(text.getText())/2,
+                    metrics.getHeight() / 4));
 
             updateText(text, position, font);
         }
