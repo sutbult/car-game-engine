@@ -8,4 +8,5 @@ public interface ApplicationText {
     Vector2 getPosition();
     float getHeight();
     boolean isBold();
+    ApplicationColor getColor();
 }

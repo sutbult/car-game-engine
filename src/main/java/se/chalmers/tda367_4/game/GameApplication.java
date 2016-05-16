@@ -1,8 +1,7 @@
 package se.chalmers.tda367_4.game;
 
-import com.sun.javafx.sg.prism.NGNode;
-import javafx.scene.Camera;
 import se.chalmers.tda367_4.app.ApplicationCamera;
+import se.chalmers.tda367_4.app.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
@@ -20,59 +19,64 @@ import java.util.List;
 public class GameApplication implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
-    private Car police;
     private Environment environment;
     private Score score;
     private GameCamera hudCamera;
 
     private File file = new File("res/highscores.txt");
+    private List<Car> policeList = new ArrayList<Car>();
+    private List<Vector2> policePositions = new ArrayList<Vector2>();
+
+    public GameApplication (Environment environment, List<Vector2> policePositions) {
+        this.environment = environment;
+        this.policePositions = policePositions;
+    }
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
-        police = new Police(appEnv, car);
         score = new Score(0, 1);
         hudCamera = new GameCamera();
+        createPolice(policePositions);
+    }
 
-
-        GraphicalTriangle triangle = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(4, 2), new Vector2(0, 4),
-                0.1f, 0.3f, 0.1f);
-        GraphicalTriangle triangle2 = new GraphicalTriangleImpl(new Vector2(4, 4), new Vector2(2, 2), new Vector2(2, 4),
-                0.5f, 0.0f, 0.9f);
-        GraphicalTriangle triangle3 = new GraphicalTriangleImpl(new Vector2(-3, -3), new Vector2(-1, -2), new Vector2(0, 0),
-                0.5f, 0.0f, 0.9f);
-        List<GraphicalTriangle> list = new ArrayList<GraphicalTriangle>();
-        list.add(triangle);
-        list.add(triangle2);
-        List<GraphicalTriangle> list2 = new ArrayList<GraphicalTriangle>();
-        list2.add(triangle3);
-
-        environment = new Environment(list, list2);
+    private void createPolice(List<Vector2> vectors) {
+        for (Vector2 vector: vectors) {
+            Car police = new Police(car);
+            police.setPosition(vector);
+            policeList.add(police);
+        }
     }
     public void update(float delta) {
         car.move(delta);
-        police.move(delta);
         score.update(delta);
+
+        for (Car police: policeList) {
+            police.move(delta);
+        }
 
         if (entityCollides(car, environment)) {
             car.revert();
         }
     }
     public void render() {
+        
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {
             appEnv.getGraphics().renderTriangle(triangle);
         }
 
+        for (Car police: policeList) {
+            appEnv.getGraphics().renderImage(police);
+        }
         appEnv.getGraphics().renderImage(car);
-        appEnv.getGraphics().renderImage(police);
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false));
+        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false, new ApplicationColor(0,0,0)));
         appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
                 new Vector2(hudCamera.getPosition().getX() - 4.8f,
                         hudCamera.getPosition().getY() - 4.5f),
                         0.8f,
-                        false));
-
+                        false,
+                        new ApplicationColor(0,0,0)));
     }
 
     /*

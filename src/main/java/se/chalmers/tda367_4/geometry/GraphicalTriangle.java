@@ -1,7 +1,7 @@
 package se.chalmers.tda367_4.geometry;
 
+import se.chalmers.tda367_4.app.ApplicationColor;
+
 public interface GraphicalTriangle extends Triangle {
-    float getR();
-    float getG();
-    float getB();
+    ApplicationColor getColor();
 }
