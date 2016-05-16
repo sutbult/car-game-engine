@@ -52,6 +52,9 @@ public class GameApplication implements Scene {
         }
 
         for (Car police: policeList) {
+            if (entityCollides(car, police)) {
+                appEnv.stop();
+            }
             if (entityCollides(police, environment)) {
                 police.revert();
             }
