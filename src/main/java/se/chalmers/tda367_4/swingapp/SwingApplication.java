@@ -195,9 +195,7 @@ public class SwingApplication extends JPanel implements Runnable {
 
         public void renderText(ApplicationText text){
             Font font = new Font(text.getFont(), Font.PLAIN, (int)(text.getHeight() * projectScalar()));
-            Vector2 position;
-
-            position = text.getPosition();
+            Vector2 position = text.getPosition();
             position = project(position);
             FontMetrics metrics = g.getFontMetrics(font);
 
