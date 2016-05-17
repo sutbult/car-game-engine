@@ -1,5 +1,6 @@
 package se.chalmers.tda367_4.game;
 
+import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
@@ -31,7 +32,7 @@ public class MenuApplication implements Scene {
             changeScene = true;
         }
 
-        if (appEnv.getInput().isKeyDown(ApplicationKey.ESC)){
+        if (appEnv.getInput().isKeyDown(ApplicationKey.DOWN)){
             System.out.println("Change Scene 2");
             System.exit(0);
         }
@@ -49,4 +50,17 @@ public class MenuApplication implements Scene {
             return game;
         }else return null;
     }
+
+    private class MenuCamera implements ApplicationCamera{
+
+        public Vector2 getPosition() {
+            return new Vector2(0, 0);
+        }
+
+        public float getHeight() {
+            return 10;
+        }
+    }
+
+
 }

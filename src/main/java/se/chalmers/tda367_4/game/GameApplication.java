@@ -44,26 +44,27 @@ public class GameApplication implements Scene {
         }
     }
     public void update(float delta) {
-        car.move(delta);
-        for (Car police: policeList) {
-            police.move(delta);
-        }
-
-        if (entityCollides(car, environment)) {
-            car.revert();
-        }
-
-        for (Car police: policeList) {
-            if (entityCollides(car, police)) {
-                changeScene = true;
-                appEnv.stop();
+        if (!appEnv.getInput().isKeyDown(ApplicationKey.ESC)) {
+            changeScene = false;
+            car.move(delta);
+            for (Car police: policeList) {
+                police.move(delta);
             }
-            if (entityCollides(police, environment)) {
-                police.revert();
-            }
-        }
 
-        if(appEnv.getInput().isKeyDown(ApplicationKey.ESC)){
+            if (entityCollides(car, environment)) {
+                car.revert();
+            }
+
+            for (Car police: policeList) {
+                if (entityCollides(car, police)) {
+                    changeScene = true;
+                    appEnv.stop();
+                }
+                if (entityCollides(police, environment)) {
+                    police.revert();
+                }
+            }
+        } else {
             changeScene = true;
         }
     }
