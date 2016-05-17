@@ -3,6 +3,7 @@ package se.chalmers.tda367_4.game;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
+import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
@@ -61,6 +62,10 @@ public class GameApplication implements Scene {
                 police.revert();
             }
         }
+
+        if(appEnv.getInput().isKeyDown(ApplicationKey.ESC)){
+            changeScene = true;
+        }
     }
     public void render() {
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {
@@ -78,7 +83,7 @@ public class GameApplication implements Scene {
     public Scene newScene() {
         if(changeScene){
             System.out.println("Change Scene");
-            return new MenuApplication();
+            return new MenuApplication(this);
         }else return null;
     }
 
