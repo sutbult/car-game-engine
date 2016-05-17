@@ -12,7 +12,6 @@ import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.game.entities.*;
 import se.chalmers.tda367_4.geometry.*;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +20,8 @@ public class GameApplication implements Scene {
     private Car car;
     private Environment environment;
     private Score score;
-    private GameCamera hudCamera;
+    private HudCamera hudCamera;
 
-    private File file = new File("res/highscores.txt");
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
 
@@ -35,9 +33,9 @@ public class GameApplication implements Scene {
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         appEnv.getGraphics().setCamera(new GameCamera());
+        hudCamera = new HudCamera();
         car = new Player(appEnv);
         score = new Score(0, 1);
-        hudCamera = new GameCamera();
         createPolice(policePositions);
     }
 
@@ -81,8 +79,8 @@ public class GameApplication implements Scene {
         appEnv.getGraphics().renderImage(car);
         appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false, new ApplicationColor(0,0,0)));
         appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
-                new Vector2(hudCamera.getPosition().getX() - 4.8f,
-                        hudCamera.getPosition().getY() - 4.5f),
+                new Vector2(hudCamera.getPosition().getX(),
+                        hudCamera.getPosition().getY()),
                         0.8f,
                         false,
                         new ApplicationColor(0,0,0)));
@@ -106,16 +104,27 @@ public class GameApplication implements Scene {
     }
 
     private class GameCamera implements ApplicationCamera {
-    public Vector2 getPosition() {
+        public Vector2 getPosition() {
 
-        // What is supposed to be returned when the environment
-        // has been added:
-        return car.getPosition();
-        //return new Vector2(0, 0);
+            // What is supposed to be returned when the environment
+            // has been added:
+            return car.getPosition();
+            //return new Vector2(0, 0);
+        }
+
+        public float getHeight() {
+            return 10;
+        }
     }
-    public float getHeight() {
-        return 10;
-    }
+
+    private class HudCamera implements ApplicationCamera{
+        public Vector2 getPosition(){
+            return new Vector2(0, 0);
+        }
+
+        public float getHeight(){
+            return 8;
+        }
     }
 }
 
