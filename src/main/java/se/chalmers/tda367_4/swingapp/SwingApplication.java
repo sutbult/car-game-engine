@@ -205,14 +205,11 @@ public class SwingApplication extends JPanel implements Runnable {
                     -metrics.stringWidth(text.getText())/2,
                     metrics.getHeight() / 4));
 
-            updateText(text, position, font);
-        }
-
-        private void updateText(ApplicationText text, Vector2 position, Font font){
             g.setTransform(new AffineTransform());
             g.setFont(font);
             g.setColor(getSwingColor(text.getColor()));
             g.drawString(text.getText(), position.getX(), position.getY());
+
         }
 
         private Color getSwingColor(ApplicationColor color){

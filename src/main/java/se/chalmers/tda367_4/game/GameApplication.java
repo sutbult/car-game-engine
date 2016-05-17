@@ -88,39 +88,6 @@ public class GameApplication implements Scene {
                         new ApplicationColor(0,0,0)));
     }
 
-    /*
-    public void printScoreToFile(String score) {
-        FileWriter fw;
-        BufferedWriter bw;
-        PrintWriter out;
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            fw = new FileWriter(file.getAbsoluteFile(), true);
-            bw = new BufferedWriter(fw);
-            out = new PrintWriter(bw);
-            out.println(score);
-            out.close();
-
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        Why does this segment say 'out' has not been initialized?
-        finally{
-            try{
-                if(out != null){
-                    out.close();
-                }System.out.println("PrintWriter closed");
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-    }*/
-
     public Scene newScene() {
         return null;
     }
