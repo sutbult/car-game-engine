@@ -21,6 +21,7 @@ public class GameApplication implements Scene {
     private Environment environment;
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
+    private boolean changeScene = false;
 
     public GameApplication (Environment environment, List<Vector2> policePositions) {
         this.environment = environment;
@@ -53,6 +54,7 @@ public class GameApplication implements Scene {
 
         for (Car police: policeList) {
             if (entityCollides(car, police)) {
+                changeScene = true;
                 appEnv.stop();
             }
             if (entityCollides(police, environment)) {
@@ -74,8 +76,12 @@ public class GameApplication implements Scene {
                 new ApplicationColor(113,13,31)));
     }
     public Scene newScene() {
-        return null;
+        if(changeScene){
+            System.out.println("Change Scene");
+            return new MenuApplication();
+        }else return null;
     }
+
     private boolean entityCollides(SolidEntity first, SolidEntity second) {
         Triangle[] carTriangles = first.getSolidTriangles();
         Triangle[] obstacleTriangles = second.getSolidTriangles();
@@ -93,8 +99,8 @@ public class GameApplication implements Scene {
         public Vector2 getPosition() {
             // What is supposed to be returned when the environment
             // has been added:
-            return car.getPosition();
-            //return new Vector2(0, 0);
+            //return car.getPosition();
+            return new Vector2(0, 0);
         }
         public float getHeight() {
             return 10;
