@@ -20,6 +20,8 @@ public class GameApplication implements Scene {
     private Car car;
     private Environment environment;
     private Score score;
+    private HudCamera hudCamera;
+    private GameCamera gameCamera;
 
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
@@ -27,11 +29,12 @@ public class GameApplication implements Scene {
     public GameApplication (Environment environment, List<Vector2> policePositions) {
         this.environment = environment;
         this.policePositions = policePositions;
+        hudCamera = new HudCamera();
+        gameCamera = new GameCamera();
     }
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
-        appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv);
         score = new Score(0, 1);
         createPolice(policePositions);
@@ -46,7 +49,7 @@ public class GameApplication implements Scene {
     }
     public void update(float delta) {
         car.move(delta);
-        score.update(delta);
+        score.update(delta*2);
 
         for (Car police: policeList) {
             police.move(delta);
@@ -58,7 +61,7 @@ public class GameApplication implements Scene {
 
         for (Car police: policeList) {
             if (entityCollides(car, police)) {
-                appEnv.stop();
+                //appEnv.stop();
             }
             if (entityCollides(police, environment)) {
                 police.revert();
@@ -66,6 +69,8 @@ public class GameApplication implements Scene {
         }
     }
     public void render() {
+
+        appEnv.getGraphics().setCamera(gameCamera);
         
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {
             appEnv.getGraphics().renderTriangle(triangle);
@@ -76,8 +81,10 @@ public class GameApplication implements Scene {
         }
         appEnv.getGraphics().renderImage(car);
         appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false, new ApplicationColor(0,0,0)));
+        appEnv.getGraphics().setCamera(hudCamera);
+
         appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
-                new HudCamera().getPosition(),
+                new Vector2(-4.9f,-4.5f),
                         0.8f,
                         false,
                         new ApplicationColor(0,0,0)));
@@ -121,7 +128,7 @@ public class GameApplication implements Scene {
         }
 
         public float getHeight(){
-            return 1;
+            return 10;
         }
     }
 }
