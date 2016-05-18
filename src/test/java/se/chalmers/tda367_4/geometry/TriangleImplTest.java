@@ -3,7 +3,7 @@ package se.chalmers.tda367_4.geometry;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static se.chalmers.tda367_4.utils.TestUtils.randFloat;
+import static se.chalmers.tda367_4.geometry.GeometryTestUtils.randFloat;
 
 public class TriangleImplTest {
     @Test

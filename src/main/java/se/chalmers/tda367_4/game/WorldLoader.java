@@ -8,7 +8,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import se.chalmers.tda367_4.app.ApplicationColor;
+import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.game.entities.Environment;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.GraphicalTriangleImpl;

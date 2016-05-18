@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4.app;
+package se.chalmers.tda367_4.geometry;
 
 final public class ApplicationColor {
 
