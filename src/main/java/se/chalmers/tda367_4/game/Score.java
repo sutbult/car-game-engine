@@ -57,4 +57,24 @@ public class Score {
             e.printStackTrace();
         }
     }
+
+    public float getHighScore(){
+        float highScore = 0;
+
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            for(String line = br.readLine(); line != null; line = br.readLine()){
+                float tmp = Float.valueOf(line);
+                if(tmp > highScore){
+                    highScore = tmp;
+                }
+            }
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return highScore;
+    }
 }
