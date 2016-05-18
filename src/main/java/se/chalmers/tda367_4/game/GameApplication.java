@@ -58,6 +58,7 @@ public class GameApplication implements Scene {
             for (Car police: policeList) {
                 if (entityCollides(car, police)) {
                     changeScene = true;
+                    System.out.println("Captured");
                     appEnv.stop();
                 }
                 if (entityCollides(police, environment)) {
@@ -65,6 +66,7 @@ public class GameApplication implements Scene {
                 }
             }
         } else {
+            System.out.println("Pressed escape");
             changeScene = true;
         }
     }

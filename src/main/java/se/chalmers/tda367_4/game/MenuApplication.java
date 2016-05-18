@@ -10,9 +10,9 @@ import se.chalmers.tda367_4.scenes.Scene;
 public class MenuApplication implements Scene {
 
     private ApplicationEnvironment appEnv;
-    private GameText playText = new GameText("Play (Space)", "Sans-Serif", new Vector2(0, 0), 1.2f, false,
+    private GameText playText = new GameText("1) Play", "Sans-Serif", new Vector2(0, 0), 1, false,
             new ApplicationColor(0,0,0));
-    private GameText quitText = new GameText("Quit (Escape)", "Sans-Serif", new Vector2(0, -1.2f), 1, false,
+    private GameText quitText = new GameText("2) Quit", "Sans-Serif", new Vector2(0, -1.2f), 0.8f, false,
             new ApplicationColor(0,0,0));
     private boolean changeScene = false;
     private GameApplication game;
@@ -28,12 +28,12 @@ public class MenuApplication implements Scene {
 
     public void update(float delta){
         if (appEnv.getInput().isKeyDown(ApplicationKey.SPACE)){
-            System.out.println("Change Scene 2");
+            System.out.println("Pressed play");
             changeScene = true;
         }
 
         if (appEnv.getInput().isKeyDown(ApplicationKey.DOWN)){
-            System.out.println("Change Scene 2");
+            System.out.println("Pressed quit");
             System.exit(0);
         }
 
@@ -46,7 +46,7 @@ public class MenuApplication implements Scene {
 
     public Scene newScene() {
         if(changeScene){
-            System.out.println("Change Scene 2");
+            System.out.println("Change Scene");
             return game;
         }else return null;
     }
