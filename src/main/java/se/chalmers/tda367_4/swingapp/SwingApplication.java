@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -11,8 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 
 public class SwingApplication extends JPanel implements Runnable {
@@ -69,7 +69,7 @@ public class SwingApplication extends JPanel implements Runnable {
                 Thread.sleep(10);
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
+                break;
             }
         }
     }
@@ -82,8 +82,11 @@ public class SwingApplication extends JPanel implements Runnable {
         public ApplicationInput getInput() {
             return swingInput;
         }
-    }
 
+        public void stop() {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
@@ -199,10 +202,12 @@ public class SwingApplication extends JPanel implements Runnable {
             position = position.add(new Vector2(
                     -metrics.stringWidth(text.getText())/2,
                     metrics.getHeight() / 4));
+
             g.setTransform(new AffineTransform());
             g.setFont(font);
             g.setColor(getSwingColor(text.getColor()));
             g.drawString(text.getText(), position.getX(), position.getY());
+
         }
 
         private Color getSwingColor(ApplicationColor color){
