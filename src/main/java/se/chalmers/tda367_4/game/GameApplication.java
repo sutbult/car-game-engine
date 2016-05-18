@@ -4,6 +4,7 @@ import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.game.entities.PowerUps.*;
 import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
+import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
@@ -29,6 +30,7 @@ public class GameApplication implements Scene {
 
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
+    private boolean changeScene = false;
 
     private PowerUpFactory powerUpFactory;
 
@@ -137,7 +139,10 @@ public class GameApplication implements Scene {
     }
 
     public Scene newScene() {
-        return null;
+        if(changeScene){
+            System.out.println("Change Scene");
+            return new MenuApplication(this);
+        }else return null;
     }
     private class GameCamera implements ApplicationCamera {
 
