@@ -28,15 +28,12 @@ public class MenuApplication implements Scene {
 
     public void update(float delta){
         if (appEnv.getInput().isKeyDown(ApplicationKey.ONE)){
-            System.out.println("Pressed play");
             changeScene = true;
         }
 
         if (appEnv.getInput().isKeyDown(ApplicationKey.TWO)){
-            System.out.println("Pressed quit");
             System.exit(0);
         }
-
     }
 
     public void render() {
@@ -47,9 +44,9 @@ public class MenuApplication implements Scene {
 
     public Scene newScene() {
         if(changeScene){
-            System.out.println("Change Scene");
             WorldLoader worldLoader = new WorldLoader();
-            return worldLoader.createWorld("world1");
+            GameApplication endScene = worldLoader.createWorld("world1");
+            return endScene;
         }else return null;
     }
 

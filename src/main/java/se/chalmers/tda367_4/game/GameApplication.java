@@ -27,12 +27,14 @@ public class GameApplication implements Scene {
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
     private boolean changeScene = false;
+    private Scene endScene;
 
     public GameApplication (Environment environment, List<Vector2> policePositions) {
         this.environment = environment;
         this.policePositions = policePositions;
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
+        endScene = new MenuApplication();
     }
 
     public void init(ApplicationEnvironment appEnv) {
@@ -66,18 +68,13 @@ public class GameApplication implements Scene {
 
             for (Car police: policeList) {
                 if (entityCollides(car, police)) {
-                    System.out.println("Captured");
                     changeScene = true;
-
                 }
                 if (entityCollides(police, environment)) {
                     police.revert();
                 }
             }
-        } else {
-            System.out.println("Pressed escape");
-            changeScene = true;
-        }
+        } else changeScene = true;
     }
     public void render() {
         appEnv.getGraphics().setCamera(gameCamera);
@@ -102,9 +99,11 @@ public class GameApplication implements Scene {
 
     public Scene newScene() {
         if(changeScene){
-            System.out.println("Change Scene");
-            return new MenuApplication();
+            return endScene;
         }else return null;
+    }
+    public void setEndScene(Scene endScene) {
+        this.endScene = endScene;
     }
 
     private boolean entityCollides(SolidEntity first, SolidEntity second) {
