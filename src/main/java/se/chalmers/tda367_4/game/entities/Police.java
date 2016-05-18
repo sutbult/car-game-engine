@@ -1,5 +1,6 @@
 package se.chalmers.tda367_4.game.entities;
 
+import se.chalmers.tda367_4.game.Multiplier;
 import se.chalmers.tda367_4.game.entities.utils.Direction;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -11,8 +12,8 @@ public class Police extends Car {
 
     private Car player;
 
-    public Police(Car player) {
-        super("car_3_blue.png");
+    public Police(Car player, Multiplier speed) {
+        super("car_3_blue.png", speed);
         this.player = player;
     }
 

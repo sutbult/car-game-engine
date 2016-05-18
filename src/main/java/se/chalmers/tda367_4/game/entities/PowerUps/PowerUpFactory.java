@@ -25,16 +25,27 @@ public class PowerUpFactory {
                 r.nextFloat() * (2 * maxLocationValue) - maxLocationValue,
                 r.nextFloat() * (2 * maxLocationValue) - maxLocationValue
         );
-        PowerUp powerUp = new PowerUp(position);
+        PowerUp powerUp = generatePowerUp(position);
         while (entityCollides(powerUp, environment) ||
                 powerUpCollides(powerUp, environment.getPowerUps())) {
             position = new Vector2(
                     r.nextFloat() * (2 * maxLocationValue) - maxLocationValue,
                     r.nextFloat() * (2 * maxLocationValue) - maxLocationValue
             );
-            powerUp = new PowerUp(position);
+            powerUp = generatePowerUp(position);
         }
         environment.addPowerUp(powerUp);
+    }
+
+    private PowerUp generatePowerUp(Vector2 position) {
+        double amountOfPowerUps = 3;
+        if (Math.random() < 1 / amountOfPowerUps) {
+            return new PlayerSpeedBoost(position, 3, 3);
+        } else if (Math.random() < 2 / amountOfPowerUps){
+            return new ScoreMultiplier(position, 6.5f, 5);
+        } else {
+            return new ScoreBoost(position, 30);
+        }
     }
 
     private boolean powerUpCollides(SolidEntity first, List<PowerUp> second) {

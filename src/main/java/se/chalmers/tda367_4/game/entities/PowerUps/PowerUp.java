@@ -7,16 +7,16 @@ import se.chalmers.tda367_4.geometry.Triangle;
 import se.chalmers.tda367_4.geometry.TriangleImpl;
 import se.chalmers.tda367_4.geometry.Vector2;
 
-public class PowerUp implements ImageEntity, SolidEntity {
+public abstract class PowerUp implements ImageEntity, SolidEntity {
 
     private Vector2 position;
     private ApplicationImage image;
     private final static Vector2 POWERUP_SIZE = new Vector2(1, 1);
     private Triangle[] triangles;
 
-    public PowerUp(Vector2 position) {
+    public PowerUp(Vector2 position, String imageName) {
         this.position = position;
-        image = new ApplicationImage("quake-stomp.png");
+        image = new ApplicationImage(imageName);
         triangles = new Triangle[2];
         triangles[0] = new TriangleImpl(
                 new Vector2(position.getX() + POWERUP_SIZE.getX() / 2, position.getY() + POWERUP_SIZE.getY() / 2),
@@ -49,4 +49,8 @@ public class PowerUp implements ImageEntity, SolidEntity {
     public Triangle[] getSolidTriangles() {
         return triangles;
     }
+
+    public abstract float getMultiplier();
+
+    public abstract int getDuration();
 }
