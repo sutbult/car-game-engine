@@ -1,9 +1,7 @@
 package se.chalmers.tda367_4.game.entities;
 
-import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationImage;
-import se.chalmers.tda367_4.app.ApplicationSprite;
-import se.chalmers.tda367_4.game.Direction;
+import se.chalmers.tda367_4.game.entities.utils.Direction;
 import se.chalmers.tda367_4.geometry.*;
 
 public abstract class Car implements ImageEntity, SolidEntity {
