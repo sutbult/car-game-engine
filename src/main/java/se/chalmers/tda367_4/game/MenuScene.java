@@ -7,18 +7,18 @@ import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.scenes.Scene;
 
-public class MenuApplication implements Scene {
+public class MenuScene implements Scene {
 
     private ApplicationEnvironment appEnv;
-    private GameText playText = new GameText("Play (Space)", "Sans-Serif", new Vector2(0, 0), 1.2f, false,
+    private GameText playText = new GameText("Play (1)", "Sans-Serif", new Vector2(0, 0), 0.9f, false,
             new ApplicationColor(0,0,0));
-    private GameText quitText = new GameText("Quit (Escape)", "Sans-Serif", new Vector2(0, -1.2f), 1, false,
+    private GameText quitText = new GameText("Quit (2)", "Sans-Serif", new Vector2(0, -1.2f), 0.9f, false,
             new ApplicationColor(0,0,0));
     private boolean changeScene = false;
-    private GameApplication game;
+    private MenuCamera menuCamera;
 
-    public MenuApplication(GameApplication game){
-        this.game = game;
+    public MenuScene(){
+        menuCamera = new MenuCamera();
     }
 
 
@@ -27,27 +27,26 @@ public class MenuApplication implements Scene {
     }
 
     public void update(float delta){
-        if (appEnv.getInput().isKeyDown(ApplicationKey.SPACE)){
-            System.out.println("Change Scene 2");
+        if (appEnv.getInput().isKeyDown(ApplicationKey.ONE)){
             changeScene = true;
         }
 
-        if (appEnv.getInput().isKeyDown(ApplicationKey.DOWN)){
-            System.out.println("Change Scene 2");
+        if (appEnv.getInput().isKeyDown(ApplicationKey.TWO)){
             System.exit(0);
         }
-
     }
 
     public void render() {
+        appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(playText);
         appEnv.getGraphics().renderText(quitText);
     }
 
     public Scene newScene() {
         if(changeScene){
-            System.out.println("Change Scene 2");
-            return game;
+            WorldLoader worldLoader = new WorldLoader();
+            GameScene endScene = worldLoader.createWorld("world1");
+            return endScene;
         }else return null;
     }
 

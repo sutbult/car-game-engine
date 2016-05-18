@@ -20,7 +20,7 @@ import java.util.List;
 
 import static se.chalmers.tda367_4.Utilities.entityCollides;
 
-public class GameApplication implements Scene {
+public class GameScene implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
     private Environment environment;
@@ -31,13 +31,14 @@ public class GameApplication implements Scene {
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
     private boolean changeScene = false;
+    private Scene endScene;
 
     private PowerUpFactory powerUpFactory;
 
     private Multiplier playerSpeed = new Multiplier(7);
     private Multiplier policeSpeed = new Multiplier(6);
 
-    public GameApplication (Environment environment, List<Vector2> policePositions) {
+    public GameScene(Environment environment, List<Vector2> policePositions) {
         this.environment = environment;
         this.policePositions = policePositions;
 
@@ -45,6 +46,7 @@ public class GameApplication implements Scene {
 
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
+        endScene = new MenuScene();
     }
 
     public void init(ApplicationEnvironment appEnv) {
@@ -63,29 +65,34 @@ public class GameApplication implements Scene {
         }
     }
     public void update(float delta) {
-        car.move(delta);
-        score.update(delta*2);
+        if (!appEnv.getInput().isKeyDown(ApplicationKey.ESC)) {
+            changeScene = false;
+            car.move(delta);
+            score.update(delta*2);
 
-        for (Car police: policeList) {
-            police.move(delta);
-        }
+            for (Car police: policeList) {
+                police.move(delta);
+           }
 
-        if (entityCollides(car, environment)) {
-            car.revert();
-        }
-
-        for (Car police: policeList) {
-            if (entityCollides(car, police)) {
-                //appEnv.stop();
+            if (entityCollides(car, environment)) {
+                car.revert();
             }
-            if (entityCollides(police, environment)) {
-                police.revert();
+            for (Car police: policeList) {
+                if (entityCollides(car, police)) {
+                    changeScene = true;
+                }
+                if (entityCollides(police, environment)) {
+                    police.revert();
+                }
             }
+        } else {
+            changeScene = true;
         }
-
-
         handlePowerups();
     }
+
+
+
 
     private void handlePowerups() {
 
@@ -140,10 +147,13 @@ public class GameApplication implements Scene {
 
     public Scene newScene() {
         if(changeScene){
-            System.out.println("Change Scene");
-            return new MenuApplication(this);
+            return endScene;
         }else return null;
     }
+    public void setEndScene(Scene endScene) {
+        this.endScene = endScene;
+    }
+
     private class GameCamera implements ApplicationCamera {
 
         public Vector2 getPosition() {
