@@ -69,6 +69,11 @@ public class GameApplication implements Scene {
         }
 
 
+        handlePowerups();
+    }
+
+    private void handlePowerups() {
+
         if (Math.random() < 0.01) {
             powerUpFactory.createPowerUp();
         }
@@ -81,6 +86,7 @@ public class GameApplication implements Scene {
             }
         }
     }
+
     public void render() {
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {
             appEnv.getGraphics().renderTriangle(triangle);
