@@ -5,8 +5,9 @@ public enum ApplicationKey {
     DOWN(1),
     LEFT(2),
     RIGHT(3),
-    SPACE(4),
-    ESC(5);
+    ONE(4),
+    TWO(5),
+    ESC(6);
 
 
     private int id;

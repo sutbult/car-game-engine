@@ -10,15 +10,15 @@ import se.chalmers.tda367_4.scenes.Scene;
 public class MenuApplication implements Scene {
 
     private ApplicationEnvironment appEnv;
-    private GameText playText = new GameText("1) Play", "Sans-Serif", new Vector2(0, 0), 1, false,
+    private GameText playText = new GameText("Play (1)", "Sans-Serif", new Vector2(0, 0), 0.9f, false,
             new ApplicationColor(0,0,0));
-    private GameText quitText = new GameText("2) Quit", "Sans-Serif", new Vector2(0, -1.2f), 0.8f, false,
+    private GameText quitText = new GameText("Quit (2)", "Sans-Serif", new Vector2(0, -1.2f), 0.9f, false,
             new ApplicationColor(0,0,0));
     private boolean changeScene = false;
-    private GameApplication game;
+    private MenuCamera menuCamera;
 
-    public MenuApplication(GameApplication game){
-        this.game = game;
+    public MenuApplication(){
+        menuCamera = new MenuCamera();
     }
 
 
@@ -27,12 +27,12 @@ public class MenuApplication implements Scene {
     }
 
     public void update(float delta){
-        if (appEnv.getInput().isKeyDown(ApplicationKey.SPACE)){
+        if (appEnv.getInput().isKeyDown(ApplicationKey.ONE)){
             System.out.println("Pressed play");
             changeScene = true;
         }
 
-        if (appEnv.getInput().isKeyDown(ApplicationKey.DOWN)){
+        if (appEnv.getInput().isKeyDown(ApplicationKey.TWO)){
             System.out.println("Pressed quit");
             System.exit(0);
         }
@@ -40,6 +40,7 @@ public class MenuApplication implements Scene {
     }
 
     public void render() {
+        appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(playText);
         appEnv.getGraphics().renderText(quitText);
     }
@@ -47,7 +48,8 @@ public class MenuApplication implements Scene {
     public Scene newScene() {
         if(changeScene){
             System.out.println("Change Scene");
-            return game;
+            WorldLoader worldLoader = new WorldLoader();
+            return worldLoader.createWorld("world1");
         }else return null;
     }
 

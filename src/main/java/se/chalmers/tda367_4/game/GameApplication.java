@@ -54,6 +54,8 @@ public class GameApplication implements Scene {
         if (!appEnv.getInput().isKeyDown(ApplicationKey.ESC)) {
             changeScene = false;
             car.move(delta);
+            score.update(delta*2);
+
             for (Car police: policeList) {
                 police.move(delta);
             }
@@ -64,9 +66,9 @@ public class GameApplication implements Scene {
 
             for (Car police: policeList) {
                 if (entityCollides(car, police)) {
-                    changeScene = true;
                     System.out.println("Captured");
-                    appEnv.stop();
+                    changeScene = true;
+
                 }
                 if (entityCollides(police, environment)) {
                     police.revert();
@@ -101,7 +103,7 @@ public class GameApplication implements Scene {
     public Scene newScene() {
         if(changeScene){
             System.out.println("Change Scene");
-            return new MenuApplication(this);
+            return new MenuApplication();
         }else return null;
     }
 
@@ -124,8 +126,8 @@ public class GameApplication implements Scene {
         public Vector2 getPosition() {
             // What is supposed to be returned when the environment
             // has been added:
-            //return car.getPosition();
-            return new Vector2(0, 0);
+            return car.getPosition();
+            //return new Vector2(0, 0);
         }
 
         public float getHeight() {

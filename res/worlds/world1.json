@@ -98,15 +98,9 @@
 "Policecars": [{
   "Position": [5,5]
 },{
-  "Position": [-3,-3]
-},{
-  "Position": [-4,-3]
-},{
   "Position": [-5,-3]
 },{
   "Position": [-6,-3]
-},{
-  "Position": [-3,-6]
 },{
   "Position": [-3,-5]
 }]
