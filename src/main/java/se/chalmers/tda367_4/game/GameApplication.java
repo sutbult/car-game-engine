@@ -23,7 +23,6 @@ public class GameApplication implements Scene {
     private Score score;
     private HudCamera hudCamera;
     private GameCamera gameCamera;
-    private int tmp;
 
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
@@ -65,9 +64,7 @@ public class GameApplication implements Scene {
             if (entityCollides(car, police)) {
                 //appEnv.stop();
                 try{
-                    tmp++;
                     score.saveScore();
-                    System.out.println("Save Score" + tmp);
                 }catch (IOException e){
                     e.printStackTrace();
                 }
