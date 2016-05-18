@@ -1,7 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
-import se.chalmers.tda367_4.game.GameText;
+import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.geometry.GraphicalTriangleImpl;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -15,16 +15,18 @@ public class TestApplication implements Application {
     private ApplicationImage image;
     private Cube cube;
     private ApplicationColor color;
+    private ApplicationText text;
 
     public void init(ApplicationEnvironment appEnv) {
         env = appEnv;
         image = new ApplicationImage("car_yellow.png");
         cube = new Cube();
         color = new ApplicationColor(127,255,0);
+        text = new TestText();
     }
 
     public void update(float delta) {
-        //cube.update(delta);
+        cube.update(delta);
         cube.update(0);
     }
 
@@ -38,8 +40,28 @@ public class TestApplication implements Application {
                 color
         ));
 
-        env.getGraphics().renderText(
-                new GameText("Example", "sans-Serif", cube.getPosition(), 20, false, new ApplicationColor(0,0,0)));
+        env.getGraphics().renderText(text);
+                //new GameText("Example", "sans-Serif", cube.getPosition(), 20, false, new ApplicationColor(0,0,0)));
+    }
+    private class TestText implements ApplicationText {
+        public String getText() {
+            return "Example";
+        }
+        public String getFont() {
+            return "sans-Serif";
+        }
+        public Vector2 getPosition() {
+            return cube.getPosition();
+        }
+        public float getHeight() {
+            return 20;
+        }
+        public boolean isBold() {
+            return false;
+        }
+        public ApplicationColor getColor() {
+            return new ApplicationColor(0, 0, 0);
+        }
     }
 
     private class Cube implements ApplicationSprite {
