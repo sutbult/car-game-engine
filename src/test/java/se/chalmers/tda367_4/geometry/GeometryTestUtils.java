@@ -1,10 +1,10 @@
-package se.chalmers.tda367_4.utils;
+package se.chalmers.tda367_4.geometry;
 
 import se.chalmers.tda367_4.geometry.Matrix2;
 import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.geometry.Vector3;
 
-public class TestUtils {
+public class GeometryTestUtils {
     public static float randFloat() {
         //return Math.random()
         float base = (float)Math.random();

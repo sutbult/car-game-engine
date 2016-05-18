@@ -1,9 +1,7 @@
 package se.chalmers.tda367_4.game.entities;
 
-import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationImage;
-import se.chalmers.tda367_4.app.ApplicationSprite;
-import se.chalmers.tda367_4.game.Direction;
+import se.chalmers.tda367_4.game.entities.utils.Direction;
 import se.chalmers.tda367_4.geometry.*;
 
 public abstract class Car implements ImageEntity, SolidEntity {
@@ -18,8 +16,8 @@ public abstract class Car implements ImageEntity, SolidEntity {
     private Triangle[] triangles;
     private Triangle[] prevTriangles;
 
-    public Car() {
-        image = new ApplicationImage("car_red.png");
+    public Car(String imagePath) {
+        image = new ApplicationImage(imagePath);
         position = new Vector2(0.1f, 0.1f);
         rotation = 0;
         updateTriangles();
@@ -42,10 +40,6 @@ public abstract class Car implements ImageEntity, SolidEntity {
         position = prevPosition;
         triangles = prevTriangles;
         rotation = prevRotation;
-    }
-
-    public void setImage(String image) {
-        this.image = new ApplicationImage(image);
     }
 
     public void setPosition (Vector2 position) {

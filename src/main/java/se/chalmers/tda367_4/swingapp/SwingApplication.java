@@ -1,6 +1,7 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
+import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.geometry.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -11,8 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 
 public class SwingApplication extends JPanel implements Runnable {
@@ -69,21 +69,21 @@ public class SwingApplication extends JPanel implements Runnable {
                 Thread.sleep(10);
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
+                break;
             }
         }
     }
     private class SwingEnvironment implements ApplicationEnvironment {
-
         public ApplicationGraphics getGraphics() {
             return swingGraphics;
         }
-
         public ApplicationInput getInput() {
             return swingInput;
         }
+        public void stop() {
+            Thread.currentThread().interrupt();
+        }
     }
-
 
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
@@ -130,9 +130,6 @@ public class SwingApplication extends JPanel implements Runnable {
             );
             return vector;
         }
-
-
-
         public void renderImage(ApplicationSprite sprite) {
             ApplicationImage image = sprite.getImage();
 
@@ -161,7 +158,6 @@ public class SwingApplication extends JPanel implements Runnable {
                         null
                 );
         }
-
         private ApplicationImage loadImage(String src) {
                 File file = new File(src);
                 BufferedImage image;
@@ -175,7 +171,6 @@ public class SwingApplication extends JPanel implements Runnable {
                 return new ApplicationImage(src);
 
         }
-
         public void renderTriangle(GraphicalTriangle triangle) {
             Vector2[] corners = triangle.getCorners();
             int[] xPoints = new int[3];
@@ -186,10 +181,9 @@ public class SwingApplication extends JPanel implements Runnable {
                 yPoints[i] = (int)corner.getY();
             }
             g.setTransform(new AffineTransform());
-            g.setColor(GraphicalTriangleColor(triangle));
+            g.setColor(getSwingColor(triangle.getColor()));
             g.fillPolygon(xPoints, yPoints, 3);
         }
-
         public void renderText(ApplicationText text){
             Font font = new Font(text.getFont(), Font.PLAIN, (int)(text.getHeight() * projectScalar()));
             Vector2 position = text.getPosition();
@@ -199,27 +193,20 @@ public class SwingApplication extends JPanel implements Runnable {
             position = position.add(new Vector2(
                     -metrics.stringWidth(text.getText())/2,
                     metrics.getHeight() / 4));
+
             g.setTransform(new AffineTransform());
             g.setFont(font);
-            g.setColor(ApplicationTextColor(text));
+            g.setColor(getSwingColor(text.getColor()));
             g.drawString(text.getText(), position.getX(), position.getY());
         }
-        private Color ApplicationTextColor(ApplicationText input){
+        private Color getSwingColor(ApplicationColor color){
             return new Color(
-                    input.getColor().getR(),
-                    input.getColor().getG(),
-                    input.getColor().getB()
-            );
-        }
-        private Color GraphicalTriangleColor(GraphicalTriangle input){
-            return new Color(
-                    input.getColor().getR(),
-                    input.getColor().getG(),
-                    input.getColor().getB()
+                    color.getR(),
+                    color.getG(),
+                    color.getB()
             );
         }
     }
-
     private class SwingInput implements ApplicationInput, KeyListener {
         private boolean[] states;
 

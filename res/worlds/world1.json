@@ -96,29 +96,15 @@
 }],
 "Playerposition": [0,0],
 "Policecars": [{
-  "Position": [4,4]
+  "Position": [5,5]
 },{
   "Position": [-3,-3]
-},{
-  "Position": [0,-3]
-},{
-  "Position": [-2,-3]
-},{
-  "Position": [-1,-3]
-},{
-  "Position": [1,-3]
 },{
   "Position": [-4,-3]
 },{
   "Position": [-5,-3]
 },{
   "Position": [-6,-3]
-},{
-  "Position": [-3,-1]
-},{
-  "Position": [-3,-2]
-},{
-  "Position": [-3,0]
 },{
   "Position": [-3,-6]
 },{

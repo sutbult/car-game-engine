@@ -3,13 +3,13 @@ package se.chalmers.tda367_4.game.entities;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationInput;
 import se.chalmers.tda367_4.app.ApplicationKey;
-import se.chalmers.tda367_4.game.Direction;
+import se.chalmers.tda367_4.game.entities.utils.Direction;
 
 public class Player extends Car {
     private ApplicationEnvironment env;
 
     public Player(ApplicationEnvironment env) {
-        super();
+        super("car_yellow.png");
         this.env = env;
     }
     protected Direction getDirection() {
