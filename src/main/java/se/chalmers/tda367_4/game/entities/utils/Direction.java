@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4.game;
+package se.chalmers.tda367_4.game.entities.utils;
 
 public enum Direction {
     FORWARD(0, 1),
