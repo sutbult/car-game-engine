@@ -69,9 +69,8 @@ public class GameApplication implements Scene {
         }
     }
     public void render() {
-
         appEnv.getGraphics().setCamera(gameCamera);
-        
+
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {
             appEnv.getGraphics().renderTriangle(triangle);
         }
