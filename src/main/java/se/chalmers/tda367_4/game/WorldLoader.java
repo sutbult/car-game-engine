@@ -17,7 +17,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 public class WorldLoader {
 
 
-    public static GameApplication createWorld (String fileName){
+    public static GameScene createWorld (String fileName){
         JSONObject jsonObject = new JSONObject();
         try {
             JSONParser parser = new JSONParser();
@@ -25,7 +25,7 @@ public class WorldLoader {
         } catch (Exception e) {
             System.out.println("Problem parsing JSON file");
         }
-        return new GameApplication(new Environment(
+        return new GameScene(new Environment(
                 getTriangles("solid-triangles", jsonObject),
                 getTriangles("nonsolid-triangles", jsonObject)),
                 getPolicePositions(jsonObject)

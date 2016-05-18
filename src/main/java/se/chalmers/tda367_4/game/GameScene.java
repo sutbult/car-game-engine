@@ -16,7 +16,7 @@ import se.chalmers.tda367_4.geometry.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameApplication implements Scene {
+public class GameScene implements Scene {
     private ApplicationEnvironment appEnv;
     private Car car;
     private Environment environment;
@@ -29,12 +29,12 @@ public class GameApplication implements Scene {
     private boolean changeScene = false;
     private Scene endScene;
 
-    public GameApplication (Environment environment, List<Vector2> policePositions) {
+    public GameScene(Environment environment, List<Vector2> policePositions) {
         this.environment = environment;
         this.policePositions = policePositions;
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
-        endScene = new MenuApplication();
+        endScene = new MenuScene();
     }
 
     public void init(ApplicationEnvironment appEnv) {

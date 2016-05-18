@@ -7,7 +7,7 @@ import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.scenes.Scene;
 
-public class MenuApplication implements Scene {
+public class MenuScene implements Scene {
 
     private ApplicationEnvironment appEnv;
     private GameText playText = new GameText("Play (1)", "Sans-Serif", new Vector2(0, 0), 0.9f, false,
@@ -17,7 +17,7 @@ public class MenuApplication implements Scene {
     private boolean changeScene = false;
     private MenuCamera menuCamera;
 
-    public MenuApplication(){
+    public MenuScene(){
         menuCamera = new MenuCamera();
     }
 
@@ -45,7 +45,7 @@ public class MenuApplication implements Scene {
     public Scene newScene() {
         if(changeScene){
             WorldLoader worldLoader = new WorldLoader();
-            GameApplication endScene = worldLoader.createWorld("world1");
+            GameScene endScene = worldLoader.createWorld("world1");
             return endScene;
         }else return null;
     }
