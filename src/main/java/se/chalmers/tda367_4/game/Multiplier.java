@@ -7,7 +7,7 @@ public class Multiplier {
 
     private float currentMultiplier;
     private final float standardMultiplier;
-    Timer timer = new Timer();
+    private Timer timer = new Timer();
 
     public Multiplier(float modifier) {
         this.currentMultiplier = modifier;
