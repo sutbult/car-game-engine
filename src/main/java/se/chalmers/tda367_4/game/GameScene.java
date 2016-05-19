@@ -35,7 +35,6 @@ public class GameScene implements Scene {
         this.policePositions = policePositions;
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
-        endScene = new PauseMenuScene();
     }
 
     public void init(ApplicationEnvironment appEnv) {
@@ -99,7 +98,7 @@ public class GameScene implements Scene {
 
     public Scene newScene() {
         if(changeScene){
-            return endScene;
+            return new PauseMenuScene(score);
         }else return null;
     }
     public void setEndScene(Scene endScene) {

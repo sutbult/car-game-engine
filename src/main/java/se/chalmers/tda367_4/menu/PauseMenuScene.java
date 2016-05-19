@@ -3,6 +3,7 @@ package se.chalmers.tda367_4.menu;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.game.GameScene;
 import se.chalmers.tda367_4.game.GameText;
+import se.chalmers.tda367_4.game.Score;
 import se.chalmers.tda367_4.game.WorldLoader;
 import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
@@ -20,13 +21,16 @@ public class PauseMenuScene implements Scene {
 
     private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
             new ApplicationColor(0,0,0));
-    private GameText playText = new GameText("New game", "Sans-Serif", new Vector2(0, 1), 0.8f, false,
+    private GameText scoreText = new GameText("Your score:", "Sans-Serif", new Vector2(0, 1.5f), 0.6f, false,
+            new ApplicationColor(0,0,0));
+    private GameText showScoreText;
+    private GameText playText = new GameText("New game", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
             new ApplicationColor(250,0,0));
-    private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, 0), 0.8f, false,
+    private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, -2), 0.8f, false,
             new ApplicationColor(0,0,0));
-    private GameText settingsText = new GameText("Settings", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
+    private GameText settingsText = new GameText("Settings", "Sans-Serif", new Vector2(0, -3), 0.8f, false,
             new ApplicationColor(0,0,0));
-    private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -2), 0.8f, false,
+    private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -4), 0.8f, false,
             new ApplicationColor(0,0,0));
 
     private boolean gameScene = false;
@@ -34,9 +38,15 @@ public class PauseMenuScene implements Scene {
     private int menuIndex = 0;
     private MenuCamera menuCamera;
 
-    public PauseMenuScene(){
+    public PauseMenuScene(Score score){
         menuCamera = new MenuCamera();
         gameTextList = new ArrayList<GameText>();
+        showScoreText = new GameText(String.valueOf(Math.round(score.getScore())), "Sans_Serif",
+                new Vector2(0,0.3f),
+                1.4f,
+                false,
+                new ApplicationColor(0,100,0));
+
         gameTextList.add(playText);
         gameTextList.add(highscoresText);
         gameTextList.add(settingsText);
@@ -73,6 +83,8 @@ public class PauseMenuScene implements Scene {
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(gtfaText);
+        appEnv.getGraphics().renderText(scoreText);
+        appEnv.getGraphics().renderText(showScoreText);
         for(GameText text: gameTextList){
             appEnv.getGraphics().renderText(text);
         }
