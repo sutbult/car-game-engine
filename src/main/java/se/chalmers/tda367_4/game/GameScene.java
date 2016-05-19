@@ -1,19 +1,21 @@
 package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
-import se.chalmers.tda367_4.geometry.ApplicationColor;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
 import se.chalmers.tda367_4.menu.EndMenuScene;
+import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
+import se.chalmers.tda367_4.geometry.triangle.Triangle;
 import se.chalmers.tda367_4.scenes.Scene;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import se.chalmers.tda367_4.game.entities.*;
-import se.chalmers.tda367_4.geometry.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,19 +57,25 @@ public class GameScene implements Scene {
         if (!appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
             changeScene = false;
             car.move(delta);
-            score.update(delta*2);
+            score.update(delta * 2);
 
-            for (Car police: policeList) {
+            for (Car police : policeList) {
                 police.move(delta);
             }
 
             if (entityCollides(car, environment)) {
                 car.revert();
-            }
 
-            for (Car police: policeList) {
+            }
+            for (Car police : policeList) {
                 if (entityCollides(car, police)) {
-                    changeScene = true;
+                    try {
+                        score.saveScore();
+                        changeScene = true;
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 if (entityCollides(police, environment)) {
                     police.revert();
@@ -75,7 +83,7 @@ public class GameScene implements Scene {
             }
         } else changeScene = true;
     }
-    public void render() {
+    public void render(){
         appEnv.getGraphics().setCamera(gameCamera);
 
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {

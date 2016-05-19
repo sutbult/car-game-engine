@@ -1,4 +1,6 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.matrix;
+
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public class Matrix2 {
     private final static float[] IDENTITY = {

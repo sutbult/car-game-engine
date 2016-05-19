@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4.game;
+package se.chalmers.tda367_4.main;
 
 import se.chalmers.tda367_4.menu.StartMenuScene;
 import se.chalmers.tda367_4.scenes.SceneManager;

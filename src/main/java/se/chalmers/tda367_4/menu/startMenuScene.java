@@ -4,10 +4,10 @@ import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.game.GameScene;
 import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.game.WorldLoader;
-import se.chalmers.tda367_4.geometry.ApplicationColor;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 import se.chalmers.tda367_4.scenes.Scene;
 
 import java.util.ArrayList;
