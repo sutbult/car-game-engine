@@ -12,6 +12,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.game.entities.*;
 import se.chalmers.tda367_4.geometry.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,11 @@ public class GameApplication implements Scene {
         for (Car police: policeList) {
             if (entityCollides(car, police)) {
                 //appEnv.stop();
+                try{
+                    score.saveScore();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
             }
             if (entityCollides(police, environment)) {
                 police.revert();
