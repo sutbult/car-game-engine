@@ -7,6 +7,7 @@ import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
+import se.chalmers.tda367_4.menu.MenuScene;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -52,7 +53,7 @@ public class GameScene implements Scene {
         }
     }
     public void update(float delta) {
-        if (!appEnv.getInput().isKeyDown(ApplicationKey.ESC)) {
+        if (!appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
             changeScene = false;
             car.move(delta);
             score.update(delta*2);

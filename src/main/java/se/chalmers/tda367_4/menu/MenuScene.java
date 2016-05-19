@@ -1,6 +1,9 @@
-package se.chalmers.tda367_4.game;
+package se.chalmers.tda367_4.menu;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
+import se.chalmers.tda367_4.game.GameScene;
+import se.chalmers.tda367_4.game.GameText;
+import se.chalmers.tda367_4.game.WorldLoader;
 import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
@@ -27,7 +30,7 @@ public class MenuScene implements Scene {
     }
 
     public void update(float delta){
-        if (appEnv.getInput().isKeyDown(ApplicationKey.ONE)){
+        if (appEnv.getInput().isKeyPressed(ApplicationKey.ONE)){
             changeScene = true;
         }
 
