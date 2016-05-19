@@ -1,6 +1,9 @@
 package se.chalmers.tda367_4.game;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Score {
     private float score;
@@ -40,6 +43,7 @@ public class Score {
         FileWriter fw;
         BufferedWriter bw;
         PrintWriter out;
+        String score = String.valueOf(Math.round(this.score));
 
         try{
             if(!file.exists()){
@@ -50,7 +54,7 @@ public class Score {
             bw = new BufferedWriter(fw);
             out = new PrintWriter(bw);
 
-            out.println(String.valueOf(Math.round(score)));
+            out.println(score);
             out.close();
 
         }catch (IOException e){
@@ -58,23 +62,36 @@ public class Score {
         }
     }
 
-    public float getHighScore(){
-        float highScore = 0;
+    public String getHighScore(int nbrOfScores){
+        List<Integer> list = createFileList();
+        Collections.sort(list, Collections.<Integer>reverseOrder());
+        List<Integer> highScores = createHighScoreList(list, nbrOfScores);
+        return highScores.toString();
+    }
+
+    private List<Integer> createFileList(){
+        List<Integer> list = new ArrayList<Integer>();
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
-
             for(String line = br.readLine(); line != null; line = br.readLine()){
-                float tmp = Float.valueOf(line);
-                if(tmp > highScore){
-                    highScore = tmp;
-                }
+                list.add(Integer.parseInt(line));
             }
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }catch(IOException e){
             e.printStackTrace();
         }
-        return highScore;
+
+        return list;
+    }
+
+    private List<Integer> createHighScoreList(List<Integer> list, int nbrOfScores){
+        List<Integer> topScores = new ArrayList<Integer>();
+        if(nbrOfScores < list.size()){
+            for(int i = 0; i < nbrOfScores; i++){
+                topScores.add(list.get(i));
+            }return topScores;
+        }else return list;
     }
 }
