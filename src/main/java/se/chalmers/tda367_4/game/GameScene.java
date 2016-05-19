@@ -7,7 +7,7 @@ import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
-import se.chalmers.tda367_4.menu.MenuScene;
+import se.chalmers.tda367_4.menu.PauseMenuScene;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -35,7 +35,7 @@ public class GameScene implements Scene {
         this.policePositions = policePositions;
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
-        endScene = new MenuScene();
+        endScene = new PauseMenuScene();
     }
 
     public void init(ApplicationEnvironment appEnv) {

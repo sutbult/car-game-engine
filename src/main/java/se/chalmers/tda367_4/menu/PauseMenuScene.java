@@ -1,7 +1,6 @@
 package se.chalmers.tda367_4.menu;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
-import se.chalmers.tda367_4.app.ApplicationSprite;
 import se.chalmers.tda367_4.game.GameScene;
 import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.game.WorldLoader;
@@ -12,24 +11,16 @@ import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.scenes.Scene;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class StartMenuScene implements Scene {
+public class PauseMenuScene implements Scene {
 
     private ApplicationEnvironment appEnv;
-
     private List<GameText> gameTextList;
-    private boolean gameScene = false;
-    private boolean highscoreScene = false;
-    private boolean settingsScene = false;
-    private boolean quitScene = false;
-    private MenuCamera menuCamera;
-    private int menuIndex = 0;
 
     private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
             new ApplicationColor(0,0,0));
-    private GameText playText = new GameText("Start game", "Sans-Serif", new Vector2(0, 1), 0.8f, false,
+    private GameText playText = new GameText("New game", "Sans-Serif", new Vector2(0, 1), 0.8f, false,
             new ApplicationColor(250,0,0));
     private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, 0), 0.8f, false,
             new ApplicationColor(0,0,0));
@@ -38,9 +29,12 @@ public class StartMenuScene implements Scene {
     private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -2), 0.8f, false,
             new ApplicationColor(0,0,0));
 
+    private boolean gameScene = false;
+    private boolean quitScene = false;
+    private int menuIndex = 0;
+    private MenuCamera menuCamera;
 
-
-    public StartMenuScene(){
+    public PauseMenuScene(){
         menuCamera = new MenuCamera();
         gameTextList = new ArrayList<GameText>();
         gameTextList.add(playText);
@@ -106,6 +100,7 @@ public class StartMenuScene implements Scene {
             menuIndex = (menuIndex - 3) % gameTextList.size();
         }else menuIndex = (menuIndex - 1) % gameTextList.size();
     }
+
 
     private class MenuCamera implements ApplicationCamera{
 
