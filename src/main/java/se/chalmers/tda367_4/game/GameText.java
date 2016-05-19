@@ -1,8 +1,8 @@
 package se.chalmers.tda367_4.game;
 
-import se.chalmers.tda367_4.geometry.ApplicationColor;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationText;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public class GameText implements ApplicationText {
     private String text;

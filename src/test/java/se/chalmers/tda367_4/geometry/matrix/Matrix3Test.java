@@ -1,9 +1,13 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.matrix;
 
 import org.junit.Test;
+import se.chalmers.tda367_4.geometry.triangle.Triangle;
+import se.chalmers.tda367_4.geometry.triangle.TriangleImpl;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector3;
 
 import static org.junit.Assert.*;
-import static se.chalmers.tda367_4.geometry.GeometryTestUtils.*;
+import static se.chalmers.tda367_4.geometry.vector.VectorTestUtils.*;
 
 public class Matrix3Test {
     @Test
