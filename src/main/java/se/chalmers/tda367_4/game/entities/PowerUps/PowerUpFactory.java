@@ -21,19 +21,15 @@ public class PowerUpFactory {
 
     public void createPowerUp() {
         Random r = new Random();
-        Vector2 position = new Vector2(
-                r.nextFloat() * (2 * maxLocationValue) - maxLocationValue,
-                r.nextFloat() * (2 * maxLocationValue) - maxLocationValue
-        );
-        PowerUp powerUp = generatePowerUp(position);
-        while (entityCollides(powerUp, environment) ||
-                powerUpCollides(powerUp, environment.getPowerUps())) {
-            position = new Vector2(
+        PowerUp powerUp;
+        do {
+            Vector2 position = new Vector2(
                     r.nextFloat() * (2 * maxLocationValue) - maxLocationValue,
                     r.nextFloat() * (2 * maxLocationValue) - maxLocationValue
             );
             powerUp = generatePowerUp(position);
-        }
+        } while (entityCollides(powerUp, environment) ||
+                    powerUpCollides(powerUp, environment.getPowerUps()));
         environment.addPowerUp(powerUp);
     }
 
