@@ -1,5 +1,6 @@
-package se.chalmers.tda367_4.game;
+package se.chalmers.tda367_4.main;
 
+import se.chalmers.tda367_4.game.WorldLoader;
 import se.chalmers.tda367_4.scenes.SceneManager;
 import se.chalmers.tda367_4.swingapp.SwingApplication;
 
