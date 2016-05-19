@@ -29,6 +29,8 @@ public class StartMenuScene implements Scene {
 
     private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
             new ApplicationColor(0,0,0));
+    private GameText underLineText = new GameText("________", "Sans-Serif", new Vector2(0, 2.8f), 1.5f, false,
+            new ApplicationColor(0,0,0));
     private GameText playText = new GameText("Start game", "Sans-Serif", new Vector2(0, 1), 0.8f, false,
             new ApplicationColor(250,0,250));
     private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, 0), 0.8f, false,
@@ -79,6 +81,7 @@ public class StartMenuScene implements Scene {
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(gtfaText);
+        appEnv.getGraphics().renderText(underLineText);
         for(GameText text: gameTextList){
             appEnv.getGraphics().renderText(text);
         }

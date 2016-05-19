@@ -21,7 +21,9 @@ public class EndMenuScene implements Scene {
 
     private GameText gameOverText = new GameText("GAME OVER", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
             new ApplicationColor(0,0,0));
-    private GameText scoreText = new GameText("Your score:", "Sans-Serif", new Vector2(0, 1.5f), 0.6f, false,
+    private GameText underLineText = new GameText("_____________", "Sans-Serif", new Vector2(0, 2.8f), 1.5f, false,
+            new ApplicationColor(0,0,0));
+    private GameText scoreText = new GameText("Your score:", "Sans-Serif", new Vector2(0, 1.3f), 0.6f, false,
             new ApplicationColor(0,0,0));
     private GameText showScoreText;
     private GameText playText = new GameText("New game", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
@@ -42,7 +44,7 @@ public class EndMenuScene implements Scene {
         menuCamera = new MenuCamera();
         gameTextList = new ArrayList<GameText>();
         showScoreText = new GameText(String.valueOf(Math.round(score.getScore())), "Sans_Serif",
-                new Vector2(0,0.5f),
+                new Vector2(0,0.3f),
                 1.4f,
                 false,
                 new ApplicationColor(0,100,0));
@@ -83,6 +85,7 @@ public class EndMenuScene implements Scene {
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(gameOverText);
+        appEnv.getGraphics().renderText(underLineText);
         appEnv.getGraphics().renderText(scoreText);
         appEnv.getGraphics().renderText(showScoreText);
         for(GameText text: gameTextList){
