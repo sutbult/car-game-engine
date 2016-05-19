@@ -54,7 +54,9 @@ public class GameScene implements Scene {
         }
     }
     public void update(float delta) {
-        if (!appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
+        if (appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
+            changeScene = true;
+        }else {
             changeScene = false;
             car.move(delta);
             score.update(delta * 2);
@@ -81,7 +83,7 @@ public class GameScene implements Scene {
                     police.revert();
                 }
             }
-        } else changeScene = true;
+        }
     }
     public void render(){
         appEnv.getGraphics().setCamera(gameCamera);
