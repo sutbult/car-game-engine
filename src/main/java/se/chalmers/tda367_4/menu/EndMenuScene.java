@@ -62,15 +62,15 @@ public class EndMenuScene implements Scene {
 
     public void update(float delta){
         if (appEnv.getInput().isKeyPressed(ApplicationKey.DOWN)){
-            gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
+            gameTextList.get(Math.abs(menuIndex)).setColor(new ApplicationColor(0, 0, 0));
             changeIndexUp();
-            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 250);
+            gameTextList.get(Math.abs(menuIndex)).setColor(new ApplicationColor(250, 0, 250));
         }
 
         if (appEnv.getInput().isKeyPressed(ApplicationKey.UP)){
-            gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
+            gameTextList.get(Math.abs(menuIndex)).setColor(new ApplicationColor(0, 0, 0));
             changeIndexDown();
-            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 250);
+            gameTextList.get(Math.abs(menuIndex)).setColor(new ApplicationColor(250, 0, 250));
         }
 
         if(appEnv.getInput().isKeyPressed(ApplicationKey.SPACE)){

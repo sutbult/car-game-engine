@@ -45,7 +45,7 @@ public class GameText implements ApplicationText {
         return color;
     }
 
-    public void setColor(int r, int g, int b){
-        this.color = new ApplicationColor(r,g,b);
+    public void setColor(ApplicationColor newColor){
+        this.color = newColor;
     }
 }
