@@ -7,7 +7,7 @@ import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
-import se.chalmers.tda367_4.menu.PauseMenuScene;
+import se.chalmers.tda367_4.menu.EndMenuScene;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -98,7 +98,7 @@ public class GameScene implements Scene {
 
     public Scene newScene() {
         if(changeScene){
-            return new PauseMenuScene(score);
+            return new EndMenuScene(score);
         }else return null;
     }
     public void setEndScene(Scene endScene) {

@@ -30,7 +30,7 @@ public class StartMenuScene implements Scene {
     private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
             new ApplicationColor(0,0,0));
     private GameText playText = new GameText("Start game", "Sans-Serif", new Vector2(0, 1), 0.8f, false,
-            new ApplicationColor(250,0,0));
+            new ApplicationColor(250,0,250));
     private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, 0), 0.8f, false,
             new ApplicationColor(0,0,0));
     private GameText settingsText = new GameText("Settings", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
@@ -58,13 +58,13 @@ public class StartMenuScene implements Scene {
         if (appEnv.getInput().isKeyPressed(ApplicationKey.DOWN)){
             gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
             changeIndexUp();
-            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 0);
+            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 250);
         }
 
         if (appEnv.getInput().isKeyPressed(ApplicationKey.UP)){
             gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
             changeIndexDown();
-            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 0);
+            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 250);
         }
 
         if(appEnv.getInput().isKeyPressed(ApplicationKey.SPACE)){

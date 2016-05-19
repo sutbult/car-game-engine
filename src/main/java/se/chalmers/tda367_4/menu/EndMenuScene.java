@@ -14,18 +14,18 @@ import se.chalmers.tda367_4.scenes.Scene;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PauseMenuScene implements Scene {
+public class EndMenuScene implements Scene {
 
     private ApplicationEnvironment appEnv;
     private List<GameText> gameTextList;
 
-    private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
+    private GameText gameOverText = new GameText("GAME OVER", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
             new ApplicationColor(0,0,0));
     private GameText scoreText = new GameText("Your score:", "Sans-Serif", new Vector2(0, 1.5f), 0.6f, false,
             new ApplicationColor(0,0,0));
     private GameText showScoreText;
     private GameText playText = new GameText("New game", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
-            new ApplicationColor(250,0,0));
+            new ApplicationColor(250,0,250));
     private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, -2), 0.8f, false,
             new ApplicationColor(0,0,0));
     private GameText settingsText = new GameText("Settings", "Sans-Serif", new Vector2(0, -3), 0.8f, false,
@@ -38,11 +38,11 @@ public class PauseMenuScene implements Scene {
     private int menuIndex = 0;
     private MenuCamera menuCamera;
 
-    public PauseMenuScene(Score score){
+    public EndMenuScene(Score score){
         menuCamera = new MenuCamera();
         gameTextList = new ArrayList<GameText>();
         showScoreText = new GameText(String.valueOf(Math.round(score.getScore())), "Sans_Serif",
-                new Vector2(0,0.3f),
+                new Vector2(0,0.5f),
                 1.4f,
                 false,
                 new ApplicationColor(0,100,0));
@@ -62,13 +62,13 @@ public class PauseMenuScene implements Scene {
         if (appEnv.getInput().isKeyPressed(ApplicationKey.DOWN)){
             gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
             changeIndexUp();
-            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 0);
+            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 250);
         }
 
         if (appEnv.getInput().isKeyPressed(ApplicationKey.UP)){
             gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
             changeIndexDown();
-            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 0);
+            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 250);
         }
 
         if(appEnv.getInput().isKeyPressed(ApplicationKey.SPACE)){
@@ -82,7 +82,7 @@ public class PauseMenuScene implements Scene {
 
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
-        appEnv.getGraphics().renderText(gtfaText);
+        appEnv.getGraphics().renderText(gameOverText);
         appEnv.getGraphics().renderText(scoreText);
         appEnv.getGraphics().renderText(showScoreText);
         for(GameText text: gameTextList){
@@ -112,7 +112,6 @@ public class PauseMenuScene implements Scene {
             menuIndex = (menuIndex - 3) % gameTextList.size();
         }else menuIndex = (menuIndex - 1) % gameTextList.size();
     }
-
 
     private class MenuCamera implements ApplicationCamera{
 
