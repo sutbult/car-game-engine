@@ -12,6 +12,7 @@ import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.scenes.Scene;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class startMenuScene implements Scene {
@@ -19,6 +20,11 @@ public class startMenuScene implements Scene {
     private ApplicationEnvironment appEnv;
 
     private List<GameText> gameTextList;
+    private boolean gameScene = false;
+    private boolean highscoreScene = false;
+    private boolean settingsScene = false;
+    private boolean quitScene = false;
+    private MenuCamera menuCamera;
     private int menuIndex = 0;
 
     private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
@@ -32,8 +38,7 @@ public class startMenuScene implements Scene {
     private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -2), 0.8f, false,
             new ApplicationColor(0,0,0));
 
-    private boolean changeScene = false;
-    private MenuCamera menuCamera;
+
 
     public startMenuScene(){
         menuCamera = new MenuCamera();
@@ -52,16 +57,24 @@ public class startMenuScene implements Scene {
 
     public void update(float delta){
         if (appEnv.getInput().isKeyPressed(ApplicationKey.DOWN)){
-            menuIndex = (menuIndex + 1) % gameTextList.size();
-            gameTextList.get(menuIndex).
+            gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
+            changeIndexUp();
+            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 0);
         }
 
         if (appEnv.getInput().isKeyPressed(ApplicationKey.UP)){
-            menuIndex = (menuIndex - 1) % gameTextList.size();
-            System.out.println(menuIndex);
+            gameTextList.get(Math.abs(menuIndex)).setColor(0, 0, 0);
+            changeIndexDown();
+            gameTextList.get(Math.abs(menuIndex)).setColor(250, 0, 0);
         }
 
-
+        if(appEnv.getInput().isKeyPressed(ApplicationKey.SPACE)){
+            if(Math.abs(menuIndex) == 0){
+                gameScene = true;
+            }else if(Math.abs(menuIndex) == 3){
+                quitScene = true;
+            }
+        }
     }
 
     public void render() {
@@ -73,11 +86,26 @@ public class startMenuScene implements Scene {
     }
 
     public Scene newScene() {
-        if(changeScene){
+        if(gameScene){
             WorldLoader worldLoader = new WorldLoader();
             GameScene endScene = worldLoader.createWorld("world1");
             return endScene;
-        }else return null;
+        }
+        if(quitScene){
+            System.exit(0);
+        }
+        return null;
+    }
+
+    private void changeIndexUp(){
+        if(menuIndex <= 0){
+            menuIndex = (menuIndex - 1) % gameTextList.size();
+        }else menuIndex = (menuIndex + 1) % gameTextList.size();
+    }
+    private void changeIndexDown(){
+        if(menuIndex <= 0){
+            menuIndex = (menuIndex - 3) % gameTextList.size();
+        }else menuIndex = (menuIndex - 1) % gameTextList.size();
     }
 
     private class MenuCamera implements ApplicationCamera{

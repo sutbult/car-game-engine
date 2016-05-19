@@ -250,11 +250,8 @@ public class SwingApplication extends JPanel implements Runnable {
                 case KeyEvent.VK_RIGHT:
                     key = ApplicationKey.RIGHT;
                     break;
-                case KeyEvent.VK_1:
-                    key = ApplicationKey.ONE;
-                    break;
-                case KeyEvent.VK_2:
-                    key = ApplicationKey.TWO;
+                case KeyEvent.VK_SPACE:
+                    key = ApplicationKey.SPACE;
                     break;
                 case KeyEvent.VK_ESCAPE:
                     key = ApplicationKey.ESC;

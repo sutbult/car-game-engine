@@ -30,13 +30,6 @@ public class MenuScene implements Scene {
     }
 
     public void update(float delta){
-        if (appEnv.getInput().isKeyPressed(ApplicationKey.ONE)){
-            changeScene = true;
-        }
-
-        if (appEnv.getInput().isKeyDown(ApplicationKey.TWO)){
-            System.exit(0);
-        }
     }
 
     public void render() {
