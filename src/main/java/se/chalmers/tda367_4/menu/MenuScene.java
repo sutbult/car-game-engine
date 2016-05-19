@@ -24,6 +24,9 @@ public class MenuScene implements Scene {
     private int menuIndex = 0;
     private boolean endScene;
 
+    private GameText pressSpaceText = new GameText("(Press space to interact)", "Sans-serif", new Vector2(0, 4.2f), 0.4f, false,
+            new ApplicationColor(25, 25, 25));
+
     // Start text
     private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
             new ApplicationColor(0,0,0));
@@ -105,7 +108,7 @@ public class MenuScene implements Scene {
 
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
-
+        appEnv.getGraphics().renderText(pressSpaceText);
         for(GameText text: gameTextList){
             appEnv.getGraphics().renderText(text);
         }
