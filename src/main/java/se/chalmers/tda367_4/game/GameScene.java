@@ -7,9 +7,9 @@ import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
-import se.chalmers.tda367_4.menu.EndMenuScene;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.triangle.Triangle;
+import se.chalmers.tda367_4.menu.MenuScene;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.vector.Vector2;
 
@@ -26,13 +26,14 @@ public class GameScene implements Scene {
     private Score score;
     private HudCamera hudCamera;
     private GameCamera gameCamera;
+    private MenuScene menuScene;
 
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
     private boolean changeScene = false;
-    private Scene endScene;
 
-    public GameScene(Environment environment, List<Vector2> policePositions) {
+    public GameScene(Environment environment, List<Vector2> policePositions, MenuScene menuScene) {
+        this.menuScene = menuScene;
         this.environment = environment;
         this.policePositions = policePositions;
         hudCamera = new HudCamera();
@@ -53,6 +54,7 @@ public class GameScene implements Scene {
             policeList.add(police);
         }
     }
+
     public void update(float delta) {
         if (appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
             changeScene = true;
@@ -85,6 +87,7 @@ public class GameScene implements Scene {
             }
         }
     }
+
     public void render(){
         appEnv.getGraphics().setCamera(gameCamera);
 
@@ -108,11 +111,8 @@ public class GameScene implements Scene {
 
     public Scene newScene() {
         if(changeScene){
-            return new EndMenuScene(score);
+            return new MenuScene(score, menuScene);
         }else return null;
-    }
-    public void setEndScene(Scene endScene) {
-        this.endScene = endScene;
     }
 
     private boolean entityCollides(SolidEntity first, SolidEntity second) {

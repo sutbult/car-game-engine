@@ -13,11 +13,12 @@ import se.chalmers.tda367_4.game.entities.Environment;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangleImpl;
 import se.chalmers.tda367_4.geometry.vector.Vector2;
+import se.chalmers.tda367_4.menu.MenuScene;
 
 public class WorldLoader {
 
 
-    public static GameScene createWorld (String fileName){
+    public static GameScene createWorld (String fileName, MenuScene menu){
         JSONObject jsonObject = new JSONObject();
         try {
             JSONParser parser = new JSONParser();
@@ -28,7 +29,7 @@ public class WorldLoader {
         return new GameScene(new Environment(
                 getTriangles("solid-triangles", jsonObject),
                 getTriangles("nonsolid-triangles", jsonObject)),
-                getPolicePositions(jsonObject)
+                getPolicePositions(jsonObject), menu
         );
     }
 
