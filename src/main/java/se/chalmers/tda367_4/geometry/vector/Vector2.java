@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.vector;
 
 public class Vector2 {
     private final float x;

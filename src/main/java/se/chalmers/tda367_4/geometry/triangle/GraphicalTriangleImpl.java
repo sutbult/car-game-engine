@@ -1,4 +1,7 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.triangle;
+
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public class GraphicalTriangleImpl extends TriangleImpl implements GraphicalTriangle {
     private ApplicationColor color;

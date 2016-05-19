@@ -1,9 +1,9 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
-import se.chalmers.tda367_4.geometry.ApplicationColor;
-import se.chalmers.tda367_4.geometry.GraphicalTriangleImpl;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
+import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangleImpl;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public class TestApplication implements Application {
     public static void main(String[] args) {

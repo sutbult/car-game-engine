@@ -1,9 +1,10 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.triangle;
 
 import org.junit.Test;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import static org.junit.Assert.*;
-import static se.chalmers.tda367_4.geometry.GeometryTestUtils.randFloat;
+import static se.chalmers.tda367_4.geometry.vector.VectorTestUtils.randFloat;
 
 public class TriangleImplTest {
     @Test
