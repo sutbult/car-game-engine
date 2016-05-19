@@ -1,7 +1,6 @@
 package se.chalmers.tda367_4.menu;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
-import se.chalmers.tda367_4.app.ApplicationSprite;
 import se.chalmers.tda367_4.game.GameScene;
 import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.game.WorldLoader;
@@ -12,7 +11,6 @@ import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.scenes.Scene;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class StartMenuScene implements Scene {
