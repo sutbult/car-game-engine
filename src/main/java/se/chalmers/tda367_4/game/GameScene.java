@@ -52,7 +52,6 @@ public class GameScene implements Scene {
         }
     }
     public void update(float delta) {
-
         if (!appEnv.getInput().isKeyDown(ApplicationKey.ESC)) {
             changeScene = false;
             car.move(delta);
