@@ -3,7 +3,6 @@ package se.chalmers.tda367_4.menu;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
-import se.chalmers.tda367_4.game.GameScene;
 import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.game.Score;
 import se.chalmers.tda367_4.game.WorldLoader;
@@ -17,10 +16,8 @@ import java.util.List;
 public class MenuScene implements Scene {
 
     private ApplicationEnvironment appEnv;
-
     private List<GameText> gameTextList;
     private MenuCamera menuCamera;
-    private GameScene gameScene;
     private int menuIndex = 0;
     private Scene endScene;
     private int score = 0;
@@ -73,7 +70,6 @@ public class MenuScene implements Scene {
     }
 
     public MenuScene(Score score){
-
         this.score = Integer.valueOf(Math.round(score.getScore()));
         showScoreText = new GameText(String.valueOf(this.score), "Sans_Serif",
                 new Vector2(0,0.3f),
@@ -124,7 +120,7 @@ public class MenuScene implements Scene {
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(pressSpaceText);
-        
+
         for(GameText text: gameTextList){
             appEnv.getGraphics().renderText(text);
         }
