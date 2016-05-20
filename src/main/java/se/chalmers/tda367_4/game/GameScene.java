@@ -26,15 +26,14 @@ public class GameScene implements Scene {
     private Score score;
     private HudCamera hudCamera;
     private GameCamera gameCamera;
-    private MenuScene menuScene;
 
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
     private boolean changeScene = false;
     private boolean pauseScene = false;
+    private Scene endScene;
 
-    public GameScene(Environment environment, List<Vector2> policePositions, MenuScene menuScene) {
-        this.menuScene = menuScene;
+    public GameScene(Environment environment, List<Vector2> policePositions) {
         this.environment = environment;
         this.policePositions = policePositions;
         hudCamera = new HudCamera();
@@ -58,37 +57,35 @@ public class GameScene implements Scene {
 
     public void update(float delta) {
         if (appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
-            if (pauseScene){
-                pauseScene = false;
-            }else pauseScene = true;
+            pauseScene = !pauseScene;
         }
 
-        if(!pauseScene){
-            changeScene = false;
-            car.move(delta);
-            score.update(delta * 2);
+        if(pauseScene) return;
 
-            for (Car police : policeList) {
-                police.move(delta);
-            }
+        changeScene = false;
+        car.move(delta);
+        score.update(delta * 2);
 
-            if (entityCollides(car, environment)) {
-                car.revert();
+        for (Car police : policeList) {
+            police.move(delta);
+        }
 
-            }
-            for (Car police : policeList) {
-                if (entityCollides(car, police)) {
-                    try {
-                        score.saveScore();
-                        changeScene = true;
-                        break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        if (entityCollides(car, environment)) {
+            car.revert();
+
+        }
+        for (Car police : policeList) {
+            if (entityCollides(car, police)) {
+                try {
+                    score.saveScore();
+                    setReplacementScene(new MenuScene(score));
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                if (entityCollides(police, environment)) {
-                    police.revert();
-                }
+            }
+            if (entityCollides(police, environment)) {
+                police.revert();
             }
         }
     }
@@ -119,9 +116,11 @@ public class GameScene implements Scene {
     }
 
     public Scene newScene() {
-        if(changeScene){
-            return new MenuScene(score, menuScene);
-        }else return null;
+        return endScene;
+    }
+
+    private void setReplacementScene(Scene newScene){
+        this.endScene = newScene;
     }
 
     private boolean entityCollides(SolidEntity first, SolidEntity second) {

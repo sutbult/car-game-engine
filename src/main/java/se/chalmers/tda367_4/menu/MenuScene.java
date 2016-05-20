@@ -22,8 +22,8 @@ public class MenuScene implements Scene {
     private MenuCamera menuCamera;
     private GameScene gameScene;
     private int menuIndex = 0;
-    private int score;
-    private boolean endScene;
+    private Scene endScene;
+    private int score = 0;
     private boolean showHighscores;
 
     private GameText pressSpaceText = new GameText("(Press space to interact)", "Sans-serif", new Vector2(0, 4.2f), 0.4f, false,
@@ -70,21 +70,21 @@ public class MenuScene implements Scene {
         gameTextList.add(quitText);
     }
 
-    public MenuScene(Score score, MenuScene menuScene){
-        menuCamera = menuScene.menuCamera;
-        gameTextList = new ArrayList<GameText>();
-        gameTextList.add(menuScene.playText);
-        gameTextList.add(menuScene.highscoresText);
-        gameTextList.add(menuScene.settingsText);
-        gameTextList.add(menuScene.quitText);
-        this.gameScene = menuScene.gameScene;
-        
-        this.score = Integer.valueOf(String.valueOf(Math.round(score.getScore())));
+    public MenuScene(Score score){
+
+        this.score = Integer.valueOf(Math.round(score.getScore()));
         showScoreText = new GameText(String.valueOf(this.score), "Sans_Serif",
                 new Vector2(0,0.3f),
                 1.4f,
                 false,
                 new ApplicationColor(0,100,0));
+
+        menuCamera = new MenuCamera();
+        gameTextList = new ArrayList<GameText>();
+        gameTextList.add(playText);
+        gameTextList.add(highscoresText);
+        gameTextList.add(settingsText);
+        gameTextList.add(quitText);
     }
 
     public void init(ApplicationEnvironment appEnv) {
@@ -106,7 +106,7 @@ public class MenuScene implements Scene {
 
         if(appEnv.getInput().isKeyPressed(ApplicationKey.SPACE)){
             if(Math.abs(menuIndex) == 0){
-                endScene = true;
+                setReplacementScene();
             }else if(Math.abs(menuIndex) == 1){
                 showHighscores = true;
             }else if(Math.abs(menuIndex) == 3){
@@ -126,7 +126,7 @@ public class MenuScene implements Scene {
             appEnv.getGraphics().renderText(bigHighscoresText);
             appEnv.getGraphics().renderText(underLineText2);
         }else{
-            if(gameScene == null){
+            if(score == 0){
                 appEnv.getGraphics().renderText(gtfaText);
                 appEnv.getGraphics().renderText(underLineText1);
             }else {
@@ -139,11 +139,12 @@ public class MenuScene implements Scene {
     }
 
     public Scene newScene() {
-        if(endScene){
-            WorldLoader loader = new WorldLoader();
-            gameScene = loader.createWorld("world1", this);
-            return gameScene;
-        }else return null;
+        return endScene;
+    }
+
+    private void setReplacementScene(){
+        WorldLoader loader = new WorldLoader();
+        endScene = loader.createWorld("world1");
     }
 
     private void changeIndexUp(){

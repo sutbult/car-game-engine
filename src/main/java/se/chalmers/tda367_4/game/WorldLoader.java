@@ -18,7 +18,7 @@ import se.chalmers.tda367_4.menu.MenuScene;
 public class WorldLoader {
 
 
-    public static GameScene createWorld (String fileName, MenuScene menu){
+    public static GameScene createWorld (String fileName){
         JSONObject jsonObject = new JSONObject();
         try {
             JSONParser parser = new JSONParser();
@@ -29,7 +29,7 @@ public class WorldLoader {
         return new GameScene(new Environment(
                 getTriangles("solid-triangles", jsonObject),
                 getTriangles("nonsolid-triangles", jsonObject)),
-                getPolicePositions(jsonObject), menu
+                getPolicePositions(jsonObject)
         );
     }
 
