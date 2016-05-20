@@ -30,8 +30,6 @@ public class MenuScene implements Scene {
     // Start text
     private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
             new ApplicationColor(0,0,0));
-    private GameText underLineText1 = new GameText("________", "Sans-Serif", new Vector2(0, 2.8f), 1.5f, false,
-            new ApplicationColor(0,0,0));
 
     // Pause/Game-over text
     private GameText gameOverText = new GameText("GAME OVER", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
@@ -120,6 +118,7 @@ public class MenuScene implements Scene {
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(pressSpaceText);
+        appEnv.getGraphics().renderText(underLineText2);
 
         for(GameText text: gameTextList){
             appEnv.getGraphics().renderText(text);
@@ -127,14 +126,11 @@ public class MenuScene implements Scene {
 
         if(showHighscores){
             appEnv.getGraphics().renderText(bigHighscoresText);
-            appEnv.getGraphics().renderText(underLineText2);
         }else if(showSettings) {
             appEnv.getGraphics().renderText(bigSettingsText);
-            appEnv.getGraphics().renderText(underLineText2);
         }else{
             if(score == 0){
                 appEnv.getGraphics().renderText(gtfaText);
-                appEnv.getGraphics().renderText(underLineText1);
             }else {
                 appEnv.getGraphics().renderText(gameOverText);
                 appEnv.getGraphics().renderText(underLineText2);
