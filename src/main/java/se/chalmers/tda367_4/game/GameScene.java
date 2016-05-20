@@ -31,6 +31,7 @@ public class GameScene implements Scene {
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
     private boolean changeScene = false;
+    private boolean pauseScene = false;
 
     public GameScene(Environment environment, List<Vector2> policePositions, MenuScene menuScene) {
         this.menuScene = menuScene;
@@ -57,8 +58,12 @@ public class GameScene implements Scene {
 
     public void update(float delta) {
         if (appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
-            changeScene = true;
-        }else {
+            if (pauseScene){
+                pauseScene = false;
+            }else pauseScene = true;
+        }
+
+        if(!pauseScene){
             changeScene = false;
             car.move(delta);
             score.update(delta * 2);
@@ -107,6 +112,10 @@ public class GameScene implements Scene {
                         0.8f,
                         false,
                         new ApplicationColor(0,0,0)));
+
+        if(pauseScene){
+            appEnv.getGraphics().renderText(new GameText("PAUSE", "Sans-serif", new Vector2(0,1.8f), 2, false, new ApplicationColor(250, 0, 0)));
+        }
     }
 
     public Scene newScene() {
