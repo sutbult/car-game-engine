@@ -22,7 +22,9 @@ public class MenuScene implements Scene {
     private MenuCamera menuCamera;
     private GameScene gameScene;
     private int menuIndex = 0;
+    private int score;
     private boolean endScene;
+    private boolean showHighscores;
 
     private GameText pressSpaceText = new GameText("(Press space to interact)", "Sans-serif", new Vector2(0, 4.2f), 0.4f, false,
             new ApplicationColor(120, 120, 120));
@@ -41,7 +43,10 @@ public class MenuScene implements Scene {
     private GameText scoreText = new GameText("Your score:", "Sans-Serif", new Vector2(0, 1.3f), 0.6f, false,
             new ApplicationColor(0,0,0));
     private GameText showScoreText;
-    private int score;
+
+    // Highscore text
+    private GameText bigHighscoresText = new GameText("HIGHSCORES", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
+            new ApplicationColor(0,0,0));
 
     // Menu-options
     private GameText playText = new GameText("Start game", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
@@ -52,6 +57,8 @@ public class MenuScene implements Scene {
             new ApplicationColor(0,0,0));
     private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -4), 0.8f, false,
             new ApplicationColor(0,0,0));
+    private GameText backText = new GameText("Back", "Sans-Serif", new Vector2(0, -4), 0.8f, false,
+            new ApplicationColor(250,0,250));
 
 
     public MenuScene(){
@@ -71,7 +78,7 @@ public class MenuScene implements Scene {
         gameTextList.add(menuScene.settingsText);
         gameTextList.add(menuScene.quitText);
         this.gameScene = menuScene.gameScene;
-
+        
         this.score = Integer.valueOf(String.valueOf(Math.round(score.getScore())));
         showScoreText = new GameText(String.valueOf(this.score), "Sans_Serif",
                 new Vector2(0,0.3f),
@@ -100,6 +107,8 @@ public class MenuScene implements Scene {
         if(appEnv.getInput().isKeyPressed(ApplicationKey.SPACE)){
             if(Math.abs(menuIndex) == 0){
                 endScene = true;
+            }else if(Math.abs(menuIndex) == 1){
+                showHighscores = true;
             }else if(Math.abs(menuIndex) == 3){
                 System.exit(0);
             }
@@ -113,14 +122,19 @@ public class MenuScene implements Scene {
             appEnv.getGraphics().renderText(text);
         }
 
-        if(gameScene == null){
-            appEnv.getGraphics().renderText(gtfaText);
-            appEnv.getGraphics().renderText(underLineText1);
-        }else {
-            appEnv.getGraphics().renderText(gameOverText);
+        if(showHighscores){
+            appEnv.getGraphics().renderText(bigHighscoresText);
             appEnv.getGraphics().renderText(underLineText2);
-            appEnv.getGraphics().renderText(scoreText);
-            appEnv.getGraphics().renderText(showScoreText);
+        }else{
+            if(gameScene == null){
+                appEnv.getGraphics().renderText(gtfaText);
+                appEnv.getGraphics().renderText(underLineText1);
+            }else {
+                appEnv.getGraphics().renderText(gameOverText);
+                appEnv.getGraphics().renderText(underLineText2);
+                appEnv.getGraphics().renderText(scoreText);
+                appEnv.getGraphics().renderText(showScoreText);
+            }
         }
     }
 
