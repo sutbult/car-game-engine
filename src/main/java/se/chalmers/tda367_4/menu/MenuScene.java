@@ -25,6 +25,7 @@ public class MenuScene implements Scene {
     private Scene endScene;
     private int score = 0;
     private boolean showHighscores;
+    private boolean showSettings;
 
     private GameText pressSpaceText = new GameText("(Press space to interact)", "Sans-serif", new Vector2(0, 4.2f), 0.4f, false,
             new ApplicationColor(120, 120, 120));
@@ -48,6 +49,10 @@ public class MenuScene implements Scene {
     private GameText bigHighscoresText = new GameText("HIGHSCORES", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
             new ApplicationColor(0,0,0));
 
+    // Settings text
+    private GameText bigSettingsText = new GameText("SETTINGS", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
+            new ApplicationColor(0,0,0));
+
     // Menu-options
     private GameText playText = new GameText("Start game", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
             new ApplicationColor(250,0,250));
@@ -57,9 +62,6 @@ public class MenuScene implements Scene {
             new ApplicationColor(0,0,0));
     private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -4), 0.8f, false,
             new ApplicationColor(0,0,0));
-    private GameText backText = new GameText("Back", "Sans-Serif", new Vector2(0, -4), 0.8f, false,
-            new ApplicationColor(250,0,250));
-
 
     public MenuScene(){
         menuCamera = new MenuCamera();
@@ -108,7 +110,11 @@ public class MenuScene implements Scene {
             if(Math.abs(menuIndex) == 0){
                 setReplacementScene();
             }else if(Math.abs(menuIndex) == 1){
+                showSettings = false;
                 showHighscores = true;
+            } else if(Math.abs(menuIndex) == 2){
+                showHighscores = false;
+                showSettings = true;
             }else if(Math.abs(menuIndex) == 3){
                 System.exit(0);
             }
@@ -118,12 +124,16 @@ public class MenuScene implements Scene {
     public void render() {
         appEnv.getGraphics().setCamera(menuCamera);
         appEnv.getGraphics().renderText(pressSpaceText);
+        
         for(GameText text: gameTextList){
             appEnv.getGraphics().renderText(text);
         }
 
         if(showHighscores){
             appEnv.getGraphics().renderText(bigHighscoresText);
+            appEnv.getGraphics().renderText(underLineText2);
+        }else if(showSettings) {
+            appEnv.getGraphics().renderText(bigSettingsText);
             appEnv.getGraphics().renderText(underLineText2);
         }else{
             if(score == 0){
