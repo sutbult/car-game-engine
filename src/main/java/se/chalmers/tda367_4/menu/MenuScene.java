@@ -1,13 +1,15 @@
-package se.chalmers.tda367_4.game;
+package se.chalmers.tda367_4.menu;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
+import se.chalmers.tda367_4.game.GameApplication;
+import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.geometry.Vector2;
 import se.chalmers.tda367_4.scenes.Scene;
 
-public class MenuApplication implements Scene {
+public class MenuScene implements Scene {
 
     private ApplicationEnvironment appEnv;
     private GameText playText = new GameText("Play (Space)", "Sans-Serif", new Vector2(0, 0), 1.2f, false,
@@ -17,7 +19,7 @@ public class MenuApplication implements Scene {
     private boolean changeScene = false;
     private GameApplication game;
 
-    public MenuApplication(GameApplication game){
+    public MenuScene(GameApplication game){
         this.game = game;
     }
 

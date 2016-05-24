@@ -3,10 +3,10 @@ package se.chalmers.tda367_4.game;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.geometry.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
-import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
+import se.chalmers.tda367_4.menu.MenuScene;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.Vector2;
 
@@ -94,7 +94,7 @@ public class GameApplication implements Scene {
     public Scene newScene() {
         if(changeScene){
             System.out.println("Change Scene");
-            return new MenuApplication(this);
+            return new MenuScene(this);
         }else return null;
     }
 
