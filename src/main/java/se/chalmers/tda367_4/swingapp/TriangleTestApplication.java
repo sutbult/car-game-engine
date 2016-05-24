@@ -1,9 +1,13 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.Application;
-import se.chalmers.tda367_4.geometry.ApplicationColor;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
-import se.chalmers.tda367_4.geometry.*;
+import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
+import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangleImpl;
+import se.chalmers.tda367_4.geometry.triangle.Triangle;
+import se.chalmers.tda367_4.geometry.triangle.TriangleImpl;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
 package se.chalmers.tda367_4.swingapp;
 
 import se.chalmers.tda367_4.app.*;
-import se.chalmers.tda367_4.geometry.ApplicationColor;
-import se.chalmers.tda367_4.geometry.GraphicalTriangle;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
+import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -63,6 +63,7 @@ public class SwingApplication extends JPanel implements Runnable {
 
             swingGraphics.beginRendering();
             application.update(delta / 1000.f);
+            swingInput.update();
             application.render();
             repaint();
             try {
@@ -208,13 +209,24 @@ public class SwingApplication extends JPanel implements Runnable {
         }
     }
     private class SwingInput implements ApplicationInput, KeyListener {
-        private boolean[] states;
+        private final static int STATE_DOWN = 0;
+        private final static int STATE_PRESSED = 1;
+        private final static int STATE_COUNT = 2;
+        private boolean[][] states;
 
         public SwingInput() {
-            states = new boolean[ApplicationKey.values().length];
+            states = new boolean[STATE_COUNT][ApplicationKey.values().length];
         }
-        public boolean isKeyDown(ApplicationKey key) {
-            return states[key.getId()];
+        public synchronized void update() {
+            for(int i = 0; i < states[STATE_PRESSED].length; i++) {
+                states[STATE_PRESSED][i] = false;
+            }
+        }
+        public synchronized boolean isKeyDown(ApplicationKey key) {
+            return states[STATE_DOWN][key.getId()];
+        }
+        public synchronized boolean isKeyPressed(ApplicationKey key) {
+            return states[STATE_PRESSED][key.getId()];
         }
         public void keyTyped(KeyEvent e) {}
         public void keyPressed(KeyEvent e) {
@@ -223,7 +235,7 @@ public class SwingApplication extends JPanel implements Runnable {
         public void keyReleased(KeyEvent e) {
             onEvent(e, false);
         }
-        private void onEvent(KeyEvent e, boolean down) {
+        private synchronized void onEvent(KeyEvent e, boolean down) {
             ApplicationKey key;
             switch(e.getKeyCode()) {
                 case KeyEvent.VK_UP:
@@ -238,11 +250,20 @@ public class SwingApplication extends JPanel implements Runnable {
                 case KeyEvent.VK_RIGHT:
                     key = ApplicationKey.RIGHT;
                     break;
+                case KeyEvent.VK_SPACE:
+                    key = ApplicationKey.SPACE;
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    key = ApplicationKey.ESC;
+                    break;
                 default:
                     key = null;
             }
             if(key != null) {
-                states[key.getId()] = down;
+                if(down && !states[STATE_DOWN][key.getId()]) {
+                    states[STATE_PRESSED][key.getId()] = true;
+                }
+                states[STATE_DOWN][key.getId()] = down;
             }
         }
     }

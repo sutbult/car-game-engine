@@ -2,7 +2,7 @@ package se.chalmers.tda367_4.game.entities.PowerUps;
 
 import se.chalmers.tda367_4.game.entities.Environment;
 import se.chalmers.tda367_4.game.entities.SolidEntity;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import java.util.List;
 import java.util.Random;

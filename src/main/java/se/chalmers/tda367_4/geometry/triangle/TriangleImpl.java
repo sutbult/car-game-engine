@@ -1,4 +1,8 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.triangle;
+
+import se.chalmers.tda367_4.geometry.matrix.Matrix2;
+import se.chalmers.tda367_4.geometry.matrix.Matrix3;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public class TriangleImpl implements Triangle {
 
