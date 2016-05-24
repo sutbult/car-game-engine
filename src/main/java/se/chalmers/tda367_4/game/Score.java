@@ -62,11 +62,11 @@ public class Score {
         }
     }
 
-    public String getHighScore(int nbrOfScores){
+    public List<Integer> getHighScore(int nbrOfScores){
         List<Integer> list = createFileList();
         Collections.sort(list, Collections.<Integer>reverseOrder());
         List<Integer> highScores = createHighScoreList(list, nbrOfScores);
-        return highScores.toString();
+        return highScores;
     }
 
     private List<Integer> createFileList(){

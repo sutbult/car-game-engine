@@ -44,4 +44,8 @@ public class GameText implements ApplicationText {
     public ApplicationColor getColor() {
         return color;
     }
+
+    public void setColor(ApplicationColor newColor){
+        this.color = newColor;
+    }
 }
