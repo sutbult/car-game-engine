@@ -9,7 +9,6 @@ import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.triangle.Triangle;
-import se.chalmers.tda367_4.menu.MenuScene;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.vector.Vector2;
 
@@ -38,12 +37,12 @@ public class GameScene implements Scene {
         this.policePositions = policePositions;
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
+        score = new Score(0, 1);
     }
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
         car = new Player(appEnv);
-        score = new Score(0, 1);
         createPolice(policePositions);
     }
 
@@ -78,7 +77,8 @@ public class GameScene implements Scene {
             if (entityCollides(car, police)) {
                 try {
                     score.saveScore();
-                    setReplacementScene(new MenuScene(score));
+                    //setReplacementScene(new MenuScene(score));
+                    changeScene = true;
                     break;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -116,10 +116,10 @@ public class GameScene implements Scene {
     }
 
     public Scene newScene() {
-        return endScene;
+        return changeScene ? endScene : null;
     }
 
-    private void setReplacementScene(Scene newScene){
+    public void setReplacementScene(Scene newScene){
         this.endScene = newScene;
     }
 
@@ -135,6 +135,10 @@ public class GameScene implements Scene {
             }
         }
         return false;
+    }
+
+    public float getScore() {
+        return score.getScore();
     }
 
     private class GameCamera implements ApplicationCamera {

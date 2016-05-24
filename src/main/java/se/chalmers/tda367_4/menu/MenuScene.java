@@ -3,6 +3,7 @@ package se.chalmers.tda367_4.menu;
 import se.chalmers.tda367_4.app.ApplicationCamera;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
+import se.chalmers.tda367_4.game.GameScene;
 import se.chalmers.tda367_4.game.GameText;
 import se.chalmers.tda367_4.game.Score;
 import se.chalmers.tda367_4.game.WorldLoader;
@@ -20,6 +21,7 @@ public class MenuScene implements Scene {
     private MenuCamera menuCamera;
     private int menuIndex = 0;
     private Scene endScene;
+    private GameScene gameScene;
     private int score = 0;
     private boolean showHighscores;
     private boolean showSettings;
@@ -67,20 +69,9 @@ public class MenuScene implements Scene {
         gameTextList.add(quitText);
     }
 
-    public MenuScene(Score score){
-        this.score = Integer.valueOf(Math.round(score.getScore()));
-        showScoreText = new GameText(String.valueOf(this.score), "Sans_Serif",
-                new Vector2(0,0.3f),
-                1.4f,
-                false,
-                new ApplicationColor(0,100,0));
-
-        menuCamera = new MenuCamera();
-        gameTextList = new ArrayList<GameText>();
-        gameTextList.add(playText);
-        gameTextList.add(highscoresText);
-        gameTextList.add(settingsText);
-        gameTextList.add(quitText);
+    public MenuScene(GameScene gameScene){
+        this();
+        this.gameScene = gameScene;
     }
 
     public void init(ApplicationEnvironment appEnv) {
@@ -112,6 +103,14 @@ public class MenuScene implements Scene {
             }else if(Math.abs(menuIndex) == 3){
                 System.exit(0);
             }
+        }
+        if(showScoreText == null && gameScene != null) {
+            this.score = Integer.valueOf(Math.round(gameScene.getScore()));
+            showScoreText = new GameText(String.valueOf(this.score), "Sans_Serif",
+                    new Vector2(0,0.3f),
+                    1.4f,
+                    false,
+                    new ApplicationColor(0,100,0));
         }
     }
 
@@ -146,7 +145,9 @@ public class MenuScene implements Scene {
 
     private void setReplacementScene(){
         WorldLoader loader = new WorldLoader();
-        endScene = loader.createWorld("world1");
+        gameScene = loader.createWorld("world1");
+        gameScene.setReplacementScene(new MenuScene(gameScene));
+        endScene = gameScene;
     }
 
     private void changeIndexUp(){
