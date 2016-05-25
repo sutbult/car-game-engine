@@ -11,8 +11,8 @@ public class Police extends Car {
 
     private Car player;
 
-    public Police(Car player) {
-        super("car_3_blue.png");
+    public Police(Car player, Multiplier speed) {
+        super("car_3_blue.png", speed);
         this.player = player;
     }
 
