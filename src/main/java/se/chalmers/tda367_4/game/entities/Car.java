@@ -42,6 +42,10 @@ public abstract class Car implements ImageEntity, SolidEntity {
         return CAR_SIZE;
     }
 
+    public float getStandardSpeed() {
+        return speed.getStandardMultiplier();
+    }
+
     public void revert() {
         position = prevPosition;
         triangles = prevTriangles;

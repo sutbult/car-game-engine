@@ -33,19 +33,18 @@ public class WorldLoader {
         return new GameScene(
                 environment,
                 getPolicePositions(jsonObject),
-                getPowerUpFactory(jsonObject, environment)
+                getWorldBorders(jsonObject)
         );
     }
 
-    private static PowerUpContainer getPowerUpFactory(JSONObject jsonObject, Environment environment) {
+    private static float[] getWorldBorders(JSONObject jsonObject) {
         JSONArray borders = (JSONArray) jsonObject.get("World-borders");
-        return new PowerUpContainer(
-                environment,
+        return new float[] {
                 toFloat(borders.get(0)),
                 toFloat(borders.get(1)),
                 toFloat(borders.get(2)),
                 toFloat(borders.get(3))
-        );
+        };
     }
 
     private static List<GraphicalTriangle> getTriangles(String arrayName, JSONObject jsonObject) {
