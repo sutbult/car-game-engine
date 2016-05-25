@@ -11,7 +11,6 @@ public class Environment implements SolidEntity, SingleColorEntity {
 
     private List<GraphicalTriangle> solidEnvironment;
     private List<GraphicalTriangle> nonSolidEnvironment;
-    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
     public Environment (List<GraphicalTriangle> solidEnvironment, List<GraphicalTriangle> nonSolidEnvironment) {
         this.solidEnvironment = new ArrayList<GraphicalTriangle>(solidEnvironment);
@@ -31,11 +30,4 @@ public class Environment implements SolidEntity, SingleColorEntity {
         return triangles.toArray(trianglesArray);
     }
 
-    public List<PowerUp> getPowerUps() {
-        return powerUps;
-    }
-
-    public void addPowerUp(PowerUp powerUp) {
-        powerUps.add(powerUp);
-    }
 }
