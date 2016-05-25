@@ -8,7 +8,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import se.chalmers.tda367_4.game.entities.power_ups.PowerUpFactory;
+import se.chalmers.tda367_4.game.entities.power_ups.PowerUpContainer;
 import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.game.entities.Environment;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
@@ -37,9 +37,9 @@ public class WorldLoader {
         );
     }
 
-    private static PowerUpFactory getPowerUpFactory(JSONObject jsonObject, Environment environment) {
+    private static PowerUpContainer getPowerUpFactory(JSONObject jsonObject, Environment environment) {
         JSONArray borders = (JSONArray) jsonObject.get("World-borders");
-        return new PowerUpFactory(
+        return new PowerUpContainer(
                 environment,
                 toFloat(borders.get(0)),
                 toFloat(borders.get(1)),

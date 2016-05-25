@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4.game;
+package se.chalmers.tda367_4.game.entities;
 
 import java.util.Timer;
 import java.util.TimerTask;

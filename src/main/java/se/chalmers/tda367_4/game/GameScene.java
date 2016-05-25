@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static se.chalmers.tda367_4.Utilities.entityCollides;
+import static se.chalmers.tda367_4.game.entities.Utilities.entityCollides;
 
 public class GameScene implements Scene {
     private ApplicationEnvironment appEnv;
@@ -35,16 +35,16 @@ public class GameScene implements Scene {
     private boolean pauseScene = false;
     private Scene endScene;
 
-    private PowerUpFactory powerUpFactory;
+    private PowerUpContainer powerUpContainer;
 
     private Multiplier playerSpeed = new Multiplier(6);
     private Multiplier policeSpeed = new Multiplier(5);
 
-    public GameScene(Environment environment, List<Vector2> policePositions, PowerUpFactory powerUpFactory) {
+    public GameScene(Environment environment, List<Vector2> policePositions, PowerUpContainer powerUpContainer) {
         this.environment = environment;
         this.policePositions = policePositions;
 
-        this.powerUpFactory = powerUpFactory;
+        this.powerUpContainer = powerUpContainer;
 
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
@@ -111,11 +111,11 @@ public class GameScene implements Scene {
     private void handlePowerups() {
 
         if (Math.random() < 0.005) {
-            powerUpFactory.createPowerUp();
+            powerUpContainer.createPowerUp();
         }
 
 
-        Iterator<PowerUp> iterator = environment.getPowerUps().iterator();
+        Iterator<PowerUp> iterator = powerUpContainer.getPowerUps().iterator();
         while (iterator.hasNext()) {
             PowerUp powerUp = iterator.next();
             if (entityCollides(powerUp, car)) {
@@ -144,7 +144,7 @@ public class GameScene implements Scene {
         appEnv.getGraphics().renderImage(car);
 
 
-        for (PowerUp powerUp: environment.getPowerUps()) {
+        for (PowerUp powerUp: powerUpContainer.getPowerUps()) {
             appEnv.getGraphics().renderImage(powerUp);
         }
         appEnv.getGraphics().setCamera(hudCamera);

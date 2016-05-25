@@ -1,5 +1,7 @@
 package se.chalmers.tda367_4.game;
 
+import se.chalmers.tda367_4.game.entities.Multiplier;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,29 +1,40 @@
 package se.chalmers.tda367_4.game.entities.power_ups;
 
 import se.chalmers.tda367_4.game.entities.Environment;
+import se.chalmers.tda367_4.game.entities.Police;
 import se.chalmers.tda367_4.game.entities.SolidEntity;
 import se.chalmers.tda367_4.geometry.vector.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static se.chalmers.tda367_4.Utilities.entityCollides;
+import static se.chalmers.tda367_4.game.entities.Utilities.entityCollides;
 
-public class PowerUpFactory {
+public class PowerUpContainer {
 
     private Environment environment;
     private float maxXvalue;
     private float maxYvalue;
     private float minXvalue;
     private float minYvalue;
+    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
-    public PowerUpFactory (Environment environment, float maxXvalue, float maxYvalue,
-                           float minXvalue, float minYvalue) {
+    public PowerUpContainer(Environment environment, float maxXvalue, float maxYvalue,
+                            float minXvalue, float minYvalue) {
         this.environment = environment;
         this.maxXvalue = maxXvalue;
         this.maxYvalue = maxYvalue;
         this.minXvalue = minXvalue;
         this.minYvalue = minYvalue;
+    }
+
+    public List<PowerUp> getPowerUps() {
+        return powerUps;
+    }
+
+    private void addPowerUp(PowerUp powerUp) {
+        powerUps.add(powerUp);
     }
 
     public void createPowerUp() {
@@ -36,8 +47,8 @@ public class PowerUpFactory {
             );
             powerUp = generatePowerUp(position);
         } while (entityCollides(powerUp, environment) ||
-                    powerUpCollides(powerUp, environment.getPowerUps()));
-        environment.addPowerUp(powerUp);
+                    powerUpCollides(powerUp, powerUps));
+        addPowerUp(powerUp);
     }
 
     private PowerUp generatePowerUp(Vector2 position) {
