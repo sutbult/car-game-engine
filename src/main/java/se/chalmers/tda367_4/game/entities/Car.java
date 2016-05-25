@@ -50,6 +50,7 @@ public abstract class Car implements ImageEntity, SolidEntity {
 
     public void setPosition (Vector2 position) {
         this.position = position;
+        updateTriangles();
     }
 
     private Vector2 getBodyDirection() {
