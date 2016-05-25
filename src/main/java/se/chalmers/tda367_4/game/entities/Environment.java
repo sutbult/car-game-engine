@@ -1,6 +1,5 @@
 package se.chalmers.tda367_4.game.entities;
 
-import se.chalmers.tda367_4.game.entities.power_ups.PowerUp;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.triangle.Triangle;
 
@@ -29,5 +28,4 @@ public class Environment implements SolidEntity, SingleColorEntity {
         GraphicalTriangle[] trianglesArray = new GraphicalTriangle[triangles.size()];
         return triangles.toArray(trianglesArray);
     }
-
 }
