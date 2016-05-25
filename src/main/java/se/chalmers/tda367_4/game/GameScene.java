@@ -42,6 +42,8 @@ public class GameScene implements Scene {
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
+        appEnv.getGraphics().setBackgroundColor(new ApplicationColor(64, 192, 0));
+
         car = new Player(appEnv);
         createPolice(policePositions);
     }

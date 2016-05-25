@@ -89,6 +89,7 @@ public class SwingApplication extends JPanel implements Runnable {
     private class SwingGraphics implements ApplicationGraphics {
         public Graphics2D g;
         private ApplicationCamera camera;
+        private ApplicationColor backgroundColor = new ApplicationColor(255, 255, 255);
         private HashMap<String, Image> map = new HashMap<String, Image>();
 
         public void updateSize() {
@@ -100,6 +101,11 @@ public class SwingApplication extends JPanel implements Runnable {
             updateSize();
             displayImage = createImage(displayWidth, displayHeight);
             g = (Graphics2D)displayImage.getGraphics();
+            g.setColor(getSwingColor(backgroundColor));
+            g.fillRect(0, 0, displayWidth, displayHeight);
+        }
+        public void setBackgroundColor(ApplicationColor color) {
+            backgroundColor = color;
         }
         public void setCamera(ApplicationCamera camera) {
             this.camera = camera;
