@@ -7,7 +7,6 @@ import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
-import se.chalmers.tda367_4.game.entities.Police;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.scenes.Scene;
 import se.chalmers.tda367_4.geometry.vector.Vector2;
@@ -29,22 +28,34 @@ public class GameScene implements Scene {
     private HudCamera hudCamera;
     private GameCamera gameCamera;
 
-    private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
     private boolean changeScene = false;
     private boolean pauseScene = false;
     private Scene endScene;
 
     private PowerUpContainer powerUpContainer;
+    private PoliceContainer policeContainer;
 
-    private Multiplier playerSpeed = new Multiplier(7);
-    private Multiplier policeSpeed = new Multiplier(6);
+    private Multiplier playerSpeed = new Multiplier(6);
 
-    public GameScene(Environment environment, List<Vector2> policePositions, PowerUpContainer powerUpContainer) {
+    private float[] worldBorders;
+
+    private static final float POLICE_SPAWN_TIME = 7;
+    private float policeSpawnTime = POLICE_SPAWN_TIME;
+
+    public GameScene(Environment environment, List<Vector2> policePositions, float[] worldBorders) {
         this.environment = environment;
         this.policePositions = policePositions;
 
-        this.powerUpContainer = powerUpContainer;
+        this.powerUpContainer = new PowerUpContainer(
+                environment,
+                worldBorders[0],
+                worldBorders[1],
+                worldBorders[2],
+                worldBorders[3]
+        );
+
+        this.worldBorders = worldBorders;
 
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
@@ -58,14 +69,20 @@ public class GameScene implements Scene {
         car = new Player(appEnv, playerSpeed);
         appEnv.getGraphics().setBackgroundColor(new ApplicationColor(64, 192, 0));
 
+        this.policeContainer = new PoliceContainer(
+                environment,
+                worldBorders[0],
+                worldBorders[1],
+                worldBorders[2],
+                worldBorders[3],
+                gameCamera,
+                car);
         createPolice(policePositions);
     }
 
     private void createPolice(List<Vector2> vectors) {
         for (Vector2 vector: vectors) {
-            Car police = new Police(car, policeSpeed);
-            police.setPosition(vector);
-            policeList.add(police);
+            policeContainer.createPolice(vector);
         }
     }
 
@@ -80,7 +97,7 @@ public class GameScene implements Scene {
         car.move(delta);
         score.update(delta * 2);
 
-        for (Car police : policeList) {
+        for (Car police : policeContainer.getPolice()) {
             police.move(delta);
         }
 
@@ -88,7 +105,7 @@ public class GameScene implements Scene {
             car.revert();
 
         }
-        for (Car police : policeList) {
+        for (Car police : policeContainer.getPolice()) {
             if (entityCollides(car, police)) {
                 try {
                     score.saveScore();
@@ -103,6 +120,13 @@ public class GameScene implements Scene {
                 police.revert();
             }
         }
+
+        policeSpawnTime -= delta;
+        if (policeSpawnTime < 0) {
+            policeContainer.createPolice();
+            policeSpawnTime = POLICE_SPAWN_TIME;
+        }
+
         handlePowerups();
     }
 
@@ -139,13 +163,10 @@ public class GameScene implements Scene {
             appEnv.getGraphics().renderTriangle(triangle);
         }
 
-        for (Car police: policeList) {
+        for (Car police: policeContainer.getPolice()) {
             appEnv.getGraphics().renderImage(police);
         }
         appEnv.getGraphics().renderImage(car);
-        for (Car police: policeList) {
-            appEnv.getGraphics().renderImage(police);
-        }
 
         for (PowerUp powerUp: powerUpContainer.getPowerUps()) {
             appEnv.getGraphics().renderImage(powerUp);
@@ -159,7 +180,14 @@ public class GameScene implements Scene {
                         new ApplicationColor(0,0,0)));
 
         if(pauseScene){
-            appEnv.getGraphics().renderText(new GameText("PAUSE", "Sans-serif", new Vector2(0,1.8f), 2, false, new ApplicationColor(250, 0, 0)));
+            appEnv.getGraphics().renderText(new GameText(
+                    "PAUSE",
+                    "Sans-serif",
+                    new Vector2(0,1.8f),
+                    2,
+                    false,
+                    new ApplicationColor(250, 0, 0)
+            ));
         }
     }
 
@@ -185,7 +213,7 @@ public class GameScene implements Scene {
         }
 
         public float getHeight() {
-            return 10;
+            return 13;
         }
     }
 
