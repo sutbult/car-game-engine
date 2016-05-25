@@ -8,12 +8,12 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import se.chalmers.tda367_4.game.entities.power_ups.PowerUpFactory;
 import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.game.entities.Environment;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangleImpl;
 import se.chalmers.tda367_4.geometry.vector.Vector2;
-import se.chalmers.tda367_4.menu.MenuScene;
 
 public class WorldLoader {
 
@@ -26,14 +26,29 @@ public class WorldLoader {
         } catch (Exception e) {
             System.out.println("Problem parsing JSON file");
         }
-        return new GameScene(new Environment(
+        Environment environment = new Environment(
                 getTriangles("solid-triangles", jsonObject),
-                getTriangles("nonsolid-triangles", jsonObject)),
-                getPolicePositions(jsonObject)
+                getTriangles("nonsolid-triangles", jsonObject)
+        );
+        return new GameScene(
+                environment,
+                getPolicePositions(jsonObject),
+                getPowerUpFactory(jsonObject, environment)
         );
     }
 
-    public static List<GraphicalTriangle> getTriangles(String arrayName, JSONObject jsonObject) {
+    private static PowerUpFactory getPowerUpFactory(JSONObject jsonObject, Environment environment) {
+        JSONArray borders = (JSONArray) jsonObject.get("World-borders");
+        return new PowerUpFactory(
+                environment,
+                toFloat(borders.get(0)),
+                toFloat(borders.get(1)),
+                toFloat(borders.get(2)),
+                toFloat(borders.get(3))
+        );
+    }
+
+    private static List<GraphicalTriangle> getTriangles(String arrayName, JSONObject jsonObject) {
 
         List<GraphicalTriangle> triangles = new ArrayList<GraphicalTriangle>();
         JSONArray triangleList = (JSONArray) jsonObject.get(arrayName);
@@ -64,7 +79,7 @@ public class WorldLoader {
         return Float.parseFloat(a.toString());
     }
 
-    public static List<Vector2> getPolicePositions(JSONObject jsonObject) {
+   private static List<Vector2> getPolicePositions(JSONObject jsonObject) {
         List<Vector2> policePositions = new ArrayList<Vector2>();
 
         JSONArray policeList = (JSONArray) jsonObject.get("Policecars");

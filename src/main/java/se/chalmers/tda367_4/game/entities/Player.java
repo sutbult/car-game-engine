@@ -3,13 +3,14 @@ package se.chalmers.tda367_4.game.entities;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationInput;
 import se.chalmers.tda367_4.app.ApplicationKey;
+import se.chalmers.tda367_4.game.Multiplier;
 import se.chalmers.tda367_4.game.entities.utils.Direction;
 
 public class Player extends Car {
     private ApplicationEnvironment env;
 
-    public Player(ApplicationEnvironment env) {
-        super("car_yellow.png");
+    public Player(ApplicationEnvironment env, Multiplier speed) {
+        super("car_yellow.png", speed);
         this.env = env;
     }
     protected Direction getDirection() {

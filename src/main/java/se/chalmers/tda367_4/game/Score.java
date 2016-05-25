@@ -5,38 +5,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Score {
+public class Score extends Multiplier {
     private float score;
     private float multiplier;
     private File file = new File("res/scores.txt");
 
     public Score(float score, float multiplier){
+        super(multiplier);
         this.score = score;
-        this.multiplier = multiplier;
     }
 
     public float getScore(){
         return score;
     }
 
-    public float getMultiplier(){
-        return multiplier;
-    }
-
     public void addScore(float score){
         this.score += score;
     }
 
-    public void setMultiplier(float multiplier){
-        this.multiplier = multiplier;
-    }
-
-    public void resetMultiplier(){
-        multiplier = 1;
-    }
-
     public void update(float delta){
-        addScore(delta * multiplier);
+        addScore(delta * getMultiplier());
     }
 
     public void saveScore() throws IOException{
