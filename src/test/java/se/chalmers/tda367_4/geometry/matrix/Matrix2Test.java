@@ -141,6 +141,6 @@ public class Matrix2Test {
         Matrix2 inversion = matrix.invert();
         Matrix2 result = matrix.multiply(inversion);
         Matrix2 expected = new Matrix2();
-        assertTrue(expected.equals(result, 1));
+        assertTrue(expected.equals(result, 0.01f));
     }
 }
