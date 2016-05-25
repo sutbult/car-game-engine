@@ -103,7 +103,6 @@ public class GameScene implements Scene {
             appEnv.getGraphics().renderImage(police);
         }
         appEnv.getGraphics().renderImage(car);
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false, new ApplicationColor(0,0,0)));
         appEnv.getGraphics().setCamera(hudCamera);
 
         appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
