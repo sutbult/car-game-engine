@@ -140,20 +140,21 @@
   "Policecars": [
     {
     "Position": [9,5]
-  },
-  {
-    "Position": [-3,-2]
-  },
-  {
-    "Position": [-8,-1]
-  },
-  {
-    "Position": [-5,-3]
-  },
-  {
-    "Position": [-6,-3]
-  },
-  {
-    "Position": [-3,-5]
-  }]
+    },
+    {
+      "Position": [-3,-2]
+    },
+    {
+      "Position": [-8,-1]
+    },
+    {
+      "Position": [-5,-3]
+    },
+    {
+      "Position": [-6,-3]
+    },
+    {
+      "Position": [-3,-5]
+    }
+  ]
 }
