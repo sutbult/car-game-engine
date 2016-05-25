@@ -8,7 +8,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import se.chalmers.tda367_4.game.entities.PowerUps.PowerUpFactory;
+import se.chalmers.tda367_4.game.entities.power_ups.PowerUpFactory;
 import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.game.entities.Environment;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;

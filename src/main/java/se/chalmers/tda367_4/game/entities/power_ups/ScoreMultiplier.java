@@ -1,13 +1,13 @@
-package se.chalmers.tda367_4.game.entities.PowerUps;
+package se.chalmers.tda367_4.game.entities.power_ups;
 
 import se.chalmers.tda367_4.geometry.vector.Vector2;
 
-public class PlayerSpeedBoost extends PowerUp {
+public class ScoreMultiplier extends PowerUp {
     private float modifier;
     private int duration;
 
-    public PlayerSpeedBoost(Vector2 position, float modifier, int duration) {
-        super(position, "quake-stomp.png");
+    public ScoreMultiplier(Vector2 position, float modifier, int duration) {
+        super(position, "unicorn.png");
         this.modifier = modifier;
         this.duration = duration;
     }

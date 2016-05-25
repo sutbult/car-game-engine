@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4.game.entities.PowerUps;
+package se.chalmers.tda367_4.game.entities.power_ups;
 
 import se.chalmers.tda367_4.app.ApplicationImage;
 import se.chalmers.tda367_4.game.entities.ImageEntity;

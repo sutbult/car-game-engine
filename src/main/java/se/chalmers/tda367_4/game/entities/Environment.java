@@ -1,6 +1,6 @@
 package se.chalmers.tda367_4.game.entities;
 
-import se.chalmers.tda367_4.game.entities.PowerUps.PowerUp;
+import se.chalmers.tda367_4.game.entities.power_ups.PowerUp;
 import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.geometry.triangle.Triangle;
 

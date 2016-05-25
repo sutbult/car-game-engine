@@ -1,7 +1,7 @@
 package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
-import se.chalmers.tda367_4.game.entities.PowerUps.*;
+import se.chalmers.tda367_4.game.entities.power_ups.*;
 import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
