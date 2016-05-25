@@ -147,7 +147,6 @@ public class GameScene implements Scene {
         for (PowerUp powerUp: environment.getPowerUps()) {
             appEnv.getGraphics().renderImage(powerUp);
         }
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false, new ApplicationColor(0,0,0)));
         appEnv.getGraphics().setCamera(hudCamera);
 
         appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
