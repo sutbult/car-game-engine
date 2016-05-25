@@ -10,7 +10,7 @@ import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public abstract class Car implements ImageEntity, SolidEntity {
 //    private final static float SPEED = 5;
-    private final static float TURN_RATE = -0.5f;
+    private final static float TURN_RATE = -0.6f;
     private final static Vector2 CAR_SIZE = new Vector2(2, 1);
     private ApplicationImage image;
     private Vector2 position;

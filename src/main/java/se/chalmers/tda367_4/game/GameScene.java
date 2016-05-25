@@ -37,8 +37,8 @@ public class GameScene implements Scene {
 
     private PowerUpFactory powerUpFactory;
 
-    private Multiplier playerSpeed = new Multiplier(7);
-    private Multiplier policeSpeed = new Multiplier(6);
+    private Multiplier playerSpeed = new Multiplier(6);
+    private Multiplier policeSpeed = new Multiplier(5);
 
     public GameScene(Environment environment, List<Vector2> policePositions, PowerUpFactory powerUpFactory) {
         this.environment = environment;
