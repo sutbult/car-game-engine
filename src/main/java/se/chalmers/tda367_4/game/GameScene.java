@@ -156,7 +156,14 @@ public class GameScene implements Scene {
                         new ApplicationColor(0,0,0)));
 
         if(pauseScene){
-            appEnv.getGraphics().renderText(new GameText("PAUSE", "Sans-serif", new Vector2(0,1.8f), 2, false, new ApplicationColor(250, 0, 0)));
+            appEnv.getGraphics().renderText(new GameText(
+                    "PAUSE",
+                    "Sans-serif",
+                    new Vector2(0,1.8f),
+                    2,
+                    false,
+                    new ApplicationColor(250, 0, 0)
+            ));
         }
     }
 
