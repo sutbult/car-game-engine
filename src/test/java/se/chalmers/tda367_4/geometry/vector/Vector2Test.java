@@ -69,8 +69,8 @@ public class Vector2Test {
     public void length() {
         Vector2 vector = randVector2();
         float expected = (float)Math.sqrt(
-                Math.pow(vector.getX(), 2) +
-                Math.pow(vector.getY(), 2)
+                vector.getX() * vector.getX() +
+                vector.getY() * vector.getY()
         );
         assertEquals(expected, vector.length(), 0.01);
     }
