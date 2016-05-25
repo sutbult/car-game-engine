@@ -56,9 +56,7 @@ public class PoliceContainer {
                 );
             } while (!outOfCamera(position));
 
-            System.out.println(player.getStandardSpeed());
             police = new Police(player, new Multiplier(generateSpeed()));
-            System.out.println(police.getStandardSpeed());
             police.setPosition(position);
 
         } while (entityCollides(police, environment));
