@@ -1,4 +1,6 @@
-{"solid-triangles": [{
+{
+  "World-borders": [20, 30, -24, -20],
+  "solid-triangles": [{
   "R":"200",
   "B":"100",
   "G":"10",

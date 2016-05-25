@@ -12,11 +12,18 @@ import static se.chalmers.tda367_4.Utilities.entityCollides;
 public class PowerUpFactory {
 
     private Environment environment;
-    private float maxLocationValue;
+    private float maxXvalue;
+    private float maxYvalue;
+    private float minXvalue;
+    private float minYvalue;
 
-    public PowerUpFactory (Environment environment, float maxLocationValue) {
+    public PowerUpFactory (Environment environment, float maxXvalue, float maxYvalue,
+                           float minXvalue, float minYvalue) {
         this.environment = environment;
-        this.maxLocationValue = maxLocationValue;
+        this.maxXvalue = maxXvalue;
+        this.maxYvalue = maxYvalue;
+        this.minXvalue = minXvalue;
+        this.minYvalue = minYvalue;
     }
 
     public void createPowerUp() {
@@ -24,8 +31,8 @@ public class PowerUpFactory {
         PowerUp powerUp;
         do {
             Vector2 position = new Vector2(
-                    r.nextFloat() * (2 * maxLocationValue) - maxLocationValue,
-                    r.nextFloat() * (2 * maxLocationValue) - maxLocationValue
+                    r.nextFloat() * (maxXvalue - minXvalue) + minXvalue,
+                    r.nextFloat() * (maxYvalue - minYvalue) + minXvalue
             );
             powerUp = generatePowerUp(position);
         } while (entityCollides(powerUp, environment) ||

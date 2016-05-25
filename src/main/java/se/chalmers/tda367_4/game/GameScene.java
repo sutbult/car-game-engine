@@ -40,11 +40,11 @@ public class GameScene implements Scene {
     private Multiplier playerSpeed = new Multiplier(7);
     private Multiplier policeSpeed = new Multiplier(6);
 
-    public GameScene(Environment environment, List<Vector2> policePositions) {
+    public GameScene(Environment environment, List<Vector2> policePositions, PowerUpFactory powerUpFactory) {
         this.environment = environment;
         this.policePositions = policePositions;
 
-        powerUpFactory = new PowerUpFactory(environment, 10);
+        this.powerUpFactory = powerUpFactory;
 
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
