@@ -1,8 +1,8 @@
 package se.chalmers.tda367_4.game;
 
 import org.junit.Test;
-import se.chalmers.tda367_4.geometry.ApplicationColor;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import static org.junit.Assert.*;
 

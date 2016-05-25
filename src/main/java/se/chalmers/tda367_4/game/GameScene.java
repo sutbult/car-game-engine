@@ -1,25 +1,25 @@
 package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.app.ApplicationCamera;
-import se.chalmers.tda367_4.game.entities.PowerUps.*;
-import se.chalmers.tda367_4.geometry.ApplicationColor;
+import se.chalmers.tda367_4.game.entities.power_ups.*;
+import se.chalmers.tda367_4.geometry.color.ApplicationColor;
 import se.chalmers.tda367_4.app.ApplicationEnvironment;
 import se.chalmers.tda367_4.app.ApplicationKey;
 import se.chalmers.tda367_4.game.entities.Car;
 import se.chalmers.tda367_4.game.entities.Player;
 import se.chalmers.tda367_4.game.entities.Police;
+import se.chalmers.tda367_4.geometry.triangle.GraphicalTriangle;
 import se.chalmers.tda367_4.scenes.Scene;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import se.chalmers.tda367_4.game.entities.*;
-import se.chalmers.tda367_4.geometry.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static se.chalmers.tda367_4.Utilities.entityCollides;
+import static se.chalmers.tda367_4.game.entities.Utilities.entityCollides;
 
 public class GameScene implements Scene {
     private ApplicationEnvironment appEnv;
@@ -32,22 +32,23 @@ public class GameScene implements Scene {
     private List<Car> policeList = new ArrayList<Car>();
     private List<Vector2> policePositions = new ArrayList<Vector2>();
     private boolean changeScene = false;
+    private boolean pauseScene = false;
     private Scene endScene;
 
-    private PowerUpFactory powerUpFactory;
+    private PowerUpContainer powerUpContainer;
 
     private Multiplier playerSpeed = new Multiplier(7);
     private Multiplier policeSpeed = new Multiplier(6);
 
-    public GameScene(Environment environment, List<Vector2> policePositions) {
+    public GameScene(Environment environment, List<Vector2> policePositions, PowerUpContainer powerUpContainer) {
         this.environment = environment;
         this.policePositions = policePositions;
 
-        powerUpFactory = new PowerUpFactory(environment, 10);
+        this.powerUpContainer = powerUpContainer;
 
         hudCamera = new HudCamera();
         gameCamera = new GameCamera();
-        endScene = new MenuScene();
+        score = new Score(0, 1);
     }
 
     public void init(ApplicationEnvironment appEnv) {
@@ -55,6 +56,8 @@ public class GameScene implements Scene {
         score = new Score(0, 1);
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv, playerSpeed);
+        appEnv.getGraphics().setBackgroundColor(new ApplicationColor(64, 192, 0));
+
         createPolice(policePositions);
     }
 
@@ -65,34 +68,40 @@ public class GameScene implements Scene {
             policeList.add(police);
         }
     }
+
     public void update(float delta) {
-        if (!appEnv.getInput().isKeyDown(ApplicationKey.ESC)) {
-            changeScene = false;
-            car.move(delta);
-            score.update(delta*2);
+        if (appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
+            pauseScene = !pauseScene;
+        }
 
-            for (Car police: policeList) {
-                police.move(delta);
-           }
+        if(pauseScene) return;
 
-            if (entityCollides(car, environment)) {
-                car.revert();
-            }
-            for (Car police: policeList) {
-                if (entityCollides(car, police)) {
+        changeScene = false;
+        car.move(delta);
+        score.update(delta * 2);
+
+        for (Car police : policeList) {
+            police.move(delta);
+        }
+
+        if (entityCollides(car, environment)) {
+            car.revert();
+
+        }
+        for (Car police : policeList) {
+            if (entityCollides(car, police)) {
+                try {
+                    score.saveScore();
+                    //setReplacementScene(new MenuScene(score));
                     changeScene = true;
-                    try{
-                        score.saveScore();
-                    }catch (IOException e){
-                        e.printStackTrace();
-                    }
-                }
-                if (entityCollides(police, environment)) {
-                    police.revert();
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        } else {
-            changeScene = true;
+            if (entityCollides(police, environment)) {
+                police.revert();
+            }
         }
         handlePowerups();
     }
@@ -103,11 +112,11 @@ public class GameScene implements Scene {
     private void handlePowerups() {
 
         if (Math.random() < 0.005) {
-            powerUpFactory.createPowerUp();
+            powerUpContainer.createPowerUp();
         }
 
 
-        Iterator<PowerUp> iterator = environment.getPowerUps().iterator();
+        Iterator<PowerUp> iterator = powerUpContainer.getPowerUps().iterator();
         while (iterator.hasNext()) {
             PowerUp powerUp = iterator.next();
             if (entityCollides(powerUp, car)) {
@@ -123,7 +132,7 @@ public class GameScene implements Scene {
         }
     }
 
-    public void render() {
+    public void render(){
         appEnv.getGraphics().setCamera(gameCamera);
 
         for (GraphicalTriangle triangle : environment.getGraphicalTriangles()) {
@@ -138,10 +147,9 @@ public class GameScene implements Scene {
             appEnv.getGraphics().renderImage(police);
         }
 
-        for (PowerUp powerUp: environment.getPowerUps()) {
+        for (PowerUp powerUp: powerUpContainer.getPowerUps()) {
             appEnv.getGraphics().renderImage(powerUp);
         }
-        appEnv.getGraphics().renderText(new GameText("Example", "Serif", new Vector2(1, 1), 1, false, new ApplicationColor(0,0,0)));
         appEnv.getGraphics().setCamera(hudCamera);
 
         appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
@@ -149,15 +157,22 @@ public class GameScene implements Scene {
                         0.8f,
                         false,
                         new ApplicationColor(0,0,0)));
+
+        if(pauseScene){
+            appEnv.getGraphics().renderText(new GameText("PAUSE", "Sans-serif", new Vector2(0,1.8f), 2, false, new ApplicationColor(250, 0, 0)));
+        }
     }
 
     public Scene newScene() {
-        if(changeScene){
-            return endScene;
-        }else return null;
+        return changeScene ? endScene : null;
     }
-    public void setEndScene(Scene endScene) {
-        this.endScene = endScene;
+
+    public void setReplacementScene(Scene newScene){
+        this.endScene = newScene;
+    }
+
+    public float getScore() {
+        return score.getScore();
     }
 
     private class GameCamera implements ApplicationCamera {

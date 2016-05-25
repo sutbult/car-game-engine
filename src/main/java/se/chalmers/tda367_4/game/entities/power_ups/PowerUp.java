@@ -1,11 +1,11 @@
-package se.chalmers.tda367_4.game.entities.PowerUps;
+package se.chalmers.tda367_4.game.entities.power_ups;
 
 import se.chalmers.tda367_4.app.ApplicationImage;
 import se.chalmers.tda367_4.game.entities.ImageEntity;
 import se.chalmers.tda367_4.game.entities.SolidEntity;
-import se.chalmers.tda367_4.geometry.Triangle;
-import se.chalmers.tda367_4.geometry.TriangleImpl;
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.triangle.Triangle;
+import se.chalmers.tda367_4.geometry.triangle.TriangleImpl;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public abstract class PowerUp implements ImageEntity, SolidEntity {
 

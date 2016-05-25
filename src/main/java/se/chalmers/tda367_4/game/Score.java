@@ -1,8 +1,14 @@
 package se.chalmers.tda367_4.game;
 
-import java.io.*;
-public class Score extends Multiplier {
 
+import se.chalmers.tda367_4.game.entities.Multiplier;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Score extends Multiplier {
     private float score;
     private float multiplier;
     private File file = new File("res/scores.txt");
@@ -28,6 +34,7 @@ public class Score extends Multiplier {
         FileWriter fw;
         BufferedWriter bw;
         PrintWriter out;
+        String score = String.valueOf(Math.round(this.score));
 
         try{
             if(!file.exists()){
@@ -38,7 +45,7 @@ public class Score extends Multiplier {
             bw = new BufferedWriter(fw);
             out = new PrintWriter(bw);
 
-            out.println(String.valueOf(Math.round(score)));
+            out.println(score);
             out.close();
 
         }catch (IOException e){
@@ -46,23 +53,36 @@ public class Score extends Multiplier {
         }
     }
 
-    public float getHighScore(){
-        float highScore = 0;
+    public List<Integer> getHighScore(int nbrOfScores){
+        List<Integer> list = createFileList();
+        Collections.sort(list, Collections.<Integer>reverseOrder());
+        List<Integer> highScores = createHighScoreList(list, nbrOfScores);
+        return highScores;
+    }
+
+    private List<Integer> createFileList(){
+        List<Integer> list = new ArrayList<Integer>();
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
-
             for(String line = br.readLine(); line != null; line = br.readLine()){
-                float tmp = Float.valueOf(line);
-                if(tmp > highScore){
-                    highScore = tmp;
-                }
+                list.add(Integer.parseInt(line));
             }
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }catch(IOException e){
             e.printStackTrace();
         }
-        return highScore;
+
+        return list;
+    }
+
+    private List<Integer> createHighScoreList(List<Integer> list, int nbrOfScores){
+        List<Integer> topScores = new ArrayList<Integer>();
+        if(nbrOfScores < list.size()){
+            for(int i = 0; i < nbrOfScores; i++){
+                topScores.add(list.get(i));
+            }return topScores;
+        }else return list;
     }
 }

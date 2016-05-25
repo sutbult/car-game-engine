@@ -1,9 +1,11 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.vector;
 
 import org.junit.Test;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector3;
 
 import static org.junit.Assert.*;
-import static se.chalmers.tda367_4.geometry.GeometryTestUtils.*;
+import static se.chalmers.tda367_4.geometry.vector.VectorTestUtils.*;
 
 public class Vector2Test {
     @Test
@@ -67,8 +69,8 @@ public class Vector2Test {
     public void length() {
         Vector2 vector = randVector2();
         float expected = (float)Math.sqrt(
-                Math.pow(vector.getX(), 2) +
-                Math.pow(vector.getY(), 2)
+                vector.getX() * vector.getX() +
+                vector.getY() * vector.getY()
         );
         assertEquals(expected, vector.length(), 0.01);
     }

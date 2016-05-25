@@ -1,6 +1,6 @@
-package se.chalmers.tda367_4.game.entities.PowerUps;
+package se.chalmers.tda367_4.game.entities.power_ups;
 
-import se.chalmers.tda367_4.geometry.Vector2;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public class ScoreBoost extends PowerUp {
     private float boost;

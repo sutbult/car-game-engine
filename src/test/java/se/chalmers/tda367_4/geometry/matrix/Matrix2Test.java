@@ -1,9 +1,10 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.matrix;
 
 import org.junit.Test;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 import static org.junit.Assert.*;
-import static se.chalmers.tda367_4.geometry.GeometryTestUtils.*;
+import static se.chalmers.tda367_4.geometry.vector.VectorTestUtils.*;
 
 public class Matrix2Test {
     @Test
@@ -119,7 +120,7 @@ public class Matrix2Test {
     }
     @Test
     public void equals() {
-        Matrix2 first = randMatrix2();
+        Matrix2 first = MatrixTestUtils.randMatrix2();
         Matrix2 second = first.clone();
         assertTrue(first.equals(second));
         assertEquals(first, second);
@@ -128,7 +129,7 @@ public class Matrix2Test {
     }
     @Test
     public void determinant() {
-        Matrix2 matrix = randMatrix2();
+        Matrix2 matrix = MatrixTestUtils.randMatrix2();
         float expected =
                 matrix.get(0, 0) * matrix.get(1, 1) -
                 matrix.get(0, 1) * matrix.get(1, 0);
@@ -136,10 +137,10 @@ public class Matrix2Test {
     }
     @Test
     public void invertion() {
-        Matrix2 matrix = randMatrix2();
+        Matrix2 matrix = MatrixTestUtils.randMatrix2();
         Matrix2 inversion = matrix.invert();
         Matrix2 result = matrix.multiply(inversion);
         Matrix2 expected = new Matrix2();
-        assertTrue(expected.equals(result, 0.5f));
+        assertTrue(expected.equals(result, 0.01f));
     }
 }

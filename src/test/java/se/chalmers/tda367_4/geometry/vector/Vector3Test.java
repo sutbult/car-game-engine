@@ -1,9 +1,10 @@
-package se.chalmers.tda367_4.geometry;
+package se.chalmers.tda367_4.geometry.vector;
 
 import org.junit.Test;
+import se.chalmers.tda367_4.geometry.vector.Vector3;
 
 import static org.junit.Assert.*;
-import static se.chalmers.tda367_4.geometry.GeometryTestUtils.*;
+import static se.chalmers.tda367_4.geometry.vector.VectorTestUtils.*;
 
 public class Vector3Test {
     @Test

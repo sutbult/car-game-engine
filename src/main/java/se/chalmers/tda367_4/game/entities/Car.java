@@ -1,12 +1,13 @@
 package se.chalmers.tda367_4.game.entities;
 
 import se.chalmers.tda367_4.app.ApplicationImage;
-import se.chalmers.tda367_4.game.Multiplier;
 import se.chalmers.tda367_4.game.entities.utils.Direction;
-import se.chalmers.tda367_4.geometry.*;
+import se.chalmers.tda367_4.geometry.matrix.Matrix2;
+import se.chalmers.tda367_4.geometry.triangle.Triangle;
+import se.chalmers.tda367_4.geometry.triangle.TriangleImpl;
+import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public abstract class Car implements ImageEntity, SolidEntity {
-//    private final static float SPEED = 5;
     private final static float TURN_RATE = -0.5f;
     private final static Vector2 CAR_SIZE = new Vector2(2, 1);
     private ApplicationImage image;

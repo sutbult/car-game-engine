@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4.game;
+package se.chalmers.tda367_4.game.entities;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,16 +14,19 @@ public class Multiplier {
         this.standardMultiplier = modifier;
     }
 
-    public float getMultiplier() {
+    public synchronized float getMultiplier() {
         return currentMultiplier;
     }
 
-    public void setMultiplier(final float modifier, int duration) {
+    public synchronized void setMultiplier(final float modifier, int duration) {
+        final Multiplier self = this;
         currentMultiplier += modifier;
         timer.schedule(new TimerTask() {
            @Override
            public void run() {
-               currentMultiplier -= modifier;
+               synchronized (self) {
+                   currentMultiplier -= modifier;
+               }
            }
                        },
                 duration * 1000
