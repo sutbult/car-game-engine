@@ -21,6 +21,8 @@ public class Police extends Car {
         super.revert();
         if (reverseDuration < 0) {
             reverseDuration = 1.2f;
+        } else {
+            reverseDuration = -1;
         }
     }
 
