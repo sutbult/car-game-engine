@@ -56,6 +56,8 @@ public class GameScene implements Scene {
         score = new Score(0, 1);
         appEnv.getGraphics().setCamera(new GameCamera());
         car = new Player(appEnv, playerSpeed);
+        appEnv.getGraphics().setBackgroundColor(new ApplicationColor(64, 192, 0));
+
         createPolice(policePositions);
     }
 

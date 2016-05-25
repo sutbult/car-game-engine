@@ -76,6 +76,7 @@ public class MenuScene implements Scene {
 
     public void init(ApplicationEnvironment appEnv) {
         this.appEnv = appEnv;
+        appEnv.getGraphics().setBackgroundColor(new ApplicationColor(255, 255, 255));
     }
 
     public void update(float delta){
