@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static se.chalmers.tda367_4.Utilities.entityCollides;
+import static se.chalmers.tda367_4.game.Utilities.entityCollides;
 
 public class GameScene implements Scene {
     private ApplicationEnvironment appEnv;

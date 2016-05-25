@@ -1,4 +1,4 @@
-package se.chalmers.tda367_4;
+package se.chalmers.tda367_4.game;
 
 import se.chalmers.tda367_4.game.entities.SolidEntity;
 import se.chalmers.tda367_4.geometry.triangle.Triangle;

@@ -7,7 +7,7 @@ import se.chalmers.tda367_4.geometry.vector.Vector2;
 import java.util.List;
 import java.util.Random;
 
-import static se.chalmers.tda367_4.Utilities.entityCollides;
+import static se.chalmers.tda367_4.game.Utilities.entityCollides;
 
 public class PowerUpFactory {
 
