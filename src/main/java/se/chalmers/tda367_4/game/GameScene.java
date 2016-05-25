@@ -182,7 +182,7 @@ public class GameScene implements Scene {
         }
 
         public float getHeight() {
-            return 10;
+            return 13;
         }
     }
 
