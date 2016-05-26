@@ -35,6 +35,7 @@ public class SwingApplication extends JPanel implements Runnable {
     }
     private void launch() {
         JFrame frame = new JFrame();
+        frame.setTitle("GTFA");
         frame.setContentPane(this);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
