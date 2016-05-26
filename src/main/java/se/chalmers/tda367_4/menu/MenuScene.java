@@ -26,25 +26,29 @@ public class MenuScene implements Scene {
     private boolean showHighscores;
     private boolean showHowToPlay;
 
-    private GameText pressSpaceText = new GameText("(Press space to interact)", "Sans-serif", new Vector2(0, 4.2f), 0.4f, false,
+    private GameText pressSpaceText = new GameText("(Press space to interact)", "Sans-serif",
+            new Vector2(0, 4.2f), 0.4f, false,
             new ApplicationColor(120, 120, 120));
 
     // Start text
-    private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 2f, false,
+    private GameText gtfaText = new GameText("GTFA", "Sans-Serif", new Vector2(0, 3), 1.4f, false,
             new ApplicationColor(0,0,0));
 
     // Pause/Game-over text
-    private GameText gameOverText = new GameText("GAME OVER", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
+    private GameText gameOverText = new GameText("GAME OVER", "Sans-Serif", new Vector2(0, 3f), 1.4f, false,
             new ApplicationColor(0,0,0));
-    private GameText underLineText2 = new GameText("_____________", "Sans-Serif", new Vector2(0, 2.8f), 1.5f, false,
+    private GameText underLineText2 = new GameText("_____________", "Sans-Serif", new Vector2(0, 2.8f), 1.3f, false,
             new ApplicationColor(0,0,0));
-    private GameText scoreText = new GameText("Your score:", "Sans-Serif", new Vector2(0, 1.3f), 0.6f, false,
+    private GameText scoreText = new GameText("Your score:", "Sans-Serif", new Vector2(0, 1.3f), 0.4f, false,
             new ApplicationColor(0,0,0));
     private GameText showScoreText;
 
     // Highscore text
-    private GameText bigHighscoresText = new GameText("HIGHSCORES", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
+    private GameText bigHighscoresText = new GameText("HIGHSCORES", "Sans-Serif", new Vector2(0, 3f), 1.4f, false,
             new ApplicationColor(0,0,0));
+    private GameText topFiveScores = new GameText("Top 5", "Sans-Serif", new Vector2(0, 1.8f), 0.6f, false,
+            new ApplicationColor(100,100,100));
+    private List<Integer> highscoreList;
 
     // How to play text
     private GameText bigHowToPlayText = new GameText("HOW TO PLAY", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
@@ -74,13 +78,13 @@ public class MenuScene implements Scene {
             new ApplicationColor(0,0,0));
 
     // Menu-options
-    private GameText playText = new GameText("Start game", "Sans-Serif", new Vector2(0, -1), 0.8f, false,
+    private GameText playText = new GameText("Start game", "Sans-Serif", new Vector2(0, -1.6f), 0.6f, false,
             new ApplicationColor(0,0,250));
-    private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, -2), 0.8f, false,
+    private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, -2.4f), 0.6f, false,
             new ApplicationColor(0,0,0));
-    private GameText howToPlayText = new GameText("How to play", "Sans-Serif", new Vector2(0, -3), 0.8f, false,
+    private GameText howToPlayText = new GameText("How to play", "Sans-Serif", new Vector2(0, -3.2f), 0.6f, false,
             new ApplicationColor(0,0,0));
-    private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -4), 0.8f, false,
+    private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -4f), 0.6f, false,
             new ApplicationColor(0,0,0));
 
     public MenuScene(){
@@ -120,6 +124,7 @@ public class MenuScene implements Scene {
                 setReplacementScene();
             }else if(Math.abs(menuIndex) == 1){
                 showHowToPlay = false;
+                highscoreList = Score.getHighScore(5);
                 showHighscores = true;
             } else if(Math.abs(menuIndex) == 2){
                 showHighscores = false;
@@ -149,6 +154,14 @@ public class MenuScene implements Scene {
 
         if(showHighscores){
             appEnv.getGraphics().renderText(bigHighscoresText);
+            appEnv.getGraphics().renderText(topFiveScores);
+            Float yAxis = 1.2f;
+            for(Integer list : highscoreList){
+                appEnv.getGraphics().renderText(new GameText(list.toString(), "Sans-Serif",
+                        new Vector2(0, yAxis), 0.4f, false,
+                        new ApplicationColor(0,0,0)));
+                yAxis -= 0.5f;
+            }
         }else if(showHowToPlay) {
             appEnv.getGraphics().renderText(bigHowToPlayText);
             appEnv.getGraphics().renderText(controls);
