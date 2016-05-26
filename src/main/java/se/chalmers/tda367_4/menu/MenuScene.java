@@ -172,7 +172,6 @@ public class MenuScene implements Scene {
             appEnv.getGraphics().renderText(rules);
             appEnv.getGraphics().renderText(rules1);
             appEnv.getGraphics().renderText(rules2);
-
         }else{
             if(score == 0){
                 appEnv.getGraphics().renderText(gtfaText);
