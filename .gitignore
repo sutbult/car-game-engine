@@ -1,7 +1,7 @@
 # Created by https://www.gitignore.io/api/osx,windows,linux,intellij,eclipse,netbeans,java
 
 # Scores file
-res/scores.txt
+scores.txt
 res/highscores.txt
 
 ### OSX ###
