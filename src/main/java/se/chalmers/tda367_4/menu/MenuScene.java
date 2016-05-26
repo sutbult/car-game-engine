@@ -24,7 +24,7 @@ public class MenuScene implements Scene {
     private GameScene gameScene;
     private int score = 0;
     private boolean showHighscores;
-    private boolean showSettings;
+    private boolean showHowToPlay;
 
     private GameText pressSpaceText = new GameText("(Press space to interact)", "Sans-serif", new Vector2(0, 4.2f), 0.4f, false,
             new ApplicationColor(120, 120, 120));
@@ -46,8 +46,31 @@ public class MenuScene implements Scene {
     private GameText bigHighscoresText = new GameText("HIGHSCORES", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
             new ApplicationColor(0,0,0));
 
-    // Settings text
-    private GameText bigSettingsText = new GameText("SETTINGS", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
+    // How to play text
+    private GameText bigHowToPlayText = new GameText("HOW TO PLAY", "Sans-Serif", new Vector2(0, 3f), 1.6f, false,
+            new ApplicationColor(0,0,0));
+
+    // Movement
+    private GameText controls = new GameText("Controls:", "Sans-Serif", new Vector2(-2.5f, 1.5f), 0.8f, false,
+            new ApplicationColor(60,60,60));
+    private GameText controls1 = new GameText("Use the arrowkeys to", "Sans-Serif", new Vector2(-2.5f, 0.9f),
+            0.4f, false,
+            new ApplicationColor(0,0,0));
+    private GameText controls2 = new GameText("control your vehicle.", "Sans-Serif", new Vector2(-2.5f, 0.4f),
+            0.4f, false,
+            new ApplicationColor(0,0,0));
+    private GameText controls3 = new GameText("Press ESC to pause game.", "Sans-Serif", new Vector2(-2.5f, -0.1f),
+            0.4f, false,
+            new ApplicationColor(0,0,0));
+
+    // Rules
+    private GameText rules = new GameText("Rules:", "Sans-Serif", new Vector2(2.5f, 1.5f), 0.8f, false,
+            new ApplicationColor(60,60,60));
+    private GameText rules1 = new GameText("Avoid the police cars", "Sans-Serif", new Vector2(2.5f, 0.9f),
+            0.4f, false,
+            new ApplicationColor(0,0,0));
+    private GameText rules2 = new GameText("at any cost!", "Sans-Serif", new Vector2(2.5f, 0.4f),
+            0.4f, false,
             new ApplicationColor(0,0,0));
 
     // Menu-options
@@ -55,7 +78,7 @@ public class MenuScene implements Scene {
             new ApplicationColor(0,0,250));
     private GameText highscoresText = new GameText("Highscores", "Sans-Serif", new Vector2(0, -2), 0.8f, false,
             new ApplicationColor(0,0,0));
-    private GameText settingsText = new GameText("Settings", "Sans-Serif", new Vector2(0, -3), 0.8f, false,
+    private GameText howToPlayText = new GameText("How to play", "Sans-Serif", new Vector2(0, -3), 0.8f, false,
             new ApplicationColor(0,0,0));
     private GameText quitText = new GameText("Quit", "Sans-Serif", new Vector2(0, -4), 0.8f, false,
             new ApplicationColor(0,0,0));
@@ -65,7 +88,7 @@ public class MenuScene implements Scene {
         gameTextList = new ArrayList<GameText>();
         gameTextList.add(playText);
         gameTextList.add(highscoresText);
-        gameTextList.add(settingsText);
+        gameTextList.add(howToPlayText);
         gameTextList.add(quitText);
     }
 
@@ -96,11 +119,11 @@ public class MenuScene implements Scene {
             if(Math.abs(menuIndex) == 0){
                 setReplacementScene();
             }else if(Math.abs(menuIndex) == 1){
-                showSettings = false;
+                showHowToPlay = false;
                 showHighscores = true;
             } else if(Math.abs(menuIndex) == 2){
                 showHighscores = false;
-                showSettings = true;
+                showHowToPlay = true;
             }else if(Math.abs(menuIndex) == 3){
                 System.exit(0);
             }
@@ -126,8 +149,17 @@ public class MenuScene implements Scene {
 
         if(showHighscores){
             appEnv.getGraphics().renderText(bigHighscoresText);
-        }else if(showSettings) {
-            appEnv.getGraphics().renderText(bigSettingsText);
+        }else if(showHowToPlay) {
+            appEnv.getGraphics().renderText(bigHowToPlayText);
+            appEnv.getGraphics().renderText(controls);
+            appEnv.getGraphics().renderText(controls1);
+            appEnv.getGraphics().renderText(controls2);
+            appEnv.getGraphics().renderText(controls3);
+
+            appEnv.getGraphics().renderText(rules);
+            appEnv.getGraphics().renderText(rules1);
+            appEnv.getGraphics().renderText(rules2);
+
         }else{
             if(score == 0){
                 appEnv.getGraphics().renderText(gtfaText);
