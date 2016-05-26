@@ -48,7 +48,7 @@ public class MenuScene implements Scene {
             new ApplicationColor(0,0,0));
     private GameText topFiveScores = new GameText("Top 5", "Sans-Serif", new Vector2(0, 1.8f), 0.6f, false,
             new ApplicationColor(100,100,100));
-    private List<Integer> highScoreList = Score.getHighScore(5);
+    private List<Integer> highscoreList;
 
     // Settings text
     private GameText bigSettingsText = new GameText("SETTINGS", "Sans-Serif", new Vector2(0, 3f), 1.4f, false,
@@ -100,6 +100,7 @@ public class MenuScene implements Scene {
             if(Math.abs(menuIndex) == 0){
                 setReplacementScene();
             }else if(Math.abs(menuIndex) == 1){
+                highscoreList = Score.getHighScore(5);
                 showSettings = false;
                 showHighscores = true;
             } else if(Math.abs(menuIndex) == 2){
@@ -132,7 +133,7 @@ public class MenuScene implements Scene {
             appEnv.getGraphics().renderText(bigHighscoresText);
             appEnv.getGraphics().renderText(topFiveScores);
             Float yAxis = 1.2f;
-            for(Integer list : highScoreList){
+            for(Integer list : highscoreList){
                 appEnv.getGraphics().renderText(new GameText(list.toString(), "Sans-Serif",
                         new Vector2(0, yAxis), 0.4f, false,
                         new ApplicationColor(0,0,0)));

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Score extends Multiplier {
     private float score;
-    private File file = new File("res/scores.txt");
+    private File file = new File("scores.txt");
 
     public Score(float score, float multiplier){
         super(multiplier);
@@ -62,7 +62,7 @@ public class Score extends Multiplier {
         List<Integer> list = new ArrayList<Integer>();
 
         try{
-            BufferedReader br = new BufferedReader(new FileReader(new File("res/scores.txt")));
+            BufferedReader br = new BufferedReader(new FileReader(new File("scores.txt")));
             for(String line = br.readLine(); line != null; line = br.readLine()){
                 list.add(Integer.parseInt(line));
             }
