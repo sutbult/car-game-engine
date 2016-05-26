@@ -8,7 +8,7 @@ import se.chalmers.tda367_4.geometry.triangle.TriangleImpl;
 import se.chalmers.tda367_4.geometry.vector.Vector2;
 
 public abstract class Car implements ImageEntity, SolidEntity {
-    private final static float TURN_RATE = -0.5f;
+    private final static float TURN_RATE = -0.6f;
     private final static Vector2 CAR_SIZE = new Vector2(2, 1);
     private ApplicationImage image;
     private Vector2 position;
@@ -42,6 +42,10 @@ public abstract class Car implements ImageEntity, SolidEntity {
         return CAR_SIZE;
     }
 
+    public float getStandardSpeed() {
+        return speed.getStandardMultiplier();
+    }
+
     public void revert() {
         position = prevPosition;
         triangles = prevTriangles;
@@ -50,6 +54,7 @@ public abstract class Car implements ImageEntity, SolidEntity {
 
     public void setPosition (Vector2 position) {
         this.position = position;
+        updateTriangles();
     }
 
     private Vector2 getBodyDirection() {

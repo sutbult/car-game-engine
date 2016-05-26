@@ -18,6 +18,10 @@ public class Multiplier {
         return currentMultiplier;
     }
 
+    public float getStandardMultiplier() {
+        return standardMultiplier;
+    }
+
     public synchronized void setMultiplier(final float modifier, int duration) {
         final Multiplier self = this;
         currentMultiplier += modifier;
