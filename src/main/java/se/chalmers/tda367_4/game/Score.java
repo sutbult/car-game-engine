@@ -10,8 +10,7 @@ import java.util.List;
 
 public class Score extends Multiplier {
     private float score;
-    private float multiplier;
-    private File file = new File("res/scores.txt");
+    private File file = new File("scores.txt");
 
     public Score(float score, float multiplier){
         super(multiplier);
@@ -53,18 +52,18 @@ public class Score extends Multiplier {
         }
     }
 
-    public List<Integer> getHighScore(int nbrOfScores){
+    public static List<Integer> getHighScore(int nbrOfScores){
         List<Integer> list = createFileList();
         Collections.sort(list, Collections.<Integer>reverseOrder());
         List<Integer> highScores = createHighScoreList(list, nbrOfScores);
         return highScores;
     }
 
-    private List<Integer> createFileList(){
+    private static List<Integer> createFileList(){
         List<Integer> list = new ArrayList<Integer>();
 
         try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new FileReader(new File("scores.txt")));
             for(String line = br.readLine(); line != null; line = br.readLine()){
                 list.add(Integer.parseInt(line));
             }
@@ -77,7 +76,7 @@ public class Score extends Multiplier {
         return list;
     }
 
-    private List<Integer> createHighScoreList(List<Integer> list, int nbrOfScores){
+    private static List<Integer> createHighScoreList(List<Integer> list, int nbrOfScores){
         List<Integer> topScores = new ArrayList<Integer>();
         if(nbrOfScores < list.size()){
             for(int i = 0; i < nbrOfScores; i++){

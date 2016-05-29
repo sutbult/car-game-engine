@@ -174,7 +174,7 @@ public class GameScene implements Scene {
         appEnv.getGraphics().setCamera(hudCamera);
 
         appEnv.getGraphics().renderText(new GameText("Score: " + Math.round(score.getScore()), "Sans_Serif",
-                new Vector2(-4.9f,-4.5f),
+                new Vector2(0,-4.5f),
                         0.8f,
                         false,
                         new ApplicationColor(0,0,0)));
