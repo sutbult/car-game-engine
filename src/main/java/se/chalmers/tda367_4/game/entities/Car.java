@@ -85,8 +85,12 @@ public abstract class Car implements ImageEntity, SolidEntity {
     }
 
     private void updateTriangles() {
-        Matrix2 matrix = new Matrix2(new float[] { (float) Math.cos(rotation), (float) -Math.sin(rotation),
-            (float) Math.sin(rotation), (float) Math.cos(rotation)});
+        Matrix2 matrix = new Matrix2(new float[] {
+                (float) Math.cos(rotation),
+                (float) -Math.sin(rotation),
+                (float) Math.sin(rotation),
+                (float) Math.cos(rotation)}
+        );
 
         Vector2 topLeft = matrix.multiply(new Vector2(-CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2 - 0.114f));
         Vector2 topRight = matrix.multiply(new Vector2(CAR_SIZE.getX() / 2, CAR_SIZE.getY() / 2 - 0.114f));
@@ -98,8 +102,10 @@ public abstract class Car implements ImageEntity, SolidEntity {
         Vector2 upperRight = new Vector2(position.getX() + topRight.getX(), position.getY() + topRight.getY());
         Vector2 upperLeft = new Vector2(position.getX() + topLeft.getX(), position.getY() + topLeft.getY());
 
-        this.triangles = new Triangle[] {new TriangleImpl(upperLeft, upperRight, lowerLeft),
-                new TriangleImpl(lowerLeft, upperRight, lowerRight)};
+        this.triangles = new Triangle[] {
+                new TriangleImpl(upperLeft, upperRight, lowerLeft),
+                new TriangleImpl(lowerLeft, upperRight, lowerRight)
+        };
     }
 
     protected abstract Direction getDirection();

@@ -90,13 +90,29 @@ public class GameScene implements Scene {
         if (appEnv.getInput().isKeyPressed(ApplicationKey.ESC)) {
             pauseScene = !pauseScene;
         }
-
         if(pauseScene) return;
 
         changeScene = false;
-        car.move(delta);
+
+        moveCars(delta);
+        spawnPolice(delta);
+        handlePowerups();
+
         score.update(delta * 2);
 
+    }
+
+    private void spawnPolice(float delta) {
+        policeSpawnTime -= delta;
+        if (policeSpawnTime < 0) {
+            policeContainer.createPolice();
+            policeSpawnTime = POLICE_SPAWN_TIME;
+        }
+
+    }
+
+    private void moveCars(float delta) {
+        car.move(delta);
         for (Car police : policeContainer.getPolice()) {
             police.move(delta);
         }

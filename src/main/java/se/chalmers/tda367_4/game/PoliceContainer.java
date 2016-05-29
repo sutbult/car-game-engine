@@ -54,7 +54,7 @@ public class PoliceContainer {
                         r.nextFloat() * (maxXvalue - minXvalue) + minXvalue,
                         r.nextFloat() * (maxYvalue - minYvalue) + minXvalue
                 );
-            } while (!outOfCamera(position));
+            } while (inCameraView(position));
 
             police = new Police(player, new Multiplier(generateSpeed()));
             police.setPosition(position);
@@ -73,15 +73,15 @@ public class PoliceContainer {
         return (float) Math.random() * MAX_SPEED_DIFF + (player.getStandardSpeed() - (MAX_SPEED_DIFF + MIN_SPEED_DIFF));
     }
 
-    private boolean outOfCamera(Vector2 position) {
+    private boolean inCameraView(Vector2 position) {
         if (position.getY() > camera.getPosition().getY() + camera.getHeight() + player.getBounds().getY()) {
-            return true;
+            return false;
         } else if (position.getY() < camera.getPosition().getY() - camera.getHeight() - player.getBounds().getY()) {
-            return true;
+            return false;
         } else if (position.getX() > camera.getPosition().getX() + camera.getHeight() + player.getBounds().getX()) {
-            return true;
+            return false;
         } else if (position.getX() < camera.getPosition().getX() - camera.getHeight() - player.getBounds().getX()) {
-            return true;
+            return false;
         }
         return false;
     }
